@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Bloom</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="email">Email</string>
+    <string name="date">Date Of Birth</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="signup_to_login">Already have an account? Log in!</string>
+    <string name="login">Login</string>
+    <string name="login_to_register">Don\'t have an account yet? Sign up</string>
+    <string name="username">Username</string>
+    <string name="stay_logged_in">Stay Logged in?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="level">Level</string>
+    <string name="weather">Weather</string>
+    <string name="language">Language</string>
+    <string name="home">Home</string>
+    <string name="achievements">Achievements</string>
+    <string name="profile">Profile</string>
+    <string name="support_about"><![CDATA[Support & About]]></string>
+    <string name="settings">Settings</string>
+    <string name="share">Share</string>
+    <string name="diary">Diary</string>
+</resources>
