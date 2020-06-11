@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,7 @@ import com.katherine.bloomuii.R;
 public class ProfileFragment extends Fragment
 {
 
-    TextView txt_settings;
+    ImageView mback;
 
     @Nullable
     @Override
@@ -26,26 +27,26 @@ public class ProfileFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        txt_settings = view.findViewById(R.id.txt_settings);
 
-        goToSettings();
+        mback = view.findViewById(R.id.btnBack);
+
+        backButton();
 
         return view;
     }
 
-    private void goToSettings()
+    private void backButton()
     {
-        txt_settings.setOnClickListener(new View.OnClickListener() {
+        mback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                SettingsFragment settingsFragment = new SettingsFragment();
-                fragmentTransaction.replace(R.id.fragment_container, settingsFragment);
+                HomeFragment homeFragment = new HomeFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
                 fragmentTransaction.commit();
             }
         });
     }
-
 
 }

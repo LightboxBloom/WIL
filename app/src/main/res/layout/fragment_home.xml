@@ -32,12 +32,13 @@
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfilePicture"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="10dp"
                         android:background="@android:color/transparent"
                         android:padding="5dp"
-                        android:src="@drawable/user_dp" />
+                        android:src="@drawable/img_user" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -45,6 +46,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -56,6 +58,7 @@
                             android:textSize="24sp" />
 
                         <TextView
+                            android:id="@+id/txtLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -107,12 +110,14 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/imgWeather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
+                            android:id="@+id/txtWeather"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
@@ -147,7 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -184,7 +189,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -221,7 +226,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -258,7 +263,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -295,7 +300,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -332,7 +337,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -369,7 +374,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -406,7 +411,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -443,7 +448,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/summer" />
+                            android:src="@drawable/img_weather" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -474,7 +479,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
+            android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -487,7 +492,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_view"
+            android:id="@+id/btnView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

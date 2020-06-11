@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,8 @@ import com.katherine.bloomuii.R;
 public class DiaryFragment extends Fragment {
 
     FloatingActionButton mAdd;
+    ImageView mback;
+
 
     @Nullable
     @Override
@@ -25,9 +28,10 @@ public class DiaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         mAdd = view.findViewById(R.id.btn_float);
-
+        mback = view.findViewById(R.id.btnBack);
         //calling method
         fab();
+        backButton();
 
         return view;
     }
@@ -40,9 +44,26 @@ public class DiaryFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddEntryFragment addEntryFragment = new AddEntryFragment();
-                fragmentTransaction.replace(R.id.fragment_container, addEntryFragment);
+                fragmentTransaction.replace(R.id.fragmentContainer, addEntryFragment);
                 fragmentTransaction.commit();
             }
         });
     }//end fab method
+
+
+
+
+    private void backButton()
+    {
+        mback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                HomeFragment homeFragment = new HomeFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
 }

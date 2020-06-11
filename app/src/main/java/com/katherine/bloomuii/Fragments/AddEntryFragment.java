@@ -36,8 +36,8 @@ public class AddEntryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_entry, container, false);
 
-        mDisplayDate = view.findViewById(R.id.txt_datepicker);
-        mback = view.findViewById(R.id.btn_arrow);
+        mDisplayDate = view.findViewById(R.id.txtDatePicker);
+        mback = view.findViewById(R.id.btnBack);
 
         //calling methods
         datePicker();
@@ -55,7 +55,7 @@ public class AddEntryFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 DiaryFragment diaryFragment = new DiaryFragment();
-                fragmentTransaction.replace(R.id.fragment_container, diaryFragment);
+                fragmentTransaction.replace(R.id.fragmentContainer, diaryFragment);
                 fragmentTransaction.commit();
             }
         });

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //chip navigation
         chipNavigationBar = (ChipNavigationBar)findViewById(R.id.bottom_nav);
         chipNavigationBar.setOnItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
 
     }
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             if (fragment != null){
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.fragmentContainer, fragment)
                         .commit();
             }else{
                 Log.e(TAG, "Error in creating fragment" );

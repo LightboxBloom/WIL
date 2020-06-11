@@ -19,20 +19,21 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/btn_arrow"
+                android:id="@+id/btnBack"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_left_arrow_light"/>
+                android:src="@drawable/ic_back"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
+                android:text="@string/settings"
                 android:layout_marginRight="50dp"
-                android:text="Settings"
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
                 android:textSize="32sp" />
@@ -72,7 +73,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="3dp"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:fontFamily="@font/abeezee"
                 android:textColor="@color/colorPrimaryDark"/>
 
@@ -123,7 +124,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="3dp"
-                android:text="Language "
+                android:text="@string/language"
                 android:fontFamily="@font/abeezee"
                 android:textColor="@color/colorPrimaryDark"/>
 

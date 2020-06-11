@@ -23,7 +23,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        mback = view.findViewById(R.id.btn_arrow);
+        mback = view.findViewById(R.id.btnBack);
 
         backButton();
 
@@ -38,7 +38,7 @@ public class SettingsFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ProfileFragment profileFragment = new ProfileFragment();
-                fragmentTransaction.replace(R.id.fragment_container, profileFragment);
+                fragmentTransaction.replace(R.id.fragmentContainer, profileFragment);
                 fragmentTransaction.commit();
             }
         });

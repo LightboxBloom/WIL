@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
     //method for date picker
     private void date_picker() {
         //date picker
-        mDisplayDate = (TextView) findViewById(R.id.txt_dob);
+        mDisplayDate = (TextView) findViewById(R.id.txtDob);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
     //method to go from registration to home screen
     private void btn_regi() {
         //register button to take user to home
-        mRegister = (Button) findViewById(R.id.btn_regi);
+        mRegister = (Button) findViewById(R.id.btnRegister);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +96,7 @@ public class SignupActivity extends AppCompatActivity {
     //method for going from registration to login screen
     private void go_to_login() {
         //edit text to go to login page if already have an account
-        mToLogin = (TextView) findViewById(R.id.txt_login);
+        mToLogin = (TextView) findViewById(R.id.txtLogin);
         mToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

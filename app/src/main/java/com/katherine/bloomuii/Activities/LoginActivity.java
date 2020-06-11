@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     //login button clicked
     private void btn_login() {
         //register button to take user to home
-        mLogin = (Button) findViewById(R.id.btn_login);
+        mLogin = (Button) findViewById(R.id.btnLogin);
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //edit text to go to login page if already have an account
     private void go_to_regi() {
-        mToRegi = (TextView) findViewById(R.id.txt_regi);
+        mToRegi = (TextView) findViewById(R.id.txtRegistration);
         mToRegi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

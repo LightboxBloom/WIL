@@ -8,11 +8,11 @@
     tools:context=".Activities.SignupActivity">
 
     <ImageView
-        android:id="@+id/img_logo"
+        android:id="@+id/imgLogo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/logo_app"
+        android:src="@drawable/img_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/txt_fname"
+        android:id="@+id/txtFname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -37,12 +37,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
         app:layout_constraintVertical_bias="0.0" />
 
 
     <EditText
-        android:id="@+id/txt_sname"
+        android:id="@+id/txtSname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -57,11 +57,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_fname"
+        app:layout_constraintTop_toBottomOf="@+id/txtFname"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/txt_username"
+<!--    <EditText
+        android:id="@+id/txtUsername"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -76,11 +76,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_sname"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSname"
+        app:layout_constraintVertical_bias="0.0" />-->
 
     <EditText
-        android:id="@+id/txt_email"
+        android:id="@+id/txtEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -95,17 +95,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_username"
+        app:layout_constraintTop_toBottomOf="@+id/txtSname"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txt_dob"
+        android:id="@+id/txtDob"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_edittext"
         android:fontFamily="@font/abeezee"
-        android:hint="@string/date"
+        android:hint="@string/select_date_of_birth"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -114,11 +114,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/txt_pword"
+        android:id="@+id/txtPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -135,11 +135,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_dob"
+        app:layout_constraintTop_toBottomOf="@+id/txtDob"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/txt_con_pword"
+        android:id="@+id/txtConPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -155,11 +155,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_pword"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btn_regi"
+        android:id="@+id/btnRegister"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -175,25 +175,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_con_pword"
+        app:layout_constraintTop_toBottomOf="@+id/txtConPassword"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txt_login"
+        android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/abeezee"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:text="@string/signup_to_login"
+        android:text="@string/already_have_an_account_login"
         android:textAlignment="center"
         android:textColor="@color/grey"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_regi"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

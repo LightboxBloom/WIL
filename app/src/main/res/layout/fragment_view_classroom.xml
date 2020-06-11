@@ -19,19 +19,19 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/btn_arrow"
+                android:id="@+id/btnBack"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_left_arrow_light"/>
+                android:src="@drawable/ic_back"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
-                android:text="View Classroom"
+                android:text="Classroom"
                 android:layout_marginRight="50dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
