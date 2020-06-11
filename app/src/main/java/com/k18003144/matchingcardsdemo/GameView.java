@@ -42,6 +42,8 @@ public class GameView extends SurfaceView implements Runnable {
 //    GameSettings gameSettings = new GameSettings(Difficulty.HARD);
     GameSettings gameSettings = new GameSettings(Difficulty.HARD_PLUS);
     float framesToDisplayRevealedCard = gameSettings.getRevealTime() * MAX_FPS;
+    int attemptLimit = gameSettings.getAttempts();
+    int numFailures = 0;
 
     //Should be in ratio of display aspect ratio which is 16:9 most of the time
     int numYCells = 48;
@@ -82,6 +84,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void initialise() {
+        numFailures = 0;
         minX = 0;
         minY = 0;
         screenHeight = getHeight();
@@ -99,7 +102,7 @@ public class GameView extends SurfaceView implements Runnable {
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_3));
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_4));
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_5));
-        birdSprite = new InfiniteMovingSprite(0, 100, (ArrayList<Bitmap>) birdBitmaps, 5, 1, 0, 20);
+        birdSprite = new InfiniteMovingSprite(0, canvasGrid.getYPixels(5), (ArrayList<Bitmap>) birdBitmaps, 5, 1, 0, 20);
 
         ArrayList<Bitmap> card1Bitmaps = new ArrayList<Bitmap>();
         card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_1));
@@ -181,6 +184,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(selectedCards.size() >= 2) return true; //ignore touch if two cards are already selected
         for (CardSprite cardSprite : cardSprites) {
             if (cardSprite.isTouched(event.getX(), event.getY())) {
                 if (cardSprite.getCardState() == CardState.HIDDEN) {
@@ -224,6 +228,7 @@ public class GameView extends SurfaceView implements Runnable {
                         framesSinceDisplayRevealedCard++;
                     }
                 } else{
+                    numFailures++;
                     selectedCards.get(0).setCardState(CardState.HIDING);
                     selectedCards.get(1).setCardState(CardState.HIDING);
                     selectedCards.clear();
@@ -235,7 +240,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         }
 
-        if(cardSprites.size() == 0){
+        if(cardSprites.size() == 0 || numFailures == attemptLimit){
             initialise();
             framesSinceStop = 0;
         }
@@ -332,6 +337,15 @@ public class GameView extends SurfaceView implements Runnable {
         for (int i = 0; i < cardSprites.size(); i++) {
             canvas.drawBitmap(cardSprites.get(i).getCurrentSprite(), cardSprites.get(i).getX(), cardSprites.get(i).getY(), null);
         }
+
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setStyle(Paint.Style.FILL);
+
+        textPaint.setTextSize(42);
+        float x = canvasGrid.getXPixels(canvasGrid.getNumXCells()-10);
+        float y = canvasGrid.getYPixels(2);
+        canvas.drawText("Attempts Left: "+(attemptLimit - numFailures), x, y, textPaint);
 
         drawGrid(canvas);
     }
