@@ -24,7 +24,7 @@ public class GameView extends SurfaceView implements Runnable {
     private CanvasGrid canvasGrid;
 
     private final static int MAX_FPS = 60; //desired fps
-    private final static int FRAME_PERIOD = 1000 / MAX_FPS;
+    private final static float FRAME_PERIOD = 1000.0f / MAX_FPS;
 
     float minX, screenWidth, minY, screenHeight;
     Paint paint;
@@ -34,16 +34,18 @@ public class GameView extends SurfaceView implements Runnable {
     InfiniteMovingSprite birdSprite;
     ArrayList<CardSprite> cardSprites;
     ArrayList<CardSprite> selectedCards;
-    float framesBeforeCover = 1200;
-    float framesSinceStop = 0;
     boolean hasInitialised = false;
-    String difficulty = "easy";
-//    String difficulty = "medium";
-//    String difficulty = "hard";
+//    GameSettings gameSettings = new GameSettings(Difficulty.EASY);
+//    GameSettings gameSettings = new GameSettings(Difficulty.EASY_PLUS);
+//    GameSettings gameSettings = new GameSettings(Difficulty.MEDIUM);
+//    GameSettings gameSettings = new GameSettings(Difficulty.MEDIUM_PLUS);
+//    GameSettings gameSettings = new GameSettings(Difficulty.HARD);
+    GameSettings gameSettings = new GameSettings(Difficulty.HARD_PLUS);
+    float framesToDisplayRevealedCard = gameSettings.getRevealTime() * MAX_FPS;
 
     //Should be in ratio of display aspect ratio which is 16:9 most of the time
-    int numXCells = 27;
     int numYCells = 48;
+    int numXCells = 27;
 
     public GameView(Context context) {
         super(context);
@@ -118,22 +120,21 @@ public class GameView extends SurfaceView implements Runnable {
         int cardHeight = 0;
         cardSprites = new ArrayList<>();
         int pairs = 0;
-        ArrayList<HashMap<String, Float>> coordinates = new ArrayList<>();
-        int gameAreaYCells = (int) (0.75*numYCells);
-        int gameAreaStartingYCell = (int) (0.25*numYCells) + 1;
-        int gameAreaEndingYCell = numYCells;
-        switch(difficulty){
-            case "easy":
+        switch(gameSettings.getDifficulty()){
+            case EASY:
+            case EASY_PLUS:
                 pairs = 2;
                 cardWidth = (int) canvasGrid.getXPixels(8);
                 cardHeight = (int) canvasGrid.getYPixels(12);
                 break;
-            case "medium":
+            case MEDIUM:
+            case MEDIUM_PLUS:
                 pairs = 3;
                 cardWidth = (int) canvasGrid.getXPixels(6);
                 cardHeight = (int) canvasGrid.getYPixels(9);
                 break;
-            case "hard":
+            case HARD:
+            case HARD_PLUS:
                 pairs = 4;
                 cardWidth = (int) canvasGrid.getXPixels(4);
                 cardHeight = (int) canvasGrid.getYPixels(6);
@@ -143,34 +144,14 @@ public class GameView extends SurfaceView implements Runnable {
         card1Bitmaps = resizeBitmaps(card1Bitmaps, cardWidth, cardHeight);
         card2Bitmaps = resizeBitmaps(card2Bitmaps, cardWidth, cardHeight);
         float leftPadding = ((canvasGrid.getXPixels(numXCells)/2) - cardWidth)/2;
-        float leftX = leftPadding;
         float rightX = canvasGrid.getXPixels(numXCells)/2 + leftPadding;
-        float startingY = canvasGrid.getYPixels(10);
-        float currentY = startingY;
+        float currentY = canvasGrid.getYPixels(10);
         float yPadding = canvasGrid.getYPixels(1);
         for (int i = 0; i < pairs; i++){
-            cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), currentY, 0.2f, 1, leftX, currentY, card1Bitmaps, 1));
+            cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), currentY, 0.2f, 1, leftPadding, currentY, card1Bitmaps, 1));
             cardSprites.add(new CardSprite(canvasGrid.getXPixels(numXCells + 3), currentY, 0.2f, -1, rightX, currentY, card2Bitmaps, 2));
             currentY+=cardHeight+yPadding;
-
-//            cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), bottomY, 0.2f, 1, leftX, bottomY, card1Bitmaps, 1));
-//            cardSprites.add(new CardSprite(canvasGrid.getXPixels(numXCells + 3), bottomY, 0.2f, -1, rightX, bottomY, card2Bitmaps, 2));
         }
-
-//        for(CardSprite cardSprite : cardSprites){
-//            ArrayList<Bitmap> cardBitmaps  = cardSprite.getSprites();
-//            ArrayList<Bitmap> resizedBitmaps = new ArrayList<>();
-//            for(Bitmap bitmap : cardBitmaps){
-//                double newHeight;
-//                double newWidth;
-//
-//                newHeight = (0.75 * screenHeight) / (cardSprites.size());
-//                newWidth = (screenWidth * newHeight)/ screenHeight;
-//                resizedBitmaps.add(getResizedBitmap(bitmap, (int) Math.round(newWidth), (int) Math.round(newHeight)));
-//            }
-//            cardSprite.setSprites(resizedBitmaps);
-//        }
-
     }
 
     private ArrayList<Bitmap> resizeBitmaps(ArrayList<Bitmap> cardBitmaps, int width, int height) {
@@ -212,7 +193,6 @@ public class GameView extends SurfaceView implements Runnable {
         return true;
     }
 
-    int framesToDisplayRevealedCard = 60;
     int framesSinceDisplayRevealedCard = 0;
     private void handleCardTouch(CardSprite cardSprite) {
         cardSprite.setCardState(CardState.REVEALING);
@@ -222,11 +202,20 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void handleMatch() {
+        float _framesToDisplayRevealedCard;
+        float framesToRevealIfMatched = 1 * MAX_FPS;
+        float framesToRevealIfNotMatched = gameSettings.getRevealTime() * MAX_FPS;
         if (selectedCards.size() == 2) {
+            boolean matched = selectedCards.get(0).matches(selectedCards.get(1)) && selectedCards.get(0) != selectedCards.get(1);
+            if(matched){
+                _framesToDisplayRevealedCard = framesToRevealIfMatched;
+            } else{
+                _framesToDisplayRevealedCard = framesToRevealIfNotMatched;
+            }
             //Only do this once both cards are revealed
             if (selectedCards.get(0).getCardState() == CardState.REVEALED && selectedCards.get(1).getCardState() == CardState.REVEALED) {
-                if (selectedCards.get(0).matches(selectedCards.get(1))) {
-                    if (framesSinceDisplayRevealedCard >= framesToDisplayRevealedCard) {
+                if (matched) {
+                    if (framesSinceDisplayRevealedCard >= _framesToDisplayRevealedCard) {
                         cardSprites.remove(selectedCards.get(0));
                         cardSprites.remove(selectedCards.get(1));
                         selectedCards.clear();
@@ -238,6 +227,8 @@ public class GameView extends SurfaceView implements Runnable {
                     selectedCards.get(0).setCardState(CardState.HIDING);
                     selectedCards.get(1).setCardState(CardState.HIDING);
                     selectedCards.clear();
+                    framesSinceDisplayRevealedCard = 0;
+
                 }
 
             }
@@ -246,6 +237,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         if(cardSprites.size() == 0){
             initialise();
+            framesSinceStop = 0;
         }
     }
 
@@ -308,6 +300,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    float framesSinceStop = 0;
     private void step() {
         birdSprite.move();
         if (birdSprite.getX() >= screenWidth) birdSprite.setX(0);
@@ -318,7 +311,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (cardSprite.getCardState() == CardState.MOVING_TO_POSITION) {
                 cardSprite.moveToDestination();
             } else if (cardSprite.getCardState() == CardState.HIDING) {
-                if (framesSinceStop >= framesBeforeCover) {
+                if (framesSinceStop >= framesToDisplayRevealedCard) {
                     cardSprite.hide();
                 } else {
                     framesSinceStop++;
