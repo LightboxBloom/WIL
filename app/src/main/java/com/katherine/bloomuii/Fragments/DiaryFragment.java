@@ -27,7 +27,7 @@ public class DiaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
-        mAdd = view.findViewById(R.id.btn_float);
+        mAdd = view.findViewById(R.id.btnFloat);
         mback = view.findViewById(R.id.btnBack);
         //calling method
         fab();
