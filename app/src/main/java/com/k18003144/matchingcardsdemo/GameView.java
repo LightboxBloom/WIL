@@ -347,7 +347,7 @@ public class GameView extends SurfaceView implements Runnable {
         float y = canvasGrid.getYPixels(2);
         canvas.drawText("Attempts Left: "+(attemptLimit - numFailures), x, y, textPaint);
 
-        drawGrid(canvas);
+//        drawGrid(canvas);
     }
 
     private void drawGrid(Canvas canvas) {
