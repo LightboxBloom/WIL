@@ -14,22 +14,25 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.katherine.bloomuii.R;
 
-public class SettingsFragment extends Fragment {
+public class LanguageFragment extends Fragment {
 
-    private ImageView mBack;
+    ImageView mBack;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_language, container, false);
 
+        //
         mBack = view.findViewById(R.id.btnBack);
 
+        //calling methods
         btnBackClicked();
 
         return view;
     }
 
+    //click to go back to profile fragment
     private void btnBackClicked()
     {
         mBack.setOnClickListener(new View.OnClickListener() {

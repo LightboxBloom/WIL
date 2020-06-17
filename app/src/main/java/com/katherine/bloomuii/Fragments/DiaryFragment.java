@@ -19,7 +19,7 @@ import com.katherine.bloomuii.R;
 public class DiaryFragment extends Fragment {
 
     FloatingActionButton mAdd;
-    ImageView mback;
+    ImageView mBack;
 
 
     @Nullable
@@ -28,10 +28,10 @@ public class DiaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         mAdd = view.findViewById(R.id.btnFloat);
-        mback = view.findViewById(R.id.btnBack);
+        mBack = view.findViewById(R.id.btnBack);
         //calling method
         fab();
-        backButton();
+        btnBackClicked();
 
         return view;
     }
@@ -53,9 +53,9 @@ public class DiaryFragment extends Fragment {
 
 
 
-    private void backButton()
+    private void btnBackClicked()
     {
-        mback.setOnClickListener(new View.OnClickListener() {
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();

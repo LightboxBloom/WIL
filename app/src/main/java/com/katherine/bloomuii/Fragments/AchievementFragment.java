@@ -16,7 +16,7 @@ import com.katherine.bloomuii.R;
 
 public class AchievementFragment extends Fragment {
 
-    ImageView mback;
+    ImageView mBack;
 
     @Nullable
     @Override
@@ -24,16 +24,16 @@ public class AchievementFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_achievements, container, false);
 
 
-        mback = view.findViewById(R.id.btnBack);
+        mBack = view.findViewById(R.id.btnBack);
 
-        backButton();
+        btnBackClicked();
 
         return view;
     }
 
-    private void backButton()
+    private void btnBackClicked()
     {
-        mback.setOnClickListener(new View.OnClickListener() {
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();

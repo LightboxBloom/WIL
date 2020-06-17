@@ -1,7 +1,6 @@
 package com.katherine.bloomuii.Fragments;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,35 +17,35 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.katherine.bloomuii.R;
 
 import java.util.Calendar;
 
-public class AddEntryFragment extends Fragment {
+public class EditProfileFragment extends Fragment {
 
-    private static final String TAG = "AddEntryFragment";
-    private TextView mDisplayDate;
+    ImageView mBack;
+    TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private ImageView mBack;
+
+    private static final String TAG = "EditProfileFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_entry, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        mDisplayDate = view.findViewById(R.id.txtDatePicker);
+        //
         mBack = view.findViewById(R.id.btnBack);
+        mDisplayDate = view.findViewById(R.id.txtDob);
 
         //calling methods
-        datePicker();
         btnBackClicked();
+        DatePicker();
 
         return view;
     }
 
-    //back arrow
+    //click to go back to profile fragment
     private void btnBackClicked()
     {
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -54,22 +53,19 @@ public class AddEntryFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryFragment diaryFragment = new DiaryFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, diaryFragment);
+                ProfileFragment profileFragment = new ProfileFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, profileFragment);
                 fragmentTransaction.commit();
             }
         });
     }
 
-    //date picker
-    private void datePicker()
-    {
-
-        mDisplayDate.setOnClickListener(new View.OnClickListener()
-        {
+    //method for date picker
+    private void DatePicker() {
+        //date picker
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
@@ -84,11 +80,9 @@ public class AddEntryFragment extends Fragment {
                 dialog.show();
             }
         });
-        mDateSetListener = new DatePickerDialog.OnDateSetListener()
-        {
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day)
-            {
+            public void onDateSet(DatePicker view, int year, int month, int day) {
                 Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
                 String date = day + "/" + month + "/" + year;
@@ -97,5 +91,4 @@ public class AddEntryFragment extends Fragment {
         };
 
     }//end of date picker selector
-
 }

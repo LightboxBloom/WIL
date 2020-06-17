@@ -37,9 +37,9 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         //calling methods
-        date_picker();
-        btn_regi();
-        go_to_login();
+        datePicker();
+        btnRegister();
+        goToLogin();
 
 
     }
@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     //method for date picker
-    private void date_picker() {
+    private void datePicker() {
         //date picker
         mDisplayDate = (TextView) findViewById(R.id.txtDob);
 
@@ -81,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
     }//end of date picker selector
 
     //method to go from registration to home screen
-    private void btn_regi() {
+    private void btnRegister() {
         //register button to take user to home
         mRegister = (Button) findViewById(R.id.btnRegister);
         mRegister.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
     }//end of register button click
 
     //method for going from registration to login screen
-    private void go_to_login() {
+    private void goToLogin() {
         //edit text to go to login page if already have an account
         mToLogin = (TextView) findViewById(R.id.txtLogin);
         mToLogin.setOnClickListener(new View.OnClickListener() {

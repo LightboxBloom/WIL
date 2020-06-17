@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +20,8 @@ import com.katherine.bloomuii.R;
 public class ProfileFragment extends Fragment
 {
 
-    ImageView mback;
+    ImageView mBack;
+    TextView mEdit, mLanguage;
 
     @Nullable
     @Override
@@ -27,17 +29,52 @@ public class ProfileFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //
+        mBack = view.findViewById(R.id.btnBack);
+        mEdit = view.findViewById(R.id.txtEditProfile);
+        mLanguage = view.findViewById(R.id.txtLanguage);
 
-        mback = view.findViewById(R.id.btnBack);
-
-        backButton();
+        //calling methods
+        btnBackClicked();
+        btnEditClicked();
+        btnLanguageClicked();
 
         return view;
     }
 
-    private void backButton()
+    //click to get to language fragment
+    private void btnLanguageClicked() {
+        mLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                LanguageFragment languageFragment = new LanguageFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, languageFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    //click to get to edit profile
+    private void btnEditClicked()
     {
-        mback.setOnClickListener(new View.OnClickListener() {
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, editProfileFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
