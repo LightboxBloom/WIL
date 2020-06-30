@@ -24,7 +24,7 @@ public class AchievementFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_achievements, container, false);
 
 
-        mBack = view.findViewById(R.id.btnBack);
+        mBack = view.findViewById(R.id.btnPuzzleBack);
 
         btnBackClicked();
 

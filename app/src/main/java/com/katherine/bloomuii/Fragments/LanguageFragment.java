@@ -24,7 +24,7 @@ public class LanguageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_language, container, false);
 
         //
-        mBack = view.findViewById(R.id.btnBack);
+        mBack = view.findViewById(R.id.btnPuzzleBack);
 
         //calling methods
         btnBackClicked();

@@ -23,7 +23,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        mBack = view.findViewById(R.id.btnBack);
+        mBack = view.findViewById(R.id.btnPuzzleBack);
 
         btnBackClicked();
 

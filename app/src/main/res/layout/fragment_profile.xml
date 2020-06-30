@@ -18,6 +18,7 @@
             android:layout_height="200dp"
             android:src="@drawable/img_rectangle"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/btnBack"
+            android:id="@+id/btnPuzzleBack"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -53,10 +54,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtUsername"
+            android:id="@+id/txtHomeUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/abeezee"
             android:text="@string/username"
             android:textAlignment="center"
@@ -67,20 +68,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imgRec" />
 
-        <TextView
-            android:id="@+id/txtLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/abeezee"
-            android:text="@string/level"
-            android:textAlignment="center"
-            android:textColor="@color/grey"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toTopOf="@+id/imgCircle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtUsername"
-            app:layout_constraintVertical_bias="0.25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -316,22 +303,22 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_logout"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_logout" />
 
                     <TextView
-                        android:id="@+id/txtLogout"
+                        android:id="@+id/btnLogout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/logout"
-                        android:textAlignment="textStart"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:text="@string/logout"
+                        android:textAlignment="textStart"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
+                        android:textSize="25sp" />
 
 
                 </LinearLayout>

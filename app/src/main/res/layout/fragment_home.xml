@@ -45,31 +45,19 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/txtUsername"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="25dp"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@font/abeezee"
-                            android:text="@string/username"
-                            android:textColor="@color/grey"
-                            android:textSize="24sp" />
-
-                        <TextView
-                            android:id="@+id/txtLevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@font/abeezee"
-                            android:text="@string/level"
-                            android:textColor="@color/grey"
-                            android:textSize="24sp" />
-
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtHomeUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/abeezee"
+                        android:text="@string/username"
+                        android:textColor="@color/grey"
+                        android:textSize="24sp" />
 
 
                 </LinearLayout>
@@ -93,6 +81,7 @@
 
                 <!--Row 1-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemPuzzle"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
@@ -121,7 +110,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="@string/weather"
+                            android:text="Puzzles"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -132,6 +121,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 1-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemShapes"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
@@ -155,10 +145,10 @@
                             android:src="@drawable/img_weather" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Match Shapes"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -169,6 +159,8 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 2-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemUnjumble"
+                    android:layout_width="155dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
@@ -195,7 +187,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Unjumble Sentences"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -206,6 +198,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 2-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemMatching"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
@@ -230,9 +223,9 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="41dp"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Matching Cards"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -269,7 +262,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="StoryTime"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -306,7 +299,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Label That!"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -343,7 +336,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Math Game"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -380,7 +373,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Nouns and Verbs"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
@@ -417,51 +410,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Weather"
+                            android:text="Order That!"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-                <!--Row 5-->
-                <androidx.cardview.widget.CardView
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/cardView"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/abeezee"
-                            android:text="Weather"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
             </GridLayout>
