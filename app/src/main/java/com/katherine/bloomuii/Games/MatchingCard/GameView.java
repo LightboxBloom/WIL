@@ -359,7 +359,7 @@ public class GameView extends SurfaceView implements Runnable {
                 roundCounter = 1;
             }
             initialise();
-//            framesSinceStop = 0;
+            framesSinceStop = 0;
         }else if(numFailures == attemptLimit){
             //reset this round
             initialise();
