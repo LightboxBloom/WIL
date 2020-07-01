@@ -230,6 +230,7 @@ public class AddEntryFragment extends Fragment {
                         myRef.child("Diary_Entry").setValue(entry.getDiary_Entry());
 //TODO: Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
 //**************************************************************************************************************************************
+                        // this is done correctly, i dont understand why its taking you to the login activity.
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         DiaryFragment diaryFragment = new DiaryFragment();

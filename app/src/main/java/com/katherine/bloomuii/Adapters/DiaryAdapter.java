@@ -36,19 +36,19 @@ public class DiaryAdapter extends ArrayAdapter<DiaryEntry> {
                 emotion.setImageResource(R.drawable.img_happy);
             }
             else if(entry.getDiary_Emotion().equals("Sad")){
-                emotion.setImageResource(R.drawable.img_happy);
+                emotion.setImageResource(R.drawable.img_sad);
             }
             else if(entry.getDiary_Emotion().equals("Embarassed")){
-                emotion.setImageResource(R.drawable.img_happy);
+                emotion.setImageResource(R.drawable.img_embarrased);
             }
             else if(entry.getDiary_Emotion().equals("Excited")){
-                emotion.setImageResource(R.drawable.img_happy);
+                emotion.setImageResource(R.drawable.img_excited);
             }
             else if(entry.getDiary_Emotion().equals("Angry")){
-                emotion.setImageResource(R.drawable.img_happy);
+                emotion.setImageResource(R.drawable.img_angry);
             }
             else if(entry.getDiary_Emotion().equals("Scared")){
-                emotion.setImageResource(R.drawable.img_happy);
+                emotion.setImageResource(R.drawable.img_scared);
             }
         }
         return convertView;

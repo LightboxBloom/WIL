@@ -165,7 +165,7 @@
                                     android:layout_column="3"
                                     android:layout_margin="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/img_happy" />
+                                    android:src="@drawable/img_sad" />
 
                                 <TextView
                                     android:id="@+id/txtSad"
@@ -195,7 +195,7 @@
                                     android:layout_column="3"
                                     android:layout_margin="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/img_happy" />
+                                    android:src="@drawable/img_excited" />
 
                                 <TextView
                                     android:id="@+id/txtExcited"
@@ -225,7 +225,7 @@
                                     android:layout_column="3"
                                     android:layout_margin="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/img_happy" />
+                                    android:src="@drawable/img_embarrased" />
 
                                 <TextView
                                     android:id="@+id/txtEmbarassed"
@@ -255,7 +255,7 @@
                                     android:layout_column="3"
                                     android:layout_margin="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/img_happy" />
+                                    android:src="@drawable/img_angry" />
 
                                 <TextView
                                     android:id="@+id/txtAngry"
@@ -285,7 +285,7 @@
                                     android:layout_column="3"
                                     android:layout_margin="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/img_happy" />
+                                    android:src="@drawable/img_scared" />
 
                                 <TextView
                                     android:id="@+id/txtScared"

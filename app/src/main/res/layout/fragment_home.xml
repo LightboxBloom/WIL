@@ -100,10 +100,11 @@
 
                         <ImageView
                             android:id="@+id/imgWeather"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/ic_puzzle" />
 
                         <TextView
                             android:id="@+id/txtWeather"
@@ -139,10 +140,11 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/ic_match_shapes" />
 
                         <TextView
                             android:layout_width="wrap_content"
