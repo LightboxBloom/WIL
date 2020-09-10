@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "907198349317",
+    "firebase_url": "https://matchingcardsdemo.firebaseio.com",
+    "project_id": "matchingcardsdemo",
+    "storage_bucket": "matchingcardsdemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907198349317:android:9262cdce67a274ba8d5c6c",
+        "android_client_info": {
+          "package_name": "com.k18003144.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907198349317-55se6n367v4ib10n7dhfqar04bdq40rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBitx654fg3G78PO17V4b-vxBWEzuWlNaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907198349317-55se6n367v4ib10n7dhfqar04bdq40rh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,2 +1,2 @@
-rootProject.name='Matching Cards Demo'
 include ':app'
+rootProject.name = "My Application"
