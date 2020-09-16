@@ -71,7 +71,6 @@ public class GameView extends SurfaceView implements Runnable {
 //        myRef = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
         myRef = database.getReference("Users/" + "Kyle" + "/Games/MatchingCards");
         this.userProgress = userProgress;
-        Toast.makeText(context, "In the endgame now boys", Toast.LENGTH_SHORT).show();
 
         setGameLevel();
         holder = getHolder();
