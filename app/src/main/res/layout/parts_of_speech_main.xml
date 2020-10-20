@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/NounsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="8dp"
+        android:layout_y="519dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/VerbsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="142dp"
+        android:layout_y="518dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/AdjectiveImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="254dp"
+        android:layout_y="519dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/tempImage"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="2dp"
+        android:layout_y="26dp" />
+
+    <ImageView
+        android:id="@+id/Row1Word1ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="2dp"
+        android:layout_y="26dp" />
+
+    <ImageView
+        android:id="@+id/Row1Word2ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="107dp"
+        android:layout_y="26dp" />
+
+    <ImageView
+        android:id="@+id/Row1Word3ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="211dp"
+        android:layout_y="26dp" />
+
+    <ImageView
+        android:id="@+id/Row1Word4ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="313dp"
+        android:layout_y="26dp" />
+
+
+    <ImageView
+        android:id="@+id/Row2Word1ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="2dp"
+        android:layout_y="112dp" />
+
+
+    <ImageView
+        android:id="@+id/Row2Word2ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="107dp"
+        android:layout_y="112dp" />
+
+    <ImageView
+        android:id="@+id/Row2Word3ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="211dp"
+        android:layout_y="112dp" />
+
+    <ImageView
+        android:id="@+id/Row2Word4ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="313dp"
+        android:layout_y="112dp" />
+
+    <ImageView
+        android:id="@+id/Row3Word1ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="2dp"
+        android:layout_y="191dp" />
+
+    <ImageView
+        android:id="@+id/Row3Word2ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="107dp"
+        android:layout_y="191dp" />
+
+    <ImageView
+        android:id="@+id/Row3Word3ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="211dp"
+        android:layout_y="191dp" />
+
+    <ImageView
+        android:id="@+id/Row3Word4ImageView"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_x="313dp"
+        android:layout_y="191dp" />
+
+
+</AbsoluteLayout>

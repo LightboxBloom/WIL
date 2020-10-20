@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/grey"
+        android:text="Level 1"
+        android:id="@+id/level1Btn"></Button>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 2"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/grey"
+        android:id="@+id/level2Btn"
+        android:visibility="invisible"></Button>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 3"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/grey"
+        android:id="@+id/level3Btn"
+        android:visibility="invisible"></Button>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Free Mode"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/grey"
+        android:id="@+id/freeModeBtn"
+        android:visibility="invisible"></Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/consecBronzeImage"
+            android:layout_width="120dp"
+            android:src="@drawable/bronze"
+            android:visibility="invisible"
+            android:tooltipText="Completed 5 matches in a row"
+            android:layout_height="120dp"></ImageView>
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/consecSilverImage"
+            android:layout_width="120dp"
+            android:src="@drawable/silver"
+            android:visibility="invisible"
+            android:tooltipText="Completed 10 matches in a row"
+            android:layout_height="120dp"></ImageView>
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/consecGoldImage"
+            android:layout_width="120dp"
+            android:src="@drawable/gold"
+            android:visibility="invisible"
+            android:tooltipText="Completed 20 matches in a row"
+            android:layout_height="120dp"></ImageView>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="120dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/totalBronzeImage"
+            android:layout_width="90dp"
+            android:src="@drawable/bronze"
+            android:visibility="invisible"
+            android:tooltipText="Succesfully matched a shape"
+            android:layout_height="90dp"></ImageView>
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/totalSilverImage"
+            android:layout_width="90dp"
+            android:src="@drawable/silver"
+            android:visibility="invisible"
+            android:tooltipText="Succesfully matched 20 shapes"
+            android:layout_height="90dp"></ImageView>
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/totalGoldImage"
+            android:layout_width="90dp"
+            android:src="@drawable/gold"
+            android:visibility="invisible"
+            android:tooltipText="Succesfully matched 50 shapes"
+            android:layout_height="90dp"></ImageView>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/masterTotalImage"
+            android:layout_width="90dp"
+            android:src="@drawable/gold"
+            android:visibility="invisible"
+            android:tooltipText="Succesfully matched 150 shapes"
+            android:layout_height="90dp"></ImageView>
+    </LinearLayout>
+
+</LinearLayout>
