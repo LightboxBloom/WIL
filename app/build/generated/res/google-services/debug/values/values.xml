@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">475068963258-n1lrslqaen041ngpedvbj6tlq03gd2ct.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://bloom-database.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">475068963258</string>
+    <string name="google_api_key" translatable="false">AIzaSyB45rGZtSawNuhK5CgN2vkPeswjgrLQIaA</string>
+    <string name="google_app_id" translatable="false">1:475068963258:android:4d33a6e5d1bc23f6d16583</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB45rGZtSawNuhK5CgN2vkPeswjgrLQIaA</string>
+    <string name="google_storage_bucket" translatable="false">bloom-database.appspot.com</string>
+    <string name="project_id" translatable="false">bloom-database</string>
+</resources>
