@@ -167,18 +167,18 @@ public class GameView extends SurfaceView implements Runnable {
         birdSprite = new InfiniteMovingSprite(0, canvasGrid.getYPixels(5), (ArrayList<Bitmap>) birdBitmaps, 5, 1, 0, 20);
 
         ArrayList<Bitmap> card1Bitmaps = new ArrayList<Bitmap>();
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_1));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_2));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_3));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_4));
+        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_1));
+        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_2));
+        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_3));
+        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_4));
 
         ArrayList<Bitmap> card2Bitmaps;
         selectedCards = new ArrayList<>();
         card2Bitmaps = new ArrayList<>();
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_1));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_2));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_3));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_4));
+        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_1));
+        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_2));
+        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_3));
+        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_4));
 
         int numXCells = canvasGrid.getNumXCells();
         int cardWidth = 0;
