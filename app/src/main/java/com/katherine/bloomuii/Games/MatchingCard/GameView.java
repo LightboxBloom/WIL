@@ -261,13 +261,16 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(selectedCards.size() >= 2) return true; //ignore touch if two cards are already selected
-        for (CardSprite cardSprite : cardSprites) {
-            if (cardSprite.isTouched(event.getX(), event.getY())) {
-                if (cardSprite.getCardState() == CardState.HIDDEN) {
-                    handleCardTouch(cardSprite);
+        if(selectedCards.size() > 0) {
+            if (selectedCards.size() >= 2)
+                return true; //ignore touch if two cards are already selected
+            for (CardSprite cardSprite : cardSprites) {
+                if (cardSprite.isTouched(event.getX(), event.getY())) {
+                    if (cardSprite.getCardState() == CardState.HIDDEN) {
+                        handleCardTouch(cardSprite);
+                    }
+                    break;
                 }
-                break;
             }
         }
 

@@ -10,6 +10,8 @@
 
     <!-- Wrapping linear layout so that I can give the top a weight of 90% and the bottom nav   -->
     <!-- a height of 10%, otherwise it disappears   -->
+
+    <!--    fab-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +29,7 @@
                 app:cardBackgroundColor="@color/colorPrimaryDark">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -68,6 +70,7 @@
         </RelativeLayout>
 
         <!--Scroll view to scroll through the different elements-->
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -102,8 +105,8 @@
                             android:id="@+id/imgWeather"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="10dp"
                             android:src="@drawable/ic_puzzle" />
 
                         <TextView
@@ -142,8 +145,8 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="10dp"
                             android:src="@drawable/ic_match_shapes" />
 
                         <TextView
@@ -237,42 +240,6 @@
 
                 </androidx.cardview.widget.CardView>
                 <!--Row 3-->
-                <androidx.cardview.widget.CardView
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/cardView"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/abeezee"
-                            android:text="StoryTime"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
                 <!--Row 3-->
                 <androidx.cardview.widget.CardView
                     android:layout_rowWeight="1"
@@ -425,7 +392,6 @@
         </ScrollView>
     </LinearLayout>
 
-    <!--    fab-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -434,18 +400,6 @@
         android:layout_margin="10dp"
         android:gravity="bottom"
         android:orientation="vertical">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:elevation="10dp"
-            android:src="@drawable/ic_add"
-            app:elevation="10dp" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -457,6 +411,7 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:clickable="true"
             android:elevation="10dp"
+            android:focusable="auto"
             android:src="@drawable/ic_view"
             app:elevation="10dp" />
 
