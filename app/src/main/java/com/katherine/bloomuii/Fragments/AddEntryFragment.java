@@ -94,11 +94,7 @@ public class AddEntryFragment extends Fragment {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryFragment diaryFragment = new DiaryFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, diaryFragment);
-                fragmentTransaction.commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new DiaryFragment()).commit();
             }
         });
     }
@@ -106,7 +102,6 @@ public class AddEntryFragment extends Fragment {
     //date picker
     private void datePicker()
     {
-
         mDisplayDate.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -231,11 +226,7 @@ public class AddEntryFragment extends Fragment {
 //TODO: Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
 //**************************************************************************************************************************************
                         // this is done correctly, i dont understand why its taking you to the login activity.
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        DiaryFragment diaryFragment = new DiaryFragment();
-                        fragmentTransaction.replace(R.id.fragmentContainer, diaryFragment);
-                        fragmentTransaction.commit();
+                        getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new DiaryFragment()).commit();
 //*************************************************************************************************************************************
                         Toast.makeText(getActivity(), "Diary Entry Added", Toast.LENGTH_SHORT).show();
                     } else {

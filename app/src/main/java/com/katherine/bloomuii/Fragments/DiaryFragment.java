@@ -95,11 +95,7 @@ public class DiaryFragment extends Fragment {
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AddEntryFragment addEntryFragment = new AddEntryFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, addEntryFragment);
-                fragmentTransaction.commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new AddEntryFragment()).commit();
             }
         });
     }//end fab method
@@ -112,11 +108,7 @@ public class DiaryFragment extends Fragment {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                HomeFragment homeFragment = new HomeFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
-                fragmentTransaction.commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new HomeFragment()).commit();
             }
         });
     }

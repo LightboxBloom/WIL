@@ -42,6 +42,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextView email;
     private TextView password;
     private TextView confirmPassword;
+    private TextView errorFeedback;
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -64,6 +65,7 @@ public class SignupActivity extends AppCompatActivity {
         password = findViewById(R.id.txtPassword);
         confirmPassword = findViewById(R.id.txtConPassword);
         mRegister = (Button) findViewById(R.id.btnRegister);
+        errorFeedback = findViewById(R.id.txtSignUpErrorFeedack);
 
         //Declare Authentication
         database = FirebaseDatabase.getInstance();
@@ -79,31 +81,24 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //If any text fields are empty - prompt the user to fill them
                 if(fullName.getText().toString().equals("")  || email.getText().toString().equals("") || password.getText().toString().equals("") || confirmPassword.getText().toString().equals("")){
-                    Toast.makeText(SignupActivity.this, "All fields required",
-                            Toast.LENGTH_SHORT).show();
+                    errorFeedback.setText("All fields required.");
                 }
                 else {
                     //Initialize the Validator
                     Validator v = new Validator();
                     //Validate password - According to Password Policy in Validator Class
-                    if ((password.getText().toString().equals(confirmPassword.getText().toString()))) {
-                        validationPass = true;
-                        if (password.getText().toString().length() > 6 || v.CheckIfDigitExists(password.getText().toString()) || v.CheckIfCapsExists(password.getText().toString())) {
-                            validationPass = true;
-                        } else {
-                            validationPass = false;
-                        }
-                    } else {
-                        validationPass = false;
-                    }
+                    v.CheckIfMatch(password.getText().toString(), confirmPassword.getText().toString());
+                    v.CheckIfDigitExists(password.getText().toString());
+                    v.CheckIfCapsExists(password.getText().toString());
+                    v.CheckLength(password.getText().toString());
+
                     //If all validation tests are passed - Register the user and then navigate to the Login Activity
-                    if(validationPass) {
+                    if(v.isValidatorFlag()) {
                         btnRegister(mAuth);
                         startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                     }
                     else{
-                        Toast.makeText(SignupActivity.this, "Sign Up failed.",
-                                Toast.LENGTH_SHORT).show();
+                        errorFeedback.setText(v.getStrError());
                     }
                 }
             }
@@ -146,7 +141,6 @@ public class SignupActivity extends AppCompatActivity {
 
     //Register new User to Firebase and Write User information to Firebase
     private void btnRegister(final FirebaseAuth mAuth) {
-
         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -157,7 +151,7 @@ public class SignupActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         //Save new Users Information
-                        User newUser = new User(email.getText().toString(), mDisplayDate.getText().toString(), "English");
+                        User newUser = new User(email.getText().toString(), fullName.getText().toString(), mDisplayDate.getText().toString(), "English");
                         SaveUserToDatabase(newUser);
                         Toast.makeText(SignupActivity.this, "Authentication success.",
                                                       Toast.LENGTH_SHORT).show();
@@ -167,8 +161,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure");
-                        Toast.makeText(SignupActivity.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        errorFeedback.setText("Account Creation failed");
                     }
                 });
     }

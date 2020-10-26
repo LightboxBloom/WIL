@@ -7,6 +7,21 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".Activities.LoginActivity">
 
+    <TextView
+        android:id="@+id/txtErrorFeedback"
+        android:layout_width="219dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/abeezee"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtHomeUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="150dp"
@@ -113,35 +128,24 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.807"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="0.061" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:text="@string/stay_logged_in"
-        android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintHorizontal_bias="0.808"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintVertical_bias="0.075" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintVertical_bias="0.185" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
