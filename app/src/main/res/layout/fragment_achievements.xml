@@ -64,13 +64,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/txt_english"
+                        android:id="@+id/txt_puzzles"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="English"
+                        android:text="Puzzles"
+                        android:fontFamily="@font/abeezee"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="34sp" />
+                        android:textSize="30sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -99,13 +100,13 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/txt_maths"
+                        android:id="@+id/txt_matching"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="Maths"
+                        android:text="Match Shapes"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="34dp" />
+                        android:textSize="30sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -119,6 +120,254 @@
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
                         android:src="@drawable/ic_award" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_unjumble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Unjumble Sentences"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_matchingcards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Matching Cards"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_storyTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Story Time"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_labelThat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Label That"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award4"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_math"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Math Game"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award5"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_Nouns"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Nouns and Verbs"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award6"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Order That"
+                        android:fontFamily="@font/abeezee"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_award7"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_award_gs" />
 
                 </LinearLayout>
 
