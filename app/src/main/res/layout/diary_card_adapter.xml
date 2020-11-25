@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cdItem"
         android:layout_width="381dp"
         android:layout_height="119dp"
         android:layout_rowWeight="1"
@@ -18,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="16dp" >
+        tools:layout_editor_absoluteY="16dp">
 
         <ImageView
             android:id="@+id/ivAdapterDiaryEmotion"

@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfilePicture"
             android:layout_width="125dp"
             android:layout_height="125dp"
@@ -270,20 +270,20 @@
                         android:layout_height="35dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_terms"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_terms" />
 
                     <TextView
                         android:id="@+id/txtTerms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/terms_of_use"
-                        android:textAlignment="textStart"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:text="@string/terms_of_use"
+                        android:textAlignment="textStart"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
+                        android:textSize="25sp" />
 
 
                 </LinearLayout>

@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                else{
                     errorFeedback.setText("All fields required.");
+                    progress.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -139,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                            errorFeedback.setText("Incorrect credentials.");
+                           progress.setVisibility(View.INVISIBLE);
                         }
                     }});
     }

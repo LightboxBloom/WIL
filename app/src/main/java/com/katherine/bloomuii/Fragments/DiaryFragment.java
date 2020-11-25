@@ -1,5 +1,5 @@
+//Developer: Rohini Naidu
 package com.katherine.bloomuii.Fragments;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,36 +27,33 @@ import com.katherine.bloomuii.ObjectClasses.DiaryEntry;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
-
 public class DiaryFragment extends Fragment {
-
+    //UI Components
     FloatingActionButton mAdd;
     ImageView mBack;
     ListView lvEntries;
     ArrayList<DiaryEntry> entries;
     DiaryAdapter diaryAdapter;
-    //Firebase
+    //Firebase Initializations
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
-
+        //UI Declarations
         mAdd = view.findViewById(R.id.btnAddEntry);
         mBack = view.findViewById(R.id.btnPuzzleBack);
         lvEntries = view.findViewById(R.id.lvEntries);
         entries = new ArrayList<>();
-
         //Firebase Declarations
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         myRef = database.getReference("Users/" + currentUser.getUid() + "/DiaryEntries");
-
+        //Retrieve all Diary Entries and Display
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,33 +79,35 @@ public class DiaryFragment extends Fragment {
 
             }
         });
-
-        //calling method
-        fab();
+        //On button press Navigate to Add Diary Entry Fragment
+        AddEntry();
+        //ON button press Navigate to Previous Fragment
         btnBackClicked();
-
         return view;
     }
-
-    //method for clicking fab
-    private void fab() {
+    //Navigate to Add Diary Entry Fragment
+    private void AddEntry() {
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new AddEntryFragment()).commit();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                AddEntryFragment entryFragment = new AddEntryFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, entryFragment);
+                fragmentTransaction.commit();
             }
         });
-    }//end fab method
-
-
-
-
-    private void btnBackClicked()
-    {
+    }
+    //Navigate to Previous Fragment
+    private void btnBackClicked() {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new HomeFragment()).commit();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                HomeFragment homeFragment = new HomeFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+                fragmentTransaction.commit();
             }
         });
     }

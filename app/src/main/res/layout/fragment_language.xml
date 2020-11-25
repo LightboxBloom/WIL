@@ -42,56 +42,32 @@
     </androidx.cardview.widget.CardView>
 
     <!--    English-->
-    <androidx.cardview.widget.CardView
+
+    <Button
+        android:id="@+id/btnEnglish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardView"
-        app:cardElevation="10dp"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:padding="3dp"
-                android:text="@string/english"
-                android:fontFamily="@font/abeezee"
-                android:textColor="@color/colorPrimaryDark"/>
-
-    </androidx.cardview.widget.CardView>
+        android:background="@color/cardView"
+        android:text="   English"
+        android:textAlignment="textStart"
+        />
 
     <!--    Afrikaans-->
-    <androidx.cardview.widget.CardView
+    <Button
+        android:id="@+id/btnAfrikaans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardView"
-        app:cardElevation="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:padding="3dp"
-                android:text="@string/afrikaans"
-                android:fontFamily="@font/abeezee"
-                android:textColor="@color/colorPrimaryDark"/>
+        android:background="@color/cardView"
+        android:text="   Afrikaans"
+        android:textAlignment="textStart" />
 
 
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context=".Fragments.HomeFragment">
@@ -30,7 +30,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -70,6 +70,28 @@
         </RelativeLayout>
 
         <!--Scroll view to scroll through the different elements-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="86dp">
+
+            <ImageView
+                android:id="@+id/imgStoryBoard"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                tools:src="@drawable/img_happy" />
+
+            <TextView
+                android:id="@+id/txtStoryboardContent"
+                android:layout_width="267dp"
+                android:layout_height="57dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/abeezee"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -259,10 +281,10 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/label_that" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -296,10 +318,10 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/math" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -333,10 +355,10 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/part_of_speech" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -370,10 +392,10 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/img_weather" />
+                            android:src="@drawable/order_that" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -403,7 +425,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnView"
+            android:id="@+id/btnViewClassrooms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.katherine.bloomuii.R;
@@ -87,13 +88,14 @@ public class SignupActivity extends AppCompatActivity {
                     //Initialize the Validator
                     Validator v = new Validator();
                     //Validate password - According to Password Policy in Validator Class
-                    v.CheckIfMatch(password.getText().toString(), confirmPassword.getText().toString());
+
                     v.CheckIfDigitExists(password.getText().toString());
                     v.CheckIfCapsExists(password.getText().toString());
                     v.CheckLength(password.getText().toString());
-
+                    v.CheckIfMatch(password.getText().toString(), confirmPassword.getText().toString());
+                    //checkUserNameExists();
                     //If all validation tests are passed - Register the user and then navigate to the Login Activity
-                    if(v.isValidatorFlag()) {
+                    if(v.isCapsExistFlag() && v.isDigitExistsFlag() && v.isLengthCheckFlag() && v.isMatchFlag()) {
                         btnRegister(mAuth);
                         startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                     }
@@ -149,7 +151,8 @@ public class SignupActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(fullName.getText().toString()).build();
                         //Save new Users Information
                         User newUser = new User(email.getText().toString(), fullName.getText().toString(), mDisplayDate.getText().toString(), "English");
                         SaveUserToDatabase(newUser);
@@ -189,6 +192,8 @@ public class SignupActivity extends AppCompatActivity {
         myRef.child(mAuth.getUid()).child("Date_Of_Birth").setValue(newUser.getDate_Of_Birth());
         myRef.child(mAuth.getUid()).child("Full_Name").setValue(newUser.getFull_Name());
         myRef.child(mAuth.getUid()).child("Language_Preference").setValue(newUser.getLanguage_Preference());
+        myRef.child(mAuth.getUid()).child("Notification_Status").setValue("true");
+        myRef.child(mAuth.getUid()).child("User_ID").setValue(mAuth.getUid());
     }
 }//End of Activity
 

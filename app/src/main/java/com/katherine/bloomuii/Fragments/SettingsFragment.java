@@ -30,8 +30,7 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    private void btnBackClicked()
-    {
+    private void btnBackClicked() {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

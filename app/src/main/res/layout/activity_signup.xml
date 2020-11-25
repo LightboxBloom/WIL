@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         tools:context=".Activities.SignupActivity"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="32dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-63dp">
 
         <TextView
             android:id="@+id/txtSignUpErrorFeedack"
@@ -83,7 +83,7 @@
             android:id="@+id/txtProfileDob"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/rounded_edittext"
             android:fontFamily="@font/abeezee"
             android:hint="@string/select_date_of_birth"
@@ -100,7 +100,7 @@
             android:id="@+id/txtPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/rounded_edittext"
             android:fontFamily="@font/abeezee"
             android:hint="@string/password"
@@ -109,18 +109,16 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/txtConPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtProfileDob"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txtProfileDob" />
 
         <EditText
             android:id="@+id/txtConPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_edittext"
             android:fontFamily="@font/abeezee"
             android:hint="@string/confirm_password"
@@ -129,16 +127,16 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnRegister"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="112dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/rounded_button"
             android:fontFamily="@font/abeezee"
             android:paddingTop="5dp"
@@ -147,10 +145,10 @@
             android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtConPassword" />
 
         <TextView
             android:id="@+id/txtLogin"
@@ -175,7 +173,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="32dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

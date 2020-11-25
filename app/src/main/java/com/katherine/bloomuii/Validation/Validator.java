@@ -1,14 +1,15 @@
 /*Created by: Rohini Naidu 26/06/2020*/
 package com.katherine.bloomuii.Validation;
-
 public class Validator {
-    //Authentication Validation
+    //Fields
     private String strError;
     private boolean validatorFlag = false;
-    //Date Validator
-    public Validator(){
-    }
-
+    private boolean digitExistsFlag = false;
+    private boolean capsExistFlag = false;
+    private boolean lengthCheckFlag = false;
+    private boolean matchFlag = false;
+    //Constructor
+    public Validator(){ }
     //Password Policy - At least 1 Caps, At least one number, Longer than 6 Characters
     //At least on Digit
     public void CheckIfDigitExists(String password) {
@@ -17,13 +18,13 @@ public class Validator {
         StringBuilder sb = new StringBuilder();
         for (char c : chars) {
             if (Character.isDigit(c)) {
-                validatorFlag  = true;
+                digitExistsFlag  = true;
                 temp = true;
             }
         }
         if(!temp){
             strError = "Password must contain at least one digit.";
-            validatorFlag = false;
+            digitExistsFlag = false;
         }
     }
     //At least one Caps
@@ -33,49 +34,70 @@ public class Validator {
         StringBuilder sb = new StringBuilder();
         for (char c : chars) {
             if (Character.isUpperCase(c)) {
-                validatorFlag = true;
+                capsExistFlag = true;
                 temp = true;
             }
         }
         if(!temp){
             strError = "Password must contain at least one CAPS letter.";
-            validatorFlag = false;
+            capsExistFlag = false;
         }
     }
     //Check length of password
     public void CheckLength(String password){
         if(password.length() > 6){
-            validatorFlag = true;
+            lengthCheckFlag = true;
         }
         else {
             strError = "Password must have 6 or more characters.";
-            validatorFlag = false;
+            lengthCheckFlag = false;
         }
     }
     //Check if strings are identical
     public void CheckIfMatch(String string1, String string2){
         if(string1.equals(string2)){
-            validatorFlag = true;
+            matchFlag = true;
         }
         else{
             strError = "Passwords do not match.";
-            validatorFlag = false;
+            matchFlag = false;
         }
     }
-
+    //Getters and Setters
     public String getStrError() {
         return strError;
     }
-
     public void setStrError(String strError) {
         this.strError = strError;
     }
-
     public boolean isValidatorFlag() {
         return validatorFlag;
     }
-
     public void setValidatorFlag(boolean validatorFlag) {
         this.validatorFlag = validatorFlag;
     }
-}//End of class
+    public boolean isDigitExistsFlag() {
+        return digitExistsFlag;
+    }
+    public void setDigitExistsFlag(boolean digitExistsFlag) {
+        this.digitExistsFlag = digitExistsFlag;
+    }
+    public boolean isCapsExistFlag() {
+        return capsExistFlag;
+    }
+    public void setCapsExistFlag(boolean capsExistFlag) {
+        this.capsExistFlag = capsExistFlag;
+    }
+    public boolean isLengthCheckFlag() {
+        return lengthCheckFlag;
+    }
+    public void setLengthCheckFlag(boolean lengthCheckFlag) {
+        this.lengthCheckFlag = lengthCheckFlag;
+    }
+    public boolean isMatchFlag() {
+        return matchFlag;
+    }
+    public void setMatchFlag(boolean matchFlag) {
+        this.matchFlag = matchFlag;
+    }
+}

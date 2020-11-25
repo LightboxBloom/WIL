@@ -41,19 +41,16 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
             android:orientation="vertical">
 
             <!--        name of classroom-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
@@ -70,6 +67,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/abeezee"
                         android:padding="5dp"
                         android:text="@string/classroom_name"
@@ -79,178 +77,34 @@
                         android:id="@+id/txtClassname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/abeezee"
-                        android:padding="5dp"
-                        android:hint="@string/enter_classroom_name" />
+                        android:hint="@string/enter_classroom_name"
+                        android:padding="5dp" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-<!--            Add student to class-->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/cardView"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/abeezee"
-                        android:padding="5dp"
-                        android:text="@string/add_student"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/abeezee"
-                            android:padding="5dp"
-                            android:text="@string/username"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp" />
-
-                        <EditText
-                            android:id="@+id/txtSearchStudent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/abeezee"
-                            android:padding="5dp"
-                            android:hint="@string/search"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/this_will_display_the_students_names"
-                        android:padding="5dp"
-                        android:fontFamily="@font/abeezee"
-                        android:textSize="20sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:scrollbars="vertical"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-<!--            Add teacher to class-->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/cardView"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/abeezee"
-                        android:padding="5dp"
-                        android:text="@string/add_teacher"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/abeezee"
-                            android:padding="5dp"
-                            android:text="@string/username"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp" />
-
-                        <EditText
-                            android:id="@+id/txtSearchTeacher"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/abeezee"
-                            android:padding="5dp"
-                            android:hint="@string/search"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/this_will_display_the_teachers_names"
-                        android:padding="5dp"
-                        android:fontFamily="@font/abeezee"
-                        android:textSize="20sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:scrollbars="vertical"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/btnCreate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="15dp"
-                android:fontFamily="@font/abeezee"
-                android:background="@drawable/rounded_button"
-                android:textSize="32sp"
-                android:textAlignment="center"
-                android:text="@string/create"
-                android:textColor="@color/black"
-                android:padding="10dp"/>
 
         </LinearLayout>
 
-    </ScrollView>
+
+            <!--            Add teacher to class-->
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/abeezee"
+        android:padding="10dp"
+        android:text="@string/create"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="32sp" />
 
 </LinearLayout>
