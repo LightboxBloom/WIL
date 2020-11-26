@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class ViewClassroomFragment extends Fragment {
     private ArrayList<Classroom> myclasses;
     private ArrayList<Classroom> joinedclasses;
     private String typeOfClass;
+    private Bundle bundle;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,19 +69,23 @@ public class ViewClassroomFragment extends Fragment {
         typeOfClass = "JoinedClass";
         myclasses = new ArrayList<>();
         joinedclasses = new ArrayList<>();
+        bundle = new Bundle();
         //retrieve all Joined Classes
         retrieveMyClassrooms();
         //On button Pressed to Display Joined Classes of User
         joinedClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                typeOfClass = "JoinedClassrooms";
                 retrieveJoinedClassrooms();
             }
         });
         //On button Pressed to Display My Classes of User
         myClass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { retrieveMyClassrooms();
+            public void onClick(View view) {
+                typeOfClass = "MyClassrooms";
+                retrieveMyClassrooms();
             }
         });
         //On button pressed Navigate to create Classroom Fragment
@@ -197,6 +203,30 @@ public class ViewClassroomFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 HomeFragment homeFragment = new HomeFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+    //On item clicked, Navigate to File Repo
+    private void getClassroomSelected(){
+        lvClassroom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                FileRepoFragment fileRepoFragment = new FileRepoFragment();
+                if(typeOfClass.equals("JoinedClassrooms")) {
+                    bundle.putString("ClassroomId", joinedclasses.get(i).getClassroom_Id());
+                    bundle.putString("ClassroomName", joinedclasses.get(i).getClassroom_Name());
+                    bundle.putString("FilePath", typeOfClass);
+                }
+                else if(typeOfClass.equals("MyClassrooms")){
+                    bundle.putString("ClassroomId", myclasses.get(i).getClassroom_Id());
+                    bundle.putString("ClassroomName", myclasses.get(i).getClassroom_Name());
+                    bundle.putString("FilePath", typeOfClass);
+                }
+                fileRepoFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragmentContainer, fileRepoFragment);
                 fragmentTransaction.commit();
             }
         });

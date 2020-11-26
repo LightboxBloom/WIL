@@ -23,14 +23,9 @@ import java.util.List;
 
 import static com.katherine.bloomuii.R.drawable.img_happy;
 public class DiaryAdapter extends ArrayAdapter<DiaryEntry> {
-    //Global Variable
-    Bundle bundle;
-    Context context;
-    DiaryEntry Selectedentry;
     //Constructor
     public DiaryAdapter(Context context, int simple_list_item_1, List<DiaryEntry> diaryEntries){
         super(context,0, diaryEntries);
-        this.context = context;
     }
     //Retrieve an Diary Entry and Bind its fields to UI Components
     @Override
@@ -42,8 +37,6 @@ public class DiaryAdapter extends ArrayAdapter<DiaryEntry> {
         }
         //set Diary Entry Data to UI Components
         if(entry != null){
-            Selectedentry =entry;
-            bundle = new Bundle();
             TextView date = convertView.findViewById(R.id.txtAdapterDiaryDate);
             ImageView emotion = convertView.findViewById(R.id.ivAdapterDiaryEmotion);
             CardView item = convertView.findViewById(R.id.cdItem);
@@ -68,24 +61,8 @@ public class DiaryAdapter extends ArrayAdapter<DiaryEntry> {
             else if(entry.getDiary_Emotion().equals("Scared")){
                 emotion.setImageResource(R.drawable.img_scared);
             }
-
-            item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    ViewDiaryEntry viewDiaryEntry = new ViewDiaryEntry();
-                    bundle.putString("DiaryDate", Selectedentry.getDiary_Date());
-                    bundle.putString("DiaryEmotion", Selectedentry.getDiary_Emotion());
-                    bundle.putString("DiaryEntry", Selectedentry.getDiary_Entry());
-                    viewDiaryEntry.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.fragmentContainer, viewDiaryEntry);
-                    fragmentTransaction.commit();
-                }
-            });
         }
         return convertView;
     }
-
 
 }

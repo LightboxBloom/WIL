@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +36,7 @@ public class DiaryFragment extends Fragment {
     ListView lvEntries;
     ArrayList<DiaryEntry> entries;
     DiaryAdapter diaryAdapter;
+    Bundle bundle;
     //Firebase Initializations
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -53,6 +56,7 @@ public class DiaryFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         myRef = database.getReference("Users/" + currentUser.getUid() + "/DiaryEntries");
+        bundle = new Bundle();
         //Retrieve all Diary Entries and Display
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,6 +87,8 @@ public class DiaryFragment extends Fragment {
         AddEntry();
         //ON button press Navigate to Previous Fragment
         btnBackClicked();
+        //On button pressed retrieve item details and Navigate to viewDiary Fragment
+        getSelectedItem();
         return view;
     }
     //Navigate to Add Diary Entry Fragment
@@ -107,6 +113,23 @@ public class DiaryFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 HomeFragment homeFragment = new HomeFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+    //Get Selected Item and Navigate to viewDiary Fragment
+    private void getSelectedItem(){
+        lvEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                ViewDiaryEntry viewDiaryEntry = new ViewDiaryEntry();
+                bundle.putString("DiaryDate", entries.get(i).getDiary_Date());
+                bundle.putString("DiaryEmotion", entries.get(i).getDiary_Emotion());
+                bundle.putString("DiaryEntry", entries.get(i).getDiary_Entry());
+                viewDiaryEntry.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragmentContainer, viewDiaryEntry);
                 fragmentTransaction.commit();
             }
         });
