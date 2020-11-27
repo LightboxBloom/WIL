@@ -301,6 +301,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 4-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemMath"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
@@ -375,6 +376,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 5-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemOrder"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"

@@ -29,13 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.katherine.bloomuii.Activities.LoginActivity;
-import com.katherine.bloomuii.Activities.MainActivity;
-import com.katherine.bloomuii.Activities.SignupActivity;
 import com.katherine.bloomuii.Games.MatchShape.ShapeMain;
 import com.katherine.bloomuii.Games.MatchingCard.MatchingCardsMain;
+import com.katherine.bloomuii.Games.Math.MathFragment;
+import com.katherine.bloomuii.Games.Order.OrderFragment;
 import com.katherine.bloomuii.Games.Puzzle.PuzzleMain;
-import com.katherine.bloomuii.Games.Unjumble.UnjumbleMain;
+import com.katherine.bloomuii.Games.Unjumble.UnjumbleFragment;
 import com.katherine.bloomuii.R;
 import com.katherine.bloomuii.ObjectClasses.User;
 import com.squareup.picasso.Picasso;
@@ -43,7 +42,7 @@ import com.squareup.picasso.Picasso;
 public class HomeFragment extends Fragment {
 
     TextView fullName;
-    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching;
+    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath;
     ImageView mProfilePicture;
     FloatingActionButton viewClassrooms;
     //Firebase
@@ -64,6 +63,8 @@ public class HomeFragment extends Fragment {
         itemShape = view.findViewById(R.id.itemShapes);
         itemUnjumble = view.findViewById(R.id.itemUnjumble);
         itemMatching = view.findViewById(R.id.itemMatching);
+        itemOrder = view.findViewById(R.id.itemOrder);
+        itemMath = view.findViewById(R.id.itemMath);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
         viewClassrooms = view.findViewById(R.id.btnViewClassrooms);
         //Firebase Declarations
@@ -94,6 +95,8 @@ public class HomeFragment extends Fragment {
         MatchShape();
         Unjumble();
         MatchingCard();
+        Order();
+        Math();
         return view;
     }
 
@@ -129,7 +132,11 @@ public class HomeFragment extends Fragment {
         itemUnjumble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), UnjumbleMain.class));
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                UnjumbleFragment fragment = new UnjumbleFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                fragmentTransaction.commit();
             }
         });
     }
@@ -141,7 +148,30 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    private void Order(){
+        itemOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                OrderFragment fragment = new OrderFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+    private void Math(){
+        itemMath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                MathFragment fragment = new MathFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
     //Source: StackOverflow
     //https://stackoverflow.com/questions/25347943/how-to-use-picasso-library
     private void setProfilePicture() {

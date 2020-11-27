@@ -75,6 +75,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="a"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
@@ -86,6 +87,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="kind"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -106,6 +108,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="she"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
@@ -117,6 +120,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="is"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -136,6 +140,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="girl"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
@@ -147,6 +152,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
             android:text="6"
+            android:textAllCaps="false"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -159,7 +165,7 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -174,8 +180,30 @@
 
     <Space
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="220dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/abeezee"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:hint="Current Level will display here"
+            android:textColor="@color/grey" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,9 +213,10 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+
         <Button
             android:id="@+id/button7"
-            android:layout_width="100dp"
+            android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/btn_unjumble_rounded"
@@ -203,7 +232,7 @@
 
         <Button
             android:id="@+id/button8"
-            android:layout_width="100dp"
+            android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/btn_unjumble_rounded"
@@ -214,4 +243,3 @@
 
     </LinearLayout>
 </LinearLayout>
-
