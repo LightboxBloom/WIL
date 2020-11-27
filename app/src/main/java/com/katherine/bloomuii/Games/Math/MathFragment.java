@@ -42,8 +42,6 @@ public class MathFragment extends Fragment implements View.OnClickListener {
         View view =  inflater.inflate(R.layout.fragment_math, container, false);
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true); //Firebase functionality works when offline, online is required for first launch to retrieve data
 
-        editTextNumber = view.findViewById(R.id.editTextNumber);
-
         for(int i=0; i<buttons.length; i++)        //initializing Buttons
         {
             String textViewID = "button" + (i+1);
@@ -103,6 +101,7 @@ public class MathFragment extends Fragment implements View.OnClickListener {
     }
     @Override
     public void onClick(View view) {
+        editTextNumber = view.findViewById(R.id.editTextNumber);
 
         switch (view.getId()){
 
