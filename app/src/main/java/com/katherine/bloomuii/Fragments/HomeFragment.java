@@ -33,6 +33,7 @@ import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
 import com.katherine.bloomuii.Games.MatchingCard.MatchingCardsMain;
 import com.katherine.bloomuii.Games.Math.MathFragment;
 import com.katherine.bloomuii.Games.Order.OrderFragment;
+import com.katherine.bloomuii.Games.PartOfSpeech.PartOfSpeechMenuActivity;
 import com.katherine.bloomuii.Games.PhotoLabel.PhotoLabelMenu;
 import com.katherine.bloomuii.Games.Puzzle.PuzzleMain;
 import com.katherine.bloomuii.Games.Unjumble.UnjumbleFragment;
@@ -43,7 +44,7 @@ import com.squareup.picasso.Picasso;
 public class HomeFragment extends Fragment {
 
     TextView fullName;
-    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath, itemLabel;
+    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath, itemLabel, itemPartOfSpeech;
     ImageView mProfilePicture;
     FloatingActionButton viewClassrooms;
     //Firebase
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
         itemOrder = view.findViewById(R.id.itemOrder);
         itemMath = view.findViewById(R.id.itemMath);
         itemLabel = view.findViewById(R.id.itemLabel);
+        itemPartOfSpeech = view.findViewById(R.id.itemPartOfSpeech);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
         viewClassrooms = view.findViewById(R.id.btnViewClassrooms);
         //Firebase Declarations
@@ -99,6 +101,7 @@ public class HomeFragment extends Fragment {
         Order();
         Math();
         Label();
+        PartOfSpeech();
         return view;
     }
 
@@ -179,6 +182,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), PhotoLabelMenu.class));
+            }
+        });
+    }
+    private void PartOfSpeech(){
+        itemPartOfSpeech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PartOfSpeechMenuActivity.class));
             }
         });
     }

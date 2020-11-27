@@ -340,6 +340,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--Row 4-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemPartOfSpeech"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
