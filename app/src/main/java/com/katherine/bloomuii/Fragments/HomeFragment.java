@@ -33,6 +33,7 @@ import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
 import com.katherine.bloomuii.Games.MatchingCard.MatchingCardsMain;
 import com.katherine.bloomuii.Games.Math.MathFragment;
 import com.katherine.bloomuii.Games.Order.OrderFragment;
+import com.katherine.bloomuii.Games.PhotoLabel.PhotoLabelMenu;
 import com.katherine.bloomuii.Games.Puzzle.PuzzleMain;
 import com.katherine.bloomuii.Games.Unjumble.UnjumbleFragment;
 import com.katherine.bloomuii.R;
@@ -42,7 +43,7 @@ import com.squareup.picasso.Picasso;
 public class HomeFragment extends Fragment {
 
     TextView fullName;
-    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath;
+    CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath, itemLabel;
     ImageView mProfilePicture;
     FloatingActionButton viewClassrooms;
     //Firebase
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment {
         itemMatching = view.findViewById(R.id.itemMatching);
         itemOrder = view.findViewById(R.id.itemOrder);
         itemMath = view.findViewById(R.id.itemMath);
+        itemLabel = view.findViewById(R.id.itemLabel);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
         viewClassrooms = view.findViewById(R.id.btnViewClassrooms);
         //Firebase Declarations
@@ -83,7 +85,6 @@ public class HomeFragment extends Fragment {
                     fullName.setText(user.getFull_Name() + "#" + currentUser.getUid().substring(0, 4));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
@@ -97,6 +98,7 @@ public class HomeFragment extends Fragment {
         MatchingCard();
         Order();
         Math();
+        Label();
         return view;
     }
 
@@ -169,6 +171,14 @@ public class HomeFragment extends Fragment {
                 MathFragment fragment = new MathFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();
+            }
+        });
+    }
+    private void Label(){
+        itemLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PhotoLabelMenu.class));
             }
         });
     }

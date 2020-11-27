@@ -8,4 +8,5 @@
     <color name="slightlyDarkerGrey">#d1cfcf</color>
     <color name="black">#000000</color>
     <color name="shadowColor">#0f2a3b</color>
+    <color name="txtBackground">#E8CB64</color>
 </resources>

@@ -264,6 +264,7 @@
                 <!--Row 3-->
                 <!--Row 3-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/itemLabel"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_marginLeft="16dp"
