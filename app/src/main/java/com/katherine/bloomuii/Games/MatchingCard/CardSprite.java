@@ -73,7 +73,7 @@ public class CardSprite {
                 currentSpriteIndex += direction;
             }
         }
-            this.currentSprite = sprites.get(currentSpriteIndex);
+        this.currentSprite = sprites.get(currentSpriteIndex);
     }
 
     public boolean isTouched(float touchX, float touchY) {

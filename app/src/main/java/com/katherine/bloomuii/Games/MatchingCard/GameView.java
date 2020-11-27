@@ -7,29 +7,23 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.katherine.bloomuii.ObjectClasses.User;
-import com.katherine.bloomuii.ObjectClasses.UserGameState;
 import com.katherine.bloomuii.R;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameView extends SurfaceView implements Runnable {
     private static final String TAG = "GameView";
-    private boolean isRunning = false;
+    private boolean isRunning = true;
     private Thread gameThread;
     private SurfaceHolder holder;
     private CanvasGrid canvasGrid;
@@ -37,8 +31,8 @@ public class GameView extends SurfaceView implements Runnable {
     //Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private FirebaseUser currentUser;
-    private FirebaseAuth mAuth;
+//    private FirebaseUser currentUser;
+//    private FirebaseAuth mAuth;
 
     private final static int MAX_FPS = 60; //desired fps
     private final static float FRAME_PERIOD = 1000.0f / MAX_FPS;
@@ -65,33 +59,22 @@ public class GameView extends SurfaceView implements Runnable {
     //Should be in ratio of display aspect ratio which is 16:9 most of the time
     int numYCells = 48;
     int numXCells = 27;
+    ArrayList<Flashcard> downloadedFlashcards;
 
-    public GameView(Context context) {
+    int numConsecutiveMatches = 0;
+
+    public GameView(Context context, UserGameState userProgress, ArrayList<Flashcard> downloadedFlashcards) {
         super(context);
-        //TODO: Kyle please check out reading and writing level instant to Firebase - getting some null errors for the class UserGameState
-        //TODO: Since new users have no GameUserState branch in firebase db. I need a new set of eyes on this.
-        //TODO: Scroll further down for Promotion of level and update written to Firebase (Promotion isnt tested yet)
-        //**********************************************************************************************************************************
-        //Reading in Game Level from Firebase
-        //Firebase Declarations
-        database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        myRef = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
-        userProgress = new UserGameState();
-        //Read Level
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
-                userProgress = dataSnapshot.getValue(UserGameState.class);
-                callback();
-            }
 
-            @Override
-            public void onCancelled(@NotNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+        this.downloadedFlashcards = downloadedFlashcards;
+        database = FirebaseDatabase.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
+//        currentUser = mAuth.getCurrentUser();
+//        myRef = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
+        myRef = database.getReference("Users/" + "Kyle" + "/Games/MatchingCards");
+        this.userProgress = userProgress;
+
+        setGameLevel();
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -113,17 +96,21 @@ public class GameView extends SurfaceView implements Runnable {
 
             }
         });
+
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 
-    private void callback() {
+    private void setGameLevel() {
         //For new users start at first level
-        if(userProgress.getGame_Level() ==null){
-            userProgress.setGame_Level("EASY");
-            myRef.child("Game_Level").setValue("EASY");
+        if (userProgress == null || userProgress.getLevel() == null) {
+            userProgress = new UserGameState();
+            userProgress.setLevel("EASY");
+            myRef.child("Level").setValue(userProgress);
             //TODO: Initialize Achievement List and all achievements to false as default for new users
         }
         //Set Level based on User Progress from Firebase
-        switch (userProgress.getGame_Level()) {
+        switch (userProgress.getLevel()) {
             case "EASY":
                 gameSettings = new GameSettings(Difficulty.EASY);
                 break;
@@ -182,25 +169,92 @@ public class GameView extends SurfaceView implements Runnable {
         birdSprite = new InfiniteMovingSprite(0, canvasGrid.getYPixels(5), (ArrayList<Bitmap>) birdBitmaps, 5, 1, 0, 20);
 
         ArrayList<Bitmap> card1Bitmaps = new ArrayList<Bitmap>();
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_1));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_2));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_3));
-        card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_1_4));
+        ArrayList<Bitmap> card2Bitmaps = new ArrayList<>();
+        ArrayList<Bitmap> card3Bitmaps = new ArrayList<>();
+        ArrayList<Bitmap> card4Bitmaps = new ArrayList<>();
 
-        ArrayList<Bitmap> card2Bitmaps;
+        switch (downloadedFlashcards.size()) {
+            case 0:
+                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_1));
+                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_2));
+                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_3));
+                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_4));
+
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_1));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_2));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_3));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_1));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_2));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_3));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_1));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_2));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_3));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+                break;
+            case 1:
+                card1Bitmaps = downloadedFlashcards.get(0).getBitmaps();
+
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_1));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_2));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_3));
+                card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_1));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_2));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_3));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_1));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_2));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_3));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+                break;
+            case 2:
+                card1Bitmaps = downloadedFlashcards.get(0).getBitmaps();
+                card2Bitmaps = downloadedFlashcards.get(1).getBitmaps();
+
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_1));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_2));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cub_3));
+                card3Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_1));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_2));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_3));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+                break;
+            case 3:
+                card1Bitmaps = downloadedFlashcards.get(0).getBitmaps();
+                card2Bitmaps = downloadedFlashcards.get(1).getBitmaps();
+                card3Bitmaps = downloadedFlashcards.get(2).getBitmaps();
+
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_1));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_2));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.match_bird_3));
+                card4Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+                break;
+            case 4:
+                card1Bitmaps = downloadedFlashcards.get(0).getBitmaps();
+                card2Bitmaps = downloadedFlashcards.get(1).getBitmaps();
+                card3Bitmaps = downloadedFlashcards.get(2).getBitmaps();
+                card4Bitmaps = downloadedFlashcards.get(3).getBitmaps();
+                break;
+            default:
+                break;
+        }
+
         selectedCards = new ArrayList<>();
-        card2Bitmaps = new ArrayList<>();
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_1));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_2));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_3));
-        card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.rocket_league_card_2_4));
 
         int numXCells = canvasGrid.getNumXCells();
         int cardWidth = 0;
         int cardHeight = 0;
         cardSprites = new ArrayList<>();
         int pairs = 0;
-        switch(gameSettings.getDifficulty()){
+        switch (gameSettings.getDifficulty()) {
             case EASY:
             case EASY_PLUS:
                 pairs = 2;
@@ -216,27 +270,69 @@ public class GameView extends SurfaceView implements Runnable {
             case HARD:
             case HARD_PLUS:
                 pairs = 4;
-                cardWidth = (int) canvasGrid.getXPixels(4);
-                cardHeight = (int) canvasGrid.getYPixels(6);
+                cardWidth = (int) canvasGrid.getXPixels(6);
+                cardHeight = (int) canvasGrid.getYPixels(9);
                 break;
         }
 
         card1Bitmaps = resizeBitmaps(card1Bitmaps, cardWidth, cardHeight);
         card2Bitmaps = resizeBitmaps(card2Bitmaps, cardWidth, cardHeight);
-        float leftPadding = ((canvasGrid.getXPixels(numXCells)/2) - cardWidth)/2;
-        float rightX = canvasGrid.getXPixels(numXCells)/2 + leftPadding;
+        card3Bitmaps = resizeBitmaps(card3Bitmaps, cardWidth, cardHeight);
+        card4Bitmaps = resizeBitmaps(card4Bitmaps, cardWidth, cardHeight);
+
+        ArrayList<ArrayList<Bitmap>> bitmaps2D = new ArrayList<>();
+        bitmaps2D.add(card1Bitmaps);
+        bitmaps2D.add(card2Bitmaps);
+        bitmaps2D.add(card3Bitmaps);
+        bitmaps2D.add(card4Bitmaps);
+
+        float leftPadding = ((canvasGrid.getXPixels(numXCells) / 2) - cardWidth) / 2;
+        float rightX = canvasGrid.getXPixels(numXCells) / 2 + leftPadding;
         float currentY = canvasGrid.getYPixels(10);
         float yPadding = canvasGrid.getYPixels(1);
-        for (int i = 0; i < pairs; i++){
-            cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), currentY, 0.2f, 1, leftPadding, currentY, card1Bitmaps, 1));
-            cardSprites.add(new CardSprite(canvasGrid.getXPixels(numXCells + 3), currentY, 0.2f, -1, rightX, currentY, card2Bitmaps, 2));
-            currentY+=cardHeight+yPadding;
+
+
+        // Gross ugly code that unfortunately works
+        ArrayList<Vector2D> positions = new ArrayList<>();
+        for (int i = 0; i < pairs; i++) {
+            positions.add(new Vector2D(leftPadding, currentY));
+            positions.add(new Vector2D(rightX, currentY));
+            currentY += cardHeight + yPadding;
         }
+        Collections.shuffle(positions);
+
+        int positionsIndex = 0;
+//        for (int i = 0; i < pairs; i++) {
+        for (int i = 0; i < pairs; i++) {
+            //Card 1 in pair
+            // decide which side to come in from on x
+            if(positions.get(positionsIndex).getX() < canvasGrid.getXPixels(numXCells) / 2){
+                // coming from left
+                cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), positions.get(positionsIndex).getY(), 0.2f, 1, positions.get(positionsIndex).getX(), positions.get(positionsIndex).getY(), bitmaps2D.get(i), i));
+            } else{
+                // coming from right
+                cardSprites.add(new CardSprite(canvasGrid.getXPixels(numXCells + 3), positions.get(positionsIndex).getY(), 0.2f, -1, positions.get(positionsIndex).getX(), positions.get(positionsIndex).getY(), bitmaps2D.get(i), i));
+            }
+            positionsIndex++;
+//            i++;
+
+            //Card 2 in pair
+            // decide which side to come in from on x
+            if(positions.get(positionsIndex).getX() < canvasGrid.getXPixels(numXCells) / 2){
+                // coming from left
+                cardSprites.add(new CardSprite(canvasGrid.getXPixels(-7), positions.get(positionsIndex).getY(), 0.2f, 1, positions.get(positionsIndex).getX(), positions.get(positionsIndex).getY(), bitmaps2D.get(i), i));
+            } else{
+                // coming from right
+                cardSprites.add(new CardSprite(canvasGrid.getXPixels(numXCells + 3), positions.get(positionsIndex).getY(), 0.2f, -1, positions.get(positionsIndex).getX(), positions.get(positionsIndex).getY(), bitmaps2D.get(i), i));
+            }
+            positionsIndex++;
+        }
+
     }
 
     private ArrayList<Bitmap> resizeBitmaps(ArrayList<Bitmap> cardBitmaps, int width, int height) {
         ArrayList<Bitmap> resized = new ArrayList<>();
-        for (Bitmap bmp : cardBitmaps){
+        for (Bitmap bmp : cardBitmaps) {
             resized.add(getResizedBitmap(bmp, width, height));
         }
         return resized;
@@ -259,18 +355,16 @@ public class GameView extends SurfaceView implements Runnable {
         return resizedBitmap;
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(selectedCards.size() > 0) {
-            if (selectedCards.size() >= 2)
-                return true; //ignore touch if two cards are already selected
-            for (CardSprite cardSprite : cardSprites) {
-                if (cardSprite.isTouched(event.getX(), event.getY())) {
-                    if (cardSprite.getCardState() == CardState.HIDDEN) {
-                        handleCardTouch(cardSprite);
-                    }
-                    break;
+        if (selectedCards.size() >= 2) return true; //ignore touch if two cards are already selected
+        for (CardSprite cardSprite : cardSprites) {
+            if (cardSprite.isTouched(event.getX(), event.getY())) {
+                if (cardSprite.getCardState() == CardState.HIDDEN) {
+                    handleCardTouch(cardSprite);
                 }
+                break;
             }
         }
 
@@ -278,6 +372,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     int framesSinceDisplayRevealedCard = 0;
+
     private void handleCardTouch(CardSprite cardSprite) {
         cardSprite.setCardState(CardState.REVEALING);
         cardSprite.reveal();
@@ -287,15 +382,17 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void handleMatch() {
         float _framesToDisplayRevealedCard;
-        float framesToRevealIfMatched = 1 * MAX_FPS;
+        float framesToRevealIfMatched = MAX_FPS; //1 second
         float framesToRevealIfNotMatched = gameSettings.getRevealTime() * MAX_FPS;
         if (selectedCards.size() == 2) {
             boolean matched = selectedCards.get(0).matches(selectedCards.get(1)) && selectedCards.get(0) != selectedCards.get(1);
-            if(matched){
+            if (matched) {
                 _framesToDisplayRevealedCard = framesToRevealIfMatched;
-            } else{
+            } else {
                 _framesToDisplayRevealedCard = framesToRevealIfNotMatched;
             }
+
+
             //Only do this once both cards are revealed
             if (selectedCards.get(0).getCardState() == CardState.REVEALED && selectedCards.get(1).getCardState() == CardState.REVEALED) {
                 if (matched) {
@@ -304,7 +401,11 @@ public class GameView extends SurfaceView implements Runnable {
                         cardSprites.remove(selectedCards.get(1));
                         selectedCards.clear();
                         framesSinceDisplayRevealedCard = 0;
-                    } else{
+                        handleRoundEnd();
+                        numConsecutiveMatches++;
+                        new UpdateAchievement().execute();
+
+                    } else {
                         framesSinceDisplayRevealedCard++;
                     }
 
@@ -312,7 +413,8 @@ public class GameView extends SurfaceView implements Runnable {
                     attemptLimit = gameSettings.getAttempts();
                     framesToDisplayRevealedCard = gameSettings.getRevealTime() * MAX_FPS;
                     //***************************************************************************************************************
-                } else{
+                } else {
+                    numConsecutiveMatches = 0;
                     numFailures++;
                     selectedCards.get(0).setCardState(CardState.HIDING);
                     selectedCards.get(1).setCardState(CardState.HIDING);
@@ -325,37 +427,47 @@ public class GameView extends SurfaceView implements Runnable {
 
         }
 
-        handleRoundEnd();
+    }
+
+    private void updateAchievement() {
+        Log.d(TAG, "updateAchievement: Update");
+        int matches = userProgress.getAchievement() + 1;
+        userProgress.setAchievement(matches);
     }
 
     private void handleRoundEnd() {
         //*********************************************************************************************************************
         //If 5 Successful Rounds promoted to next level
         //If counter is less than 5, add to round if exceeds 5- level is promoted and round counter restarts
-        if(cardSprites.size() == 0){
-            if(roundCounter < numRounds){
+        if (cardSprites.size() == 0) {
+            if (roundCounter < numRounds) {
                 roundCounter++;
-            }else if(roundCounter == numRounds){
+            } else if (roundCounter == numRounds) {
                 //Write to Firebase next level and change game settings difficulty
-                switch (userProgress.getGame_Level()){
+                switch (userProgress.getLevel()) {
                     case "EASY":
-                        myRef.child("Game_Level").setValue("EASY_PLUS");
+                        userProgress.setLevel("EASY_PLUS");
+                        myRef.child("Level").setValue(userProgress.getLevel());
                         gameSettings = new GameSettings(Difficulty.EASY_PLUS);
                         break;
                     case "EASY_PLUS":
-                        myRef.child("Game_Level").setValue("MEDIUM");
+                        userProgress.setLevel("MEDIUM");
+                        myRef.child("Level").setValue(userProgress.getLevel());
                         gameSettings = new GameSettings(Difficulty.MEDIUM);
                         break;
                     case "MEDIUM":
-                        myRef.child("Game_Level").setValue("MEDIUM_PLUS");
+                        userProgress.setLevel("MEDIUM_PLUS");
+                        myRef.child("Level").setValue(userProgress.getLevel());
                         gameSettings = new GameSettings(Difficulty.MEDIUM_PLUS);
                         break;
                     case "MEDIUM_PLUS":
-                        myRef.child("Game_Level").setValue("HARD");
+                        userProgress.setLevel("HARD");
+                        myRef.child("Level").setValue(userProgress.getLevel());
                         gameSettings = new GameSettings(Difficulty.HARD);
                         break;
                     case "HARD":
-                        myRef.child("Game_Level").setValue("HARD_PLUS");
+                        userProgress.setLevel("HARD_PLUS");
+                        myRef.child("Level").setValue(userProgress.getLevel());
                         gameSettings = new GameSettings(Difficulty.HARD_PLUS);
                         break;
                 }
@@ -363,7 +475,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
             initialise();
             framesSinceStop = 0;
-        }else if(numFailures == attemptLimit){
+        } else if (numFailures == attemptLimit) {
             //reset this round
             initialise();
 //            roundCounter = 1;
@@ -391,6 +503,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
+        Log.d("GameView.run", "run: Loop: " + System.currentTimeMillis());
         while (isRunning) {
             if (hasInitialised) {
                 // We need to make sure that the surface is ready
@@ -430,6 +543,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     float framesSinceStop = 0;
+
     private void step() {
         birdSprite.move();
         if (birdSprite.getX() >= screenWidth) birdSprite.setX(0);
@@ -467,9 +581,9 @@ public class GameView extends SurfaceView implements Runnable {
         textPaint.setStyle(Paint.Style.FILL);
 
         textPaint.setTextSize(42);
-        float x = canvasGrid.getXPixels(canvasGrid.getNumXCells()-10);
+        float x = canvasGrid.getXPixels(canvasGrid.getNumXCells() - 10);
         float y = canvasGrid.getYPixels(2);
-        canvas.drawText("Attempts Left: "+(attemptLimit - numFailures), x, y, textPaint);
+        canvas.drawText("Attempts Left: " + (attemptLimit - numFailures), x, y, textPaint);
 
 //        drawGrid(canvas);
     }
@@ -480,12 +594,30 @@ public class GameView extends SurfaceView implements Runnable {
         // columns
         for (currentX = 0; currentX <= screenWidth; currentX += canvasGrid.getCellWidth()) {
             paint.setARGB(120, 255, 255, 255);
-            canvas.drawLine(currentX,  0, currentX, screenHeight, paint);
+            canvas.drawLine(currentX, 0, currentX, screenHeight, paint);
         }
         // rows
         for (currentY = 0; currentY <= screenHeight; currentY += canvasGrid.getCellHeight()) {
             paint.setARGB(120, 255, 255, 255);
-            canvas.drawLine(0,  currentY, screenWidth, currentY, paint);
+            canvas.drawLine(0, currentY, screenWidth, currentY, paint);
+        }
+    }
+
+    class UpdateAchievement extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d(TAG, "updateAchievement: Update");
+            int matches = userProgress.getAchievement() + 1;
+            userProgress.setAchievement(matches);
+            myRef.child("Achievement").setValue(userProgress.getAchievement());
+
+            if(numConsecutiveMatches > userProgress.getConsecutiveMatches()){
+                userProgress.setConsecutiveMatches(numConsecutiveMatches);
+            }
+
+            myRef.child("ConsecutiveMatches").setValue(userProgress.getConsecutiveMatches());
+            return null;
         }
     }
 
