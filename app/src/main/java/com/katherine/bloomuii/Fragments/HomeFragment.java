@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.katherine.bloomuii.Games.MatchShape.ShapeMain;
+import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
 import com.katherine.bloomuii.Games.MatchingCard.MatchingCardsMain;
 import com.katherine.bloomuii.Games.Math.MathFragment;
 import com.katherine.bloomuii.Games.Order.OrderFragment;
@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
         itemShape.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ShapeMain.class));
+                startActivity(new Intent(getActivity(), MatchShapesActivity.class));
             }
         });
     }

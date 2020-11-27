@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.katherine.bloomuii">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Games.MatchingCard.MatchingCardsMain"/>
-        <activity android:name=".Games.MatchShape.ShapeMain"/>
-        <activity android:name=".Games.Puzzle.PuzzleLogic"/>
-        <activity android:name=".Games.Puzzle.PuzzleMain"/>
+        <activity android:name=".Games.MatchShape.MatchShapesActivity"></activity>
+        <activity android:name=".Games.MatchingCard.MatchingCardsMain" />
+        <activity android:name=".Games.MatchShape.ShapeMain" />
+        <activity android:name=".Games.Puzzle.PuzzleLogic" />
+        <activity android:name=".Games.Puzzle.PuzzleMain" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.SignupActivity" />
         <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.SplashActivity" >
-
+        <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
