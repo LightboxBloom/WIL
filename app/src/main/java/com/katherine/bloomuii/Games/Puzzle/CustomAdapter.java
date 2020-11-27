@@ -13,10 +13,13 @@ Reason: This class is used to organize the data in the Array list
         of buttons.
 Parameters:
 Team Member: Cameron White
+Date: 9 June 2020
+Version: 1
 Date: 10 June 2020
 Version: 2
+Date: 14 Aug 2020
+Version: 3
 */
-
 
 public class CustomAdapter extends BaseAdapter {
     private ArrayList<Button> mButtons;

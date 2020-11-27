@@ -1,39 +1,41 @@
 package com.katherine.bloomuii.Games.Puzzle;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 /*
 Class name: Puzzle Logic
 Reason: This class creates and handles the puzzle logic - dependent on which
         puzzle the user has chosen.
 Parameters:
 Team Member: Cameron White
+Date: 9 June 2020
+Version: 1
 Date: 10 June 2020
 Version: 2
+Date: 14 Aug 2020
+Version: 3
 */
-
 public class PuzzleLogic extends AppCompatActivity {
 
-    private static int COLUMNS;
-    private static int DIMENSIONS;
-    private static int puzzleID;
-
+    private static int COLUMNS, ROWS, DIMENSIONS, puzzleID;
     private static String [] tileList;
-
     private static GestureDetectGridView mGridView;
-
     private static int mColumnWidth, mColumnHeight;
-
     public static final String UP = "up";
     public static final String DOWN = "down";
     public static final String LEFT = "left";
@@ -47,15 +49,18 @@ public class PuzzleLogic extends AppCompatActivity {
 
         puzzleID = getIntent().getIntExtra("puzzleID",1);
         COLUMNS = getIntent().getIntExtra("puzzleColumns",0);
+        ROWS = getIntent().getIntExtra("puzzleRows",0);
         DIMENSIONS = COLUMNS*COLUMNS;
 
+        //create tile list and set up grid view
         init();
 
+        //scramble the tiles
         scramble();
 
+        //set the dimensions of the tiles
         setDimensions();
     }
-
     //Set the dimensions of the based on number of puzzle pieces
     private void setDimensions() {
         ViewTreeObserver vto = mGridView.getViewTreeObserver();
@@ -76,7 +81,6 @@ public class PuzzleLogic extends AppCompatActivity {
             }
         });
     }
-
     //Get status bar height - to ensure full screen image
     private int getStatusBarHeight (Context context){
         int result = 0;
@@ -88,89 +92,83 @@ public class PuzzleLogic extends AppCompatActivity {
         }
         return result;
     }
-
     //Create and display the puzzle to the user (add button tiles to grid)
     private static void display(Context context) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
+        ArrayList<BitmapDrawable> drawables = splitImage(context);
 
-        if (puzzleID==1){
-            for (int i=0; i<tileList.length;i++) {
-                button = new Button(context);
-
-                if (tileList[i].equals("0")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece1);
-                } else if (tileList[i].equals("1")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece2);
-                } else if (tileList[i].equals("2")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece3);
-                } else if (tileList[i].equals("3")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece4);
-                } else if (tileList[i].equals("4")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece5);
-                } else if (tileList[i].equals("5")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece6);
-                } else if (tileList[i].equals("6")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece7);
-                } else if (tileList[i].equals("7")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece8);
-                } else if (tileList[i].equals("8")) {
-                    button.setBackgroundResource(R.drawable.pigeon_piece9);
+        //loop through tile list to initialise and set button background
+        for (int i=0; i<tileList.length;i++) {
+            button = new Button(context);
+            for (int k=0; k<tileList.length;k++){
+                if (tileList[i].equals(String.valueOf(k)))
+                {
+                    button.setBackground(drawables.get(k));
                 }
-                buttons.add(button);
             }
-
-        }else if(puzzleID==2){
-
-            for (int i=0; i<tileList.length;i++) {
-                button = new Button(context);
-
-                if (tileList[i].equals("0")) {
-                    button.setBackgroundResource(R.drawable.dog_piece1);
-                } else if (tileList[i].equals("1")) {
-                    button.setBackgroundResource(R.drawable.dog_piece2);
-                } else if (tileList[i].equals("2")) {
-                    button.setBackgroundResource(R.drawable.dog_piece3);
-                } else if (tileList[i].equals("3")) {
-                    button.setBackgroundResource(R.drawable.dog_piece4);
-                } else if (tileList[i].equals("4")) {
-                    button.setBackgroundResource(R.drawable.dog_piece5);
-                } else if (tileList[i].equals("5")) {
-                    button.setBackgroundResource(R.drawable.dog_piece6);
-                } else if (tileList[i].equals("6")) {
-                    button.setBackgroundResource(R.drawable.dog_piece7);
-                } else if (tileList[i].equals("7")) {
-                    button.setBackgroundResource(R.drawable.dog_piece8);
-                } else if (tileList[i].equals("8")) {
-                    button.setBackgroundResource(R.drawable.dog_piece9);
-                } else if (tileList[i].equals("9")) {
-                    button.setBackgroundResource(R.drawable.dog_piece10);
-                } else if (tileList[i].equals("10")) {
-                    button.setBackgroundResource(R.drawable.dog_piece11);
-                } else if (tileList[i].equals("11")) {
-                    button.setBackgroundResource(R.drawable.dog_piece12);
-                } else if (tileList[i].equals("12")) {
-                    button.setBackgroundResource(R.drawable.dog_piece13);
-                } else if (tileList[i].equals("13")) {
-                    button.setBackgroundResource(R.drawable.dog_piece14);
-                } else if (tileList[i].equals("14")) {
-                    button.setBackgroundResource(R.drawable.dog_piece15);
-                } else if (tileList[i].equals("15")) {
-                    button.setBackgroundResource(R.drawable.dog_piece16);
-                }
-                buttons.add(button);
-            }
+            buttons.add(button);
         }
 
+        //add the adapter to the grid view
         mGridView.setAdapter(new CustomAdapter(buttons, mColumnWidth, mColumnHeight));
     }
+    //Split single image into smaller pieces
+    private static ArrayList<BitmapDrawable> splitImage(Context context) {
 
+        int chunkNumbers = COLUMNS*COLUMNS;
+        Bitmap image;
+
+        //set puzzle picture based on puzzle id
+        if(puzzleID==1){
+            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.pigeon);
+        }else if(puzzleID==2){
+            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.spring_bok_toy);
+        }else{
+            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.train);
+        }
+
+        //For the number of rows and columns of the grid to be displayed
+        int rows,cols;
+
+        //For height and width of the small image chunks
+        int chunkHeight,chunkWidth;
+
+        //To store all the small image chunks in bitmap format in this list
+        ArrayList<BitmapDrawable> chunkedImages = new ArrayList<BitmapDrawable>(chunkNumbers);
+
+        //Getting the scaled bitmap of the source image
+        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), image);
+        Bitmap bitmap = drawable.getBitmap();
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(),
+                bitmap.getHeight(), true);
+        chunkHeight = bitmap.getHeight() / COLUMNS;
+        chunkWidth = bitmap.getWidth() / COLUMNS;
+
+        //xCoord and yCoord are the pixel positions of the image chunks
+        int yCoord = 0;
+
+        //adding bitmaps in correct positions
+        for(int x = 0; x < COLUMNS; x++) {
+            int xCoord = 0;
+            for(int y = 0; y < COLUMNS; y++) {
+                chunkedImages.add(new BitmapDrawable(
+                        context.getResources(),
+                        Bitmap.createBitmap(scaledBitmap, xCoord, yCoord, chunkWidth, chunkHeight)));
+                xCoord += chunkWidth;
+            }
+            yCoord += chunkHeight;
+        }
+
+        return chunkedImages;
+    }
     //scramble the tiles
     private void scramble() {
         int index;
         String temp;
         Random random = new Random();
 
+        //create a random order of the tiles
         for (int i = tileList.length-1; i>0; i--)
         {
             index = random.nextInt(i+1);
@@ -179,31 +177,44 @@ public class PuzzleLogic extends AppCompatActivity {
             tileList[i] = temp;
         }
     }
-
     //Build up tile list and setup grid view
     public void init(){
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
         mGridView.setNumColumns(COLUMNS);
 
         tileList = new String[DIMENSIONS];
+        //
         for(int i = 0; i<DIMENSIONS; i++){
             tileList[i] = String.valueOf(i);
         }
     }
-
     //Create swap tile functionality
     public static void swap(Context context, int position, int swap){
         String newPosition = tileList[position+swap];
         tileList[position + swap] = tileList[position];
         tileList[position] = newPosition;
         display(context);
-
+        //check if the puzzle is solved
         if (isSolved()){
-            Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            UserScore user = UserScore.getInstance();
+            user.addScore();
+            //check if achievement should be rewarded
+            if (user.hasAchievement()){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Congratulations!")
+                        .setMessage("You have completed " + user.getScore() + " puzzles")
+                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+            else{
+                Toast.makeText(context,"Puzzle completed!",Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
-
     //Check if the puzzle is solved
     private static boolean isSolved() {
         boolean solved = false;
@@ -219,7 +230,6 @@ public class PuzzleLogic extends AppCompatActivity {
 
         return solved;
     }
-
     //Handle tile movement
     public static void moveTiles(Context context, String direction, int position) {
 
@@ -252,7 +262,8 @@ public class PuzzleLogic extends AppCompatActivity {
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Right-side AND bottom-right-corner tiles
-        } else if (position == COLUMNS * 2 - 1 || position == COLUMNS * 3 - 1) {
+        } else if (position == COLUMNS * 2 - 1 || position == COLUMNS * 3 - 1
+                || position == COLUMNS * 4 - 1) {
             if (direction.equals(UP)) swap(context, position, -COLUMNS);
             else if (direction.equals(LEFT)) swap(context, position, -1);
             else if (direction.equals(DOWN)) {

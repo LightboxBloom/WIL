@@ -14,10 +14,13 @@ Reason: This class is used to detect and implement the motion
         events passed to it.
 Parameters:
 Team Member: Cameron White
+Date: 9 June 2020
+Version: 1
 Date: 10 June 2020
 Version: 2
+Date: 14 Aug 2020
+Version: 3
 */
-
 
 public class GestureDetectGridView extends GridView {
 
@@ -26,6 +29,7 @@ public class GestureDetectGridView extends GridView {
     private float mTouchX;
     private float mTouchY;
 
+    //swipe distances for method activation
     //ToDo: May need to change distances depending on device
     private static final int SWIPE_MIN_DISTANCE = 100;
     private static final int SWIPE_MAX_OFF_PATH = 100;
@@ -54,15 +58,18 @@ public class GestureDetectGridView extends GridView {
     }
 
     private void init(final Context context) {
+        //listen for user gesture
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
             }
 
+            //check direction of movement and speed
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
+                //get position on screen
                 final int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(e1.getX()), Math.round(e1.getY()));
 
@@ -102,6 +109,7 @@ public class GestureDetectGridView extends GridView {
         int action = ev.getActionMasked();
         gDetector.onTouchEvent(ev);
 
+        //get user point of contact
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mFlingConfirmed = false;
         } else if (action == MotionEvent.ACTION_DOWN) {
