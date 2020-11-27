@@ -89,12 +89,16 @@ public class AddEntryFragment extends Fragment {
     }
 
     //back arrow
-    private void btnBackClicked()
-    {
+    //Back Button Functionality
+    private void btnBackClicked() {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new DiaryFragment()).commit();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                DiaryFragment diaryEntry = new DiaryFragment();
+                fragmentTransaction.replace(R.id.fragmentContainer, diaryEntry);
+                fragmentTransaction.commit();
             }
         });
     }
@@ -223,10 +227,14 @@ public class AddEntryFragment extends Fragment {
                         myRef.child("Diary_Date").setValue(entry.getDiary_Date());
                         myRef.child("Diary_Emotion").setValue(entry.getDiary_Emotion());
                         myRef.child("Diary_Entry").setValue(entry.getDiary_Entry());
-//TODO: Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
+//TODO: @Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
 //**************************************************************************************************************************************
                         // this is done correctly, i dont understand why its taking you to the login activity.
-                        getFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new DiaryFragment()).commit();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        DiaryFragment diaryEntry = new DiaryFragment();
+                        fragmentTransaction.replace(R.id.fragmentContainer, diaryEntry);
+                        fragmentTransaction.commit();
 //*************************************************************************************************************************************
                         Toast.makeText(getActivity(), "Diary Entry Added", Toast.LENGTH_SHORT).show();
                     } else {

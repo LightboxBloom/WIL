@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth  mAuth;
     private FirebaseDatabase database;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,29 +70,29 @@ public class LoginActivity extends AppCompatActivity {
             txtSendEmailResetPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(!errorFeedback.getText().toString().equals("Email Sent")) {
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "Email sent.");
+                                            errorFeedback.setText("Email Sent.");
 
-                    FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, "Email sent.");
-                                        errorFeedback.setText("Email Sent.");
-
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }
                 }
             });
         }
-             else{
+         else{
             errorFeedback.setText("Email required.");
         }
     }
     //Login button clicked
     private void btn_login(final FirebaseAuth mAuth) {
-
-
+        errorFeedback.setText("");
         //Authentication
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,15 +121,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     //Authenticate User details to allow Access
     public void Login(){
+        //If verified login
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //If Login Successful - Allow Access
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        //If Login Successful - Allow Access
+                        if(checkIfEmailisVerified()) {
                             Log.d(TAG, "signInWithEmail:success");
 
                             final FirebaseUser user = mAuth.getCurrentUser();
@@ -136,15 +138,44 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("CurrentUser", user.getUid());
                             startActivity(i);
                         }
-                         else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                           errorFeedback.setText("Incorrect credentials.");
-                           progress.setVisibility(View.INVISIBLE);
+                        else{
+                            sendVerification();
+                            errorFeedback.setText("Email is not verified");
                         }
-                    }});
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        errorFeedback.setText("Incorrect credentials.");
+                        progress.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        }
+    private boolean checkIfEmailisVerified(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user.isEmailVerified()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+    //Send Email Verification if account is not verified
+    private void sendVerification(){
+        FirebaseUser user = mAuth.getCurrentUser();
 
+        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    // email sent
+                    // after email is sent just logout the user and finish this activity
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                }
+            }
+        });
+    }
     //Check if user is signed in and update UI accordingly
     public void onStart(){
         super.onStart();

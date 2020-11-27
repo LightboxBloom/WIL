@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
             }
         });
         setProfilePicture();
-        ViewJoinedClassrooms();
+        ViewClassrooms();
         Puzzle();
         MatchShape();
         Unjumble();
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void ViewJoinedClassrooms(){
+    private void ViewClassrooms(){
         viewClassrooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
     private void MatchShape() {
         itemShape.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +117,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
     private void Puzzle(){
         itemPuzzle.setOnClickListener(new View.OnClickListener() {
             @Override

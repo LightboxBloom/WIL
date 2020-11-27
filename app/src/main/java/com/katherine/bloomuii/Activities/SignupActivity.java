@@ -17,14 +17,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.katherine.bloomuii.R;
 import com.katherine.bloomuii.ObjectClasses.User;
 import com.katherine.bloomuii.Validation.Validator;
@@ -52,7 +58,10 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private boolean validationPass = true;
+    private boolean passedFlags = false;
+    private boolean emailExists;
+    private String emailAddress;
+    private Validator v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +82,7 @@ public class SignupActivity extends AppCompatActivity {
         myRef = database.getReference("Users");
         mAuth = FirebaseAuth.getInstance();
 
+
         //DatePicker Functionality
         datePicker();
 
@@ -86,7 +96,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
                 else {
                     //Initialize the Validator
-                    Validator v = new Validator();
+                    v = new Validator();
                     //Validate password - According to Password Policy in Validator Class
 
                     v.CheckIfDigitExists(password.getText().toString());
@@ -96,8 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                     //checkUserNameExists();
                     //If all validation tests are passed - Register the user and then navigate to the Login Activity
                     if(v.isCapsExistFlag() && v.isDigitExistsFlag() && v.isLengthCheckFlag() && v.isMatchFlag()) {
-                        btnRegister(mAuth);
-                        startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                        ifEmailExists(email.getText().toString());
                     }
                     else{
                         errorFeedback.setText(v.getStrError());
@@ -108,7 +117,6 @@ public class SignupActivity extends AppCompatActivity {
         //Text at the bottom of the activity to Navigate to Login
         goToLogin();
     }
-
     //Configure Date Picker
     private void datePicker() {
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -140,26 +148,26 @@ public class SignupActivity extends AppCompatActivity {
         };
 
     }
-
     //Register new User to Firebase and Write User information to Firebase
     private void btnRegister(final FirebaseAuth mAuth) {
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(@NonNull AuthResult authResult) {
+                mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(@NonNull AuthResult authResult) {
 
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(fullName.getText().toString()).build();
-                        //Save new Users Information
-                        User newUser = new User(email.getText().toString(), fullName.getText().toString(), mDisplayDate.getText().toString(), "English");
-                        SaveUserToDatabase(newUser);
-                        Toast.makeText(SignupActivity.this, "Authentication success.",
-                                                      Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(fullName.getText().toString()).build();
+                                //Save new Users Information
+                                User newUser = new User(email.getText().toString(), fullName.getText().toString(), mDisplayDate.getText().toString(), "English");
+                                SaveUserToDatabase(newUser);
+
+                                Toast.makeText(SignupActivity.this, "Authentication success.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // If sign in fails, display a message to the user.
@@ -167,8 +175,7 @@ public class SignupActivity extends AppCompatActivity {
                         errorFeedback.setText("Account Creation failed");
                     }
                 });
-    }
-
+        }
 
     //Navigate to Login if Text clicked by User
     private void goToLogin() {
@@ -181,7 +188,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-
     //Write new user that successfully registered to Firebase
     public void SaveUserToDatabase(User newUser)
     {
@@ -194,6 +200,39 @@ public class SignupActivity extends AppCompatActivity {
         myRef.child(mAuth.getUid()).child("Language_Preference").setValue(newUser.getLanguage_Preference());
         myRef.child(mAuth.getUid()).child("Notification_Status").setValue("true");
         myRef.child(mAuth.getUid()).child("User_ID").setValue(mAuth.getUid());
+    }
+    //IfEmailExists
+    private void ifEmailExists(final String emailAddress){
+        this.emailAddress = emailAddress;
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean exists = false;
+                if(!emailAddress.equals("")) {
+                    Iterable<DataSnapshot> children = snapshot.getChildren();
+                for(DataSnapshot child: children){
+                    User user = child.getValue(User.class);
+                    if(user!=null){
+                        if (user.getEmail_Address().equals(emailAddress.trim())) {
+                            exists = true;
+                        }
+                    }
+                }
+                if(!exists){
+                    passedFlags = true;
+                    btnRegister(mAuth);
+                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                }
+                else{
+                    errorFeedback.setText("Email already exists. Please try another email");
+                }
+            }
+        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }//End of Activity
 
