@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:orientation="vertical">
 
     <!--instructions to be displayed before the first button is clicked then disappears when one of the buttons is clicked-->

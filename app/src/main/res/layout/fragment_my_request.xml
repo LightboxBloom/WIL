@@ -50,12 +50,14 @@ android:orientation="vertical">
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="215dp"
-            android:layout_height="50dp" >
+            android:layout_width="193dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="0dp">
 
             <TextView
                 android:id="@+id/txtReceivedRequests"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="62dp"
                 android:layout_marginTop="8dp"
@@ -65,12 +67,14 @@ android:orientation="vertical">
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="215dp"
-            android:layout_height="50dp" >
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/txtSentRequests"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="75dp"
                 android:layout_marginTop="8dp"

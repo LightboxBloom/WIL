@@ -101,6 +101,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="4dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="40dp"></TextView>
 
     <TextView
@@ -111,6 +112,7 @@
         android:textAlignment="center"
         android:background="@color/txtBackground"
         android:textSize="20sp"
+        android:fontFamily="@font/abeezee"
         android:layout_x="5dp"
         android:layout_y="40dp"></TextView>
 
@@ -123,6 +125,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="135dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="40dp"></TextView>
 
     <TextView
@@ -134,6 +137,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="275dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="40dp"></TextView>
 
     <TextView
@@ -145,6 +149,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="5dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="100dp"></TextView>
 
     <TextView
@@ -156,6 +161,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="135dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="100dp"></TextView>
 
     <TextView
@@ -167,6 +173,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="275dp"
+        android:fontFamily="@font/abeezee"
         android:layout_y="100dp"></TextView>
 
 </AbsoluteLayout>
