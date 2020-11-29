@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +39,7 @@ public class MyRequestFragment extends Fragment {
     TextView sentRequest;
     ListView lvMyRequests;
     ImageView mBack;
+    ProgressBar progressBar;
     //Global general Initializations
     private ArrayList<ReceivedRequest> receivedRequests;
     private ArrayList<SentRequest> sentRequests;
@@ -49,7 +52,6 @@ public class MyRequestFragment extends Fragment {
     private DatabaseReference myUsersRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MyRequestFragment extends Fragment {
         receivedRequest = view.findViewById(R.id.txtReceivedRequests);
         sentRequest = view.findViewById(R.id.txtSentRequests);
         mBack = view.findViewById(R.id.btnPuzzleBack);
+        progressBar = view.findViewById(R.id.pRequests);
         //Firebase Declarations
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -70,10 +73,12 @@ public class MyRequestFragment extends Fragment {
         //Variable Declarations
         sentRequests = new ArrayList<>();
         receivedRequests = new ArrayList<>();
+
         //On button Press retrieve received requests
         receivedRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 retrieveReceivedRequests();
             }
         });
@@ -81,11 +86,13 @@ public class MyRequestFragment extends Fragment {
         sentRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 retrieveSentRequests();
             }
         });
         //On button Navigate to Previous Fragment
         btnBackClicked();
+        progressBar.setVisibility(View.INVISIBLE);
         return view;
     }
     //Retrieve users received requests from firebase
@@ -103,9 +110,15 @@ public class MyRequestFragment extends Fragment {
                             receivedRequests.add(request);
                         }
                     }
-                    //Display List of Requests
+                }
+                if(!receivedRequests.isEmpty()) {
                     processRequestDetailsandDisplay();
                 }
+                else {
+                    receivedRequestsAdapter = new ReceivedRequestAdapter(getContext(), android.R.layout.simple_list_item_1, receivedRequests);
+                    lvMyRequests.setAdapter(receivedRequestsAdapter);
+                }
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -138,8 +151,9 @@ public class MyRequestFragment extends Fragment {
                     lvMyRequests.setAdapter(sentRequestsAdapter);
                 }
                 else{
-                    //Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -158,11 +172,10 @@ public class MyRequestFragment extends Fragment {
                     for (DataSnapshot child : children) {
                         User teacher = child.getValue(User.class);
                         if (teacher != null) {
-                            if(!receivedRequests.isEmpty()) {
-                                for (ReceivedRequest request : receivedRequests) {
-                                    if (teacher.getUser_ID().equals(request.getTeacher_Id())) {
-                                        request.setTeacher_Name(teacher.getFull_Name());
-                                    }
+                            for (ReceivedRequest request : receivedRequests) {
+                                if (teacher.getUser_ID().equals(request.getTeacher_Id())) {
+                                    request.setTeacher_Name(teacher.getFull_Name());
+                                    break;
                                 }
                             }
                         }

@@ -35,6 +35,7 @@ public class CreateClassroomFragment extends Fragment {
     //Firebase Intializations
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private DatabaseReference classRef;
     private DatabaseReference currentUserRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
@@ -54,6 +55,7 @@ public class CreateClassroomFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         myRef = database.getReference("Users/" + currentUser.getUid() + "/MyClassrooms");
+        classRef = database.getReference("Classrooms/");
         currentUserRef = database.getReference("Users/" + currentUser.getUid());
         //Retrieve all Classroom Ids
         createClass = new ClassroomHandler();
@@ -76,6 +78,9 @@ public class CreateClassroomFragment extends Fragment {
                     myRef.child(String.valueOf(createClass.getClassId())).child("Classroom_Name").setValue(classroomName.getText().toString());
                     myRef.child(String.valueOf(createClass.getClassId())).child("Classroom_Id").setValue(createClass.getClassId());
                     myRef.child(String.valueOf(createClass.getClassId())).child("Teacher_Name").setValue(user.getFull_Name());
+                    classRef.child(String.valueOf(createClass.getClassId())).child("Classroom_Name").setValue(classroomName.getText().toString());
+                    classRef.child(String.valueOf(createClass.getClassId())).child("Classroom_Id").setValue(createClass.getClassId());
+                    classRef.child(String.valueOf(createClass.getClassId())).child("Teacher_Id").setValue(currentUser.getUid());
                     navigateToClassroomList();
                 }
             }

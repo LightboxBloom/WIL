@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class ViewClassroomFragment extends Fragment {
     TextView joinedClass;
     TextView myClass;
     ImageView mBack;
+    ProgressBar progressBar;
     //Firebase Initializations
     private FirebaseDatabase database;
     private DatabaseReference myclassRef;
@@ -57,6 +59,7 @@ public class ViewClassroomFragment extends Fragment {
         viewRequest = view.findViewById(R.id.btnViewRequests);
         lvClassroom = view.findViewById(R.id.lvClassroom);
         joinedClass = view.findViewById(R.id.txtJoinedClasses);
+        progressBar = view.findViewById(R.id.pClassroom);
         myClass = view.findViewById(R.id.txtMyClasses);
         mBack = view.findViewById(R.id.btnPuzzleBack);
         //Firebase Declarations
@@ -66,7 +69,7 @@ public class ViewClassroomFragment extends Fragment {
         myclassRef = database.getReference().child("Users/"+currentUser.getUid()+"/MyClassrooms");
         joinedClassRef = database.getReference().child("Users/"+currentUser.getUid()+"/JoinedClassrooms");
         //Global Variable Declarations
-        typeOfClass = "JoinedClass";
+        typeOfClass = "MyClassrooms";
         myclasses = new ArrayList<>();
         joinedclasses = new ArrayList<>();
         bundle = new Bundle();
@@ -77,6 +80,7 @@ public class ViewClassroomFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 typeOfClass = "JoinedClassrooms";
+                progressBar.setVisibility(View.VISIBLE);
                 retrieveJoinedClassrooms();
             }
         });
@@ -85,9 +89,12 @@ public class ViewClassroomFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 typeOfClass = "MyClassrooms";
+                progressBar.setVisibility(View.VISIBLE);
                 retrieveMyClassrooms();
             }
         });
+        //Navigate to File Repo List
+        getClassroomSelected();
         //On button pressed Navigate to create Classroom Fragment
         createClassroom();
         //On button pressed Navigate to send Requests Fragment
@@ -96,6 +103,7 @@ public class ViewClassroomFragment extends Fragment {
         viewRequests();
         //On button pressed Navigate to previous Fragment
         btnBackClicked();
+        progressBar.setVisibility(View.INVISIBLE);
         return view;
     }
     //Retrieve all Users Joined Classes ie User is Student
@@ -118,6 +126,7 @@ public class ViewClassroomFragment extends Fragment {
                 else{
                     //Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -147,6 +156,7 @@ public class ViewClassroomFragment extends Fragment {
                 else{
                     //Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -214,19 +224,19 @@ public class ViewClassroomFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                FileRepoFragment fileRepoFragment = new FileRepoFragment();
+                MyClassroomFragment myClassroomFragment = new MyClassroomFragment();
                 if(typeOfClass.equals("JoinedClassrooms")) {
-                    bundle.putString("ClassroomId", joinedclasses.get(i).getClassroom_Id());
+                    bundle.putInt("ClassroomId", joinedclasses.get(i).getClassroom_Id());
                     bundle.putString("ClassroomName", joinedclasses.get(i).getClassroom_Name());
-                    bundle.putString("FilePath", typeOfClass);
+                    bundle.putString("TypeOfClass", typeOfClass);
                 }
                 else if(typeOfClass.equals("MyClassrooms")){
-                    bundle.putString("ClassroomId", myclasses.get(i).getClassroom_Id());
+                    bundle.putInt("ClassroomId", myclasses.get(i).getClassroom_Id());
                     bundle.putString("ClassroomName", myclasses.get(i).getClassroom_Name());
-                    bundle.putString("FilePath", typeOfClass);
+                    bundle.putString("TypeOfClass", typeOfClass);
                 }
-                fileRepoFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragmentContainer, fileRepoFragment);
+                myClassroomFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragmentContainer, myClassroomFragment);
                 fragmentTransaction.commit();
             }
         });

@@ -70,6 +70,7 @@ public class DiaryFragment extends Fragment {
                     }
                 }
                 if(entries.size() >= 0){
+                    entries = reverseEntries();
                     diaryAdapter = new DiaryAdapter(getContext(),android.R.layout.simple_list_item_1,entries);
                     lvEntries.setAdapter(diaryAdapter);
                 }
@@ -90,6 +91,14 @@ public class DiaryFragment extends Fragment {
         //On button pressed retrieve item details and Navigate to viewDiary Fragment
         getSelectedItem();
         return view;
+    }
+    //Reverse Array List for viewing purposes
+    private ArrayList<DiaryEntry> reverseEntries(){
+        ArrayList<DiaryEntry> reversedEntries = new ArrayList<>();
+        for(int i = entries.size()-1; i>=0;i--){
+            reversedEntries.add(entries.get(i));
+        }
+        return reversedEntries;
     }
     //Navigate to Add Diary Entry Fragment
     private void AddEntry() {
