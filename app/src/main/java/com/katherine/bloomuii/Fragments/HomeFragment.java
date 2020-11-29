@@ -1,7 +1,6 @@
 /*Created by: Katherine Chambers
 * Edited by: Rohini Naidu 28/06/2020*/
 package com.katherine.bloomuii.Fragments;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,16 +36,18 @@ import com.katherine.bloomuii.Games.PartOfSpeech.PartOfSpeechMenuActivity;
 import com.katherine.bloomuii.Games.PhotoLabel.PhotoLabelMenu;
 import com.katherine.bloomuii.Games.Puzzle.PuzzleMain;
 import com.katherine.bloomuii.Games.Unjumble.UnjumbleFragment;
+import com.katherine.bloomuii.Handlers.StoryBoardHandler;
 import com.katherine.bloomuii.R;
 import com.katherine.bloomuii.ObjectClasses.User;
 import com.squareup.picasso.Picasso;
-
 public class HomeFragment extends Fragment {
-
+    //UI Components
     TextView fullName;
     CardView itemPuzzle, itemShape, itemUnjumble, itemMatching, itemOrder, itemMath, itemLabel, itemPartOfSpeech;
     ImageView mProfilePicture;
     FloatingActionButton viewClassrooms;
+    ImageView image;
+    TextView message;
     //Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -54,12 +55,11 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private StorageReference storage;
     private StorageReference fileRef;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        //UI Components
         fullName = view.findViewById(R.id.txtHomeUsername);
         itemPuzzle = view.findViewById(R.id.itemPuzzle);
         itemShape = view.findViewById(R.id.itemShapes);
@@ -71,6 +71,8 @@ public class HomeFragment extends Fragment {
         itemPartOfSpeech = view.findViewById(R.id.itemPartOfSpeech);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
         viewClassrooms = view.findViewById(R.id.btnViewClassrooms);
+        image = view.findViewById(R.id.imgStoryBoard);
+        message = view.findViewById(R.id.txtStoryboardContent);
         //Firebase Declarations
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -92,6 +94,7 @@ public class HomeFragment extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        setStoryBoard();
         setProfilePicture();
         ViewClassrooms();
         Puzzle();
@@ -104,7 +107,14 @@ public class HomeFragment extends Fragment {
         PartOfSpeech();
         return view;
     }
-
+    //Set up StoryBoard
+    private void setStoryBoard(){
+        StoryBoardHandler sth = new StoryBoardHandler();
+        int resID = getResources().getIdentifier(sth.getImage(),"drawable", getContext().getPackageName());
+        image.setImageResource(resID);
+        message.setText(sth.getMessage());
+    }
+    //Navigation
     private void ViewClassrooms(){
         viewClassrooms.setOnClickListener(new View.OnClickListener() {
             @Override

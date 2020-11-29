@@ -27,13 +27,13 @@
                 android:src="@drawable/ic_back"/>
 
             <TextView
-                android:id="@+id/txtClassroomName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="50dp"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
+                android:text="My Files"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
                 android:textSize="32sp" />
@@ -43,46 +43,30 @@
 
     <!--    displaying mood entries-->
 
-    <ScrollView
+    <ProgressBar
+        android:id="@+id/pLoadFiles"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="1"
-            android:padding="15dp">
-
-            <GridView
-                android:id="@+id/grFiles"
-                android:layout_width="match_parent"
-                android:layout_height="606dp"
-                android:layout_marginTop="75dp" />
-
-        </GridLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryDark" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:gravity="bottom">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp"
+        android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnLeaveClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:elevation="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:elevation="10dp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/lvFiles"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>

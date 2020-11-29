@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else{
                             sendVerification();
-                            errorFeedback.setText("Email is not verified");
+                            errorFeedback.setText("Email is not verified. Check your Email.");
                         }
                     } else {
                         // If sign in fails, display a message to the user.
@@ -171,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     // email sent
                     // after email is sent just logout the user and finish this activity
                     FirebaseAuth.getInstance().signOut();
+                    progress.setVisibility(View.INVISIBLE);
                     finish();
                 }
             }

@@ -61,7 +61,7 @@ public class SendRequestFragment extends Fragment {
     private ArrayList<Classroom> myclasses;
     private ArrayList<String> strMyClasses;
     private ArrayAdapter<String> myClassesAdapter;
-    private String selectedClassId;
+    private int selectedClassId;
     private String selectedClassName;
     private User requestedUser;
     private SimpleDateFormat df;
@@ -143,7 +143,6 @@ public class SendRequestFragment extends Fragment {
         btnBackClicked();
         return view;
     }
-
     //Identify type of Request
     private void processRequest() {
         btnstudentRequest.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +152,9 @@ public class SendRequestFragment extends Fragment {
                     if (!studentUsername.getText().toString().equals("")) {
                         retrieveClassId();
                         filterProcessedRequest("Student");
+                    }
+                    else{
+                        setUserFeedback("Students Username Required","Student");
                     }
                 }
                 else{
@@ -167,6 +169,9 @@ public class SendRequestFragment extends Fragment {
                     if (!teacherusername.getText().toString().equals("")) {
                         retrieveClassId();
                         filterProcessedRequest("Contributor");
+                    }
+                    else{
+                        setUserFeedback("Teachers Username Required","Contributor");
                     }
                 }
                 else{
@@ -214,7 +219,6 @@ public class SendRequestFragment extends Fragment {
     //Validate Fields
     private void filterProcessedRequest(String typeOfRequest){
         if(typeOfRequest.equals("Student")) {
-            if (!studentUsername.getText().toString().equals("")) {
                 if (studentUsername.getText().toString().contains("#")) {
                     splitUsername = studentUsername.getText().toString().split("#");
                     isUserInClass(splitUsername[0], splitUsername[1], typeOfRequest);
@@ -223,12 +227,7 @@ public class SendRequestFragment extends Fragment {
                     setUserFeedback("Student Username is in the Wrong Format (Required: Username#XXXX)", typeOfRequest);
                 }
             }
-            else{
-                setUserFeedback("Student Username Field Required", typeOfRequest);
-            }
-        }
         else if(typeOfRequest.equals("Contributor")){
-            if (!teacherusername.getText().toString().equals("")) {
                 if (teacherusername.getText().toString().contains("#")) {
                     splitUsername = teacherusername.getText().toString().split("#");
                     isUserInClass(splitUsername[0],splitUsername[1],typeOfRequest);
@@ -236,16 +235,14 @@ public class SendRequestFragment extends Fragment {
                     setUserFeedback("Student Username is in the Wrong Format (Required: Username#XXXX)",typeOfRequest);
                 }
             }
-            else{
-                setUserFeedback("Student Username Field Required",typeOfRequest);
-            }
         }
-    }
     //Find the User that the Request will be sent too
     private void findUser(final String typeOfRequest){
+
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean userNotFound = false;
                 Iterable<DataSnapshot> children = snapshot.getChildren();
                 for (DataSnapshot child : children) {
                     requestedUser = child.getValue(User.class);
@@ -260,14 +257,18 @@ public class SendRequestFragment extends Fragment {
                                     break;
                                 }
                             } else {
-                                feedback = "User not found.";
+                                userNotFound = true;
                             }
                         }
                         else{
+
                             feedback = "User Username is in the Wrong Format (Required: Username#XXXX)";
 
                         }
                     }
+                }
+                if(userNotFound){
+                    feedback = "User not found.";
                 }
                 setUserFeedback(feedback,typeOfRequest);
             }
@@ -334,7 +335,7 @@ public class SendRequestFragment extends Fragment {
         if(!myclasses.isEmpty()) {
             for (Classroom classroom : myclasses) {
                 if (classroom.getClassroom_Name().equals(selectedClassName)) {
-                    selectedClassId.equals(classroom.getClassroom_Id());
+                    selectedClassId = classroom.getClassroom_Id();
                 }
             }
         }

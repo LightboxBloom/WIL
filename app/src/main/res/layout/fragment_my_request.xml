@@ -84,6 +84,15 @@ android:orientation="vertical">
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pRequests"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:progressTint="@color/colorPrimaryDark" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="600dp">

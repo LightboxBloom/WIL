@@ -3,9 +3,10 @@ package com.katherine.bloomuii.ObjectClasses;
 import java.util.HashMap;
 public class Classroom {
     //Fields
-    private String Classroom_Id;
+    private int Classroom_Id;
     private String Classroom_Name;
     private String Teacher_Name;
+    private String Teacher_Id;
     private HashMap<String,SentRequest> Requests_Sent;
     //Costructor
     public Classroom(){}
@@ -16,10 +17,10 @@ public class Classroom {
     public void setClassroom_Name(String classroom_Name) {
         Classroom_Name = classroom_Name;
     }
-    public String getClassroom_Id() {
+    public int getClassroom_Id() {
         return Classroom_Id;
     }
-    public void setClassroom_Id(String classroom_Id) {
+    public void setClassroom_Id(int classroom_Id) {
         Classroom_Id = classroom_Id;
     }
     public HashMap<String,SentRequest> getRequests_Sent() {
@@ -33,5 +34,13 @@ public class Classroom {
     }
     public void setTeacher_Name(String teacher_Name) {
         Teacher_Name = teacher_Name;
+    }
+
+    public String getTeacher_Id() {
+        return Teacher_Id;
+    }
+
+    public void setTeacher_Id(String teacher_Id) {
+        Teacher_Id = teacher_Id;
     }
 }

@@ -28,6 +28,7 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
     private DatabaseReference teacherRef;
     private DatabaseReference joinedClassroomsRef;
     private DatabaseReference contributorClassroomRef;
+    private DatabaseReference allClasses;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     //Global Variable
@@ -50,6 +51,7 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
             currentUser = mAuth.getCurrentUser();
             myRef = database.getReference().child("Users/"+currentUser.getUid()+"/Requests_Received/"+request.getClassroom_Id());
             teacherRef = database.getReference("Users/"+request.getTeacher_Id()+"/MyClassrooms/"+request.getClassroom_Id()+"/Requests_Sent/"+currentUser.getUid());
+            allClasses = database.getReference("Classrooms/"+ request.getClassroom_Id() + "/Students/");
             //Variable Declarations
             typeOfRequest = new Bundle();
             //UI Components
@@ -79,6 +81,7 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
                         joinedClassroomsRef.child("Classroom_Id").setValue(request.getClassroom_Id());
                         joinedClassroomsRef.child("Classroom_Name").setValue(request.getClassroom_Name());
                         joinedClassroomsRef.child("Teacher_Name").setValue(request.getTeacher_Name());
+                        allClasses.child(currentUser.getUid()).child("User_ID").setValue(currentUser.getUid());
                         databaseUpdated = true;
                     }
                     if(!databaseUpdated) {
