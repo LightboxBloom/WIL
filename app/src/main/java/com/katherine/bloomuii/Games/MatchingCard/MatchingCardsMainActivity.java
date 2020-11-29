@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,15 +38,15 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
         //Firebase
         final FirebaseDatabase database;
         final DatabaseReference levelReference;
-//            FirebaseUser currentUser;
-//            FirebaseAuth mAuth;
+        FirebaseUser currentUser;
+        FirebaseAuth mAuth;
         //Reading in Game Level from Firebase
         //Firebase Declarations
         database = FirebaseDatabase.getInstance();
-//            mAuth = FirebaseAuth.getInstance();
-//            currentUser = mAuth.getCurrentUser();
-//            levelReference = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
-        levelReference = database.getReference("Users/" + "Kyle" + "/Games/MatchingCards");
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        levelReference = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
+//        levelReference = database.getReference("Users/" + "Kyle" + "/Games/MatchingCards");
 
         //Read Level
         levelReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,9 +113,9 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
         protected Void doInBackground(ArrayList<FlashcardUpload>... lists) {
             ArrayList<FlashcardUpload> flashcards = lists[0];
             ArrayList<FlashcardUpload> flashcardsToDownload;
-            if(flashcards.size() <= 4){
+            if (flashcards.size() <= 4) {
                 flashcardsToDownload = flashcards;
-            } else{
+            } else {
                 flashcardsToDownload = getFlashcardsToDownload(flashcards);
             }
             ArrayList<Flashcard> downloadedFlashcards = new ArrayList<>();
@@ -138,7 +140,7 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
                 downloadedFlashcards.add(flashcard);
             }
 
-            for (Flashcard flashcard: downloadedFlashcards){
+            for (Flashcard flashcard : downloadedFlashcards) {
                 flashcard.addBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
             }
 
@@ -149,7 +151,7 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
         private ArrayList<FlashcardUpload> getFlashcardsToDownload(ArrayList<FlashcardUpload> flashcards) {
             Collections.shuffle(flashcards);
             ArrayList<FlashcardUpload> outputFlashcards = new ArrayList<>();
-            for (int i =0; i < 4; i++){
+            for (int i = 0; i < 4; i++) {
                 outputFlashcards.add(flashcards.get(i));
             }
             return outputFlashcards;

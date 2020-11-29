@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.katherine.bloomuii.R;
@@ -31,8 +33,8 @@ public class GameView extends SurfaceView implements Runnable {
     //Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-//    private FirebaseUser currentUser;
-//    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
     private final static int MAX_FPS = 60; //desired fps
     private final static float FRAME_PERIOD = 1000.0f / MAX_FPS;
@@ -68,10 +70,9 @@ public class GameView extends SurfaceView implements Runnable {
 
         this.downloadedFlashcards = downloadedFlashcards;
         database = FirebaseDatabase.getInstance();
-//        mAuth = FirebaseAuth.getInstance();
-//        currentUser = mAuth.getCurrentUser();
-//        myRef = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
-        myRef = database.getReference("Users/" + "Kyle" + "/Games/MatchingCards");
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        myRef = database.getReference("Users/" + currentUser.getUid() + "/Games/MatchingCards");
         this.userProgress = userProgress;
 
         setGameLevel();
@@ -166,6 +167,17 @@ public class GameView extends SurfaceView implements Runnable {
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_3));
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_4));
         birdBitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.bird_5));
+
+        for (int i=0; i< birdBitmaps.size(); i++){
+            Bitmap bitmap = birdBitmaps.get(i);
+            double initialHeight = bitmap.getHeight();
+            int birdHeight = (int) canvasGrid.getYPixels(3);
+            int birdWidth = (int) (birdHeight/initialHeight * birdBitmaps.get(i).getWidth());
+            bitmap = getResizedBitmap(bitmap, birdWidth, birdHeight);
+            birdBitmaps.set(i, bitmap);
+        }
+
+
         birdSprite = new InfiniteMovingSprite(0, canvasGrid.getYPixels(5), (ArrayList<Bitmap>) birdBitmaps, 5, 1, 0, 20);
 
         ArrayList<Bitmap> card1Bitmaps = new ArrayList<Bitmap>();
@@ -420,7 +432,11 @@ public class GameView extends SurfaceView implements Runnable {
                     selectedCards.get(1).setCardState(CardState.HIDING);
                     selectedCards.clear();
                     framesSinceDisplayRevealedCard = 0;
-
+                    if (numFailures == attemptLimit) {
+                        //reset this round
+                        initialise();
+                        roundCounter = 1;
+                    }
                 }
 
             }
@@ -475,11 +491,12 @@ public class GameView extends SurfaceView implements Runnable {
             }
             initialise();
             framesSinceStop = 0;
-        } else if (numFailures == attemptLimit) {
-            //reset this round
-            initialise();
-//            roundCounter = 1;
         }
+//        else if (numFailures == attemptLimit) {
+//            //reset this round
+//            initialise();
+//            roundCounter = 1;
+//        }
     }
 
     public void pause() {
@@ -570,7 +587,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     void render(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
-        canvas.drawBitmap(backgroundStaticSprite.getImage(), backgroundStaticSprite.getX(), backgroundStaticSprite.getY(), null);
+        canvas.drawColor(getResources().getColor(R.color.colorPrimary));
+//        canvas.drawBitmap(backgroundStaticSprite.getImage(), backgroundStaticSprite.getX(), backgroundStaticSprite.getY(), null);
         canvas.drawBitmap(birdSprite.getCurrentSprite(), birdSprite.getX(), birdSprite.getY(), null);
         for (int i = 0; i < cardSprites.size(); i++) {
             canvas.drawBitmap(cardSprites.get(i).getCurrentSprite(), cardSprites.get(i).getX(), cardSprites.get(i).getY(), null);

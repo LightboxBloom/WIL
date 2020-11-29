@@ -2,9 +2,10 @@ package com.katherine.bloomuii.Games.MatchingCard;
 
 public class GameSettings {
     private Difficulty difficulty; //0 = easy, 1 = medium, 2 = hard
-    //    private int[] showTimes = {10, 8, 6, 5, 4, 3}; // Durations to show cards for
-    private int[] showTimes = {3, 3, 3, 3, 3, 3}; // Durations to show cards for
+    private int[] showTimes = {10, 8, 6, 5, 4, 3}; // Durations to show cards for
+    //    private int[] showTimes = {3, 3, 3, 3, 3, 3}; // Durations to show cards for
     private int[] attempts = {20, 20, 15, 15, 10, 10};
+//    private int[] attempts = {1,1,1,1,1,1};
 
     public GameSettings(Difficulty difficulty) {
         this.difficulty = difficulty;
