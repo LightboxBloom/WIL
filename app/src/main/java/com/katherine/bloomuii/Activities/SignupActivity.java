@@ -189,8 +189,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     //Write new user that successfully registered to Firebase
-    public void SaveUserToDatabase(User newUser)
-    {
+    public void SaveUserToDatabase(User newUser){
         //adding to RealTime Database
         DatabaseReference myRef = database.getReference("Users");
 

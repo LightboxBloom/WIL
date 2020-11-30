@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +173,10 @@ public class MyRequestFragment extends Fragment {
                     for (DataSnapshot child : children) {
                         User teacher = child.getValue(User.class);
                         if (teacher != null) {
+                            int count = 0;
                             for (ReceivedRequest request : receivedRequests) {
+                                Log.d("TAG", "onDataChange: User: " + teacher.getUser_ID() + " Request ID: " + request.getTeacher_Id() + " count: " + count);
+                                count++;
                                 if (teacher.getUser_ID().equals(request.getTeacher_Id())) {
                                     request.setTeacher_Name(teacher.getFull_Name());
                                     break;

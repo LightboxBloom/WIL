@@ -40,7 +40,10 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_part_of_speech_menu);
-        //database.getInstance().setPersistenceEnabled(true);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         readingGameLevel();
         assignComponents();
         lvl1Btn.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +99,7 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
         //Firebase Declarations
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/PartsOfSpeech"); /*"Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech");
         myRef.keepSynced(true);
         //Read Level
         myRef.addValueEventListener(new ValueEventListener() {

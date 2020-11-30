@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -76,6 +77,9 @@ public class ShapeMain extends Activity implements OnTouchListener {
         mainLayout = (AbsoluteLayout) findViewById(R.id.mainLayout);
         mainLayout.setOnTouchListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         popUpDialog = new Dialog(this);
         popUpDialog.setContentView(R.layout.custompopup);
 
@@ -99,7 +103,8 @@ public class ShapeMain extends Activity implements OnTouchListener {
             }
         });
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/MatchingShape");
+        Log.d("TAG", "onCreate: User ID: " + currentUser.getUid());
+        myRef = database.getReference("Users/" + currentUser.getUid() +"/Games/MatchingShape");
         declareComponents();
         level = Integer.parseInt(getIntent().getExtras().get("ShapesLevel").toString());
         achievementLevel = Integer.parseInt(getIntent().getExtras().get("ConsecutiveShapesAchievement").toString());
@@ -341,7 +346,7 @@ public class ShapeMain extends Activity implements OnTouchListener {
             }, 2000);
         }
         else {
-            Toast.makeText(this, "No Match", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Incorrect Match", Toast.LENGTH_LONG).show();
             consecutiveCounter = 0;
             temp.setImageDrawable(null);
             temp.setVisibility(View.INVISIBLE);
@@ -415,9 +420,10 @@ public class ShapeMain extends Activity implements OnTouchListener {
             myRef.child("ConsecutiveAchievement").setValue("3");
             achievementLevel++;
         }
-        else if(consecutiveCounter % 5==0)
+        else if(consecutiveCounter % 5==0){
             msg = "Well done! " + consecutiveCounter + " in a row!";
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
     /*    displayShapes
     method to display the correct amount of shapes related to level number

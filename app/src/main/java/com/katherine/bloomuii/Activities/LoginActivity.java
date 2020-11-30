@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database.getInstance().setPersistenceEnabled(true);
 
         //Declaring UI Components
         mLogin = findViewById(R.id.btnLogin);
@@ -66,12 +66,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendEmailAndRestPassword(){
-        if(!email.getText().equals("")) {
+        if(!email.getText().toString().trim().equals("")) {
             txtSendEmailResetPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(!errorFeedback.getText().toString().equals("Email Sent")) {
-                        FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString())
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString().trim())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

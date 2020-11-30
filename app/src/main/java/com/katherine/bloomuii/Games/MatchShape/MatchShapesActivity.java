@@ -38,7 +38,10 @@ public class MatchShapesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_shapes);
-        //database.getInstance().setPersistenceEnabled(true);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         assignComponents();
         readingGameLevel();
 
@@ -127,7 +130,7 @@ public class MatchShapesActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/MatchingShape"); /*"Users/"+ currentUser.getUid() +"/Games/MatchingShapes"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MatchingShapes"); /*"Users/"+ currentUser.getUid() +"/Games/MatchingShapes"*/
         myRef.keepSynced(true);
         //Read Level
         myRef.addValueEventListener(new ValueEventListener() {

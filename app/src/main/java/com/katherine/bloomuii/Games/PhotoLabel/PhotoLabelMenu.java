@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,8 +48,8 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
     //Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-/*    private FirebaseUser currentUser;
-    private FirebaseAuth mAuth;*/
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
     //media player
     MediaPlayer mp;
@@ -71,7 +73,8 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         mainLayout = (AbsoluteLayout) findViewById(R.id.mainLayout);
         mainLayout.setOnTouchListener(this);
 
-        //database.getInstance().setPersistenceEnabled(true);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         //Media player
         mp = MediaPlayer.create(this, R.raw.popcorn);
@@ -104,12 +107,14 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if(!dragging){
+            temp.setVisibility(View.INVISIBLE);
+        }
         boolean eventConsumed = true;
         int x = (int)event.getX();
         int y = (int)event.getY();
         temp.setX(x - (temp.getWidth())/2);
         temp.setY(y - (temp.getHeight())/2);
-
 
         int action = event.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
@@ -120,6 +125,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 0;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == label2){
                 temp.setText(label2.getText());
@@ -128,6 +134,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 1;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == label3) {
                 temp.setText(label3.getText());
@@ -136,6 +143,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 2;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == label4){
                 temp.setText(label4.getText());
@@ -144,6 +152,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 3;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == label5){
                 temp.setText(label5.getText());
@@ -152,6 +161,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 4;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == label6){
                 temp.setText(label6.getText());
@@ -160,11 +170,13 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 index = 5;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
             else if (v == temp){
                 dragging = true;
                 speech.speak(labelArray.get(index), TextToSpeech.QUEUE_ADD,null);
                 eventConsumed = false;
+                temp.setVisibility(View.VISIBLE);
             }
         }
         if (action == MotionEvent.ACTION_UP) {
@@ -210,6 +222,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                     Toast.makeText(this,
                             "Drag the label to the side of an image", Toast.LENGTH_SHORT).show();
                     temp.setText(null);
+                    temp.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -217,8 +230,8 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             eventConsumed = false;
         }
         if (action == MotionEvent.ACTION_MOVE) {
-            temp.setVisibility(View.VISIBLE);
             if (v == temp ){
+                temp.setVisibility(View.VISIBLE);
                 if (dragging){
                     setAbsoluteLocationCentered(temp, x, y);
                 }
@@ -263,7 +276,6 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                         originalLabelArray.add(data.child("Word").getValue().toString());
                         originalPhotoArray.add(new PhotoLabel(data.child("Word").getValue().toString(), data.child("Photo").getValue().toString()));
                     }
-
                 }
             }
             @Override
@@ -272,7 +284,8 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             }
         });
 
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/PhotoLabelling"); /*"Users/"+ currentUser.getUid() +"/Games/PhotoLabelling"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PhotoLabelling");
+        myRef.keepSynced(true);
         //Read Level
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -385,7 +398,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         }
     }
     private void achievements(){
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/PhotoLabelling"); /*"Users/"+ currentUser.getUid() +"/Games/PhotoLabelling"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PhotoLabelling");
         //Total shape match achievement check
         myRef.child("TotalAchievement").setValue(totalMatchCounter);
         if(totalMatchCounter == 10){

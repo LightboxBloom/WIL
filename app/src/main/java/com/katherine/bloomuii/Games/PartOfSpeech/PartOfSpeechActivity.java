@@ -80,6 +80,10 @@ public class PartOfSpeechActivity extends AppCompatActivity implements View.OnTo
         popUpDialog.setContentView(R.layout.custompopup);
         levelDialog = new Dialog(this);
         levelDialog.setContentView(R.layout.levelpopup);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         //Media player
         mp = MediaPlayer.create(this, R.raw.popcorn);
         //declaring text to speech properties
@@ -455,7 +459,7 @@ Version 1 */
    Version 1  */
     private void achievements(){
         //Total shape match achievement check
-        myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/PartsOfSpeech"); /*"Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech");
         myRef.child("TotalAchievement").setValue(totMatch);
         if(totMatch == 10){
             Toast.makeText(this, "Congratulations on making 10 matches",
@@ -475,7 +479,7 @@ Version 1 */
         }
         //Consecutive achievement check
         if(consecutiveCounter == 10 && achLvl < 1){
-            myRef = database.getReference("Users/fHRTVSzz1EXpC89KzxfPWczk9hv2/Games/PartsOfSpeech"); /*"Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech"*/
+            myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PartsOfSpeech");
             Toast.makeText(this, "Congratulations, You have earned the Consecutive Bronze medal",
                     Toast.LENGTH_SHORT).show();
             myRef.child("ConsecutiveAchievement").setValue("1");

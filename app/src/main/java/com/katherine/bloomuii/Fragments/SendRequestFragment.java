@@ -206,8 +206,9 @@ public class SendRequestFragment extends Fragment {
                 }
                 if(userDoesNotExist){
                     findUser(typeOfUser);
+                    setUserFeedback(feedback, typeOfUser);
                 }
-                setUserFeedback(feedback, typeOfUser);
+
             }
 
             @Override
@@ -247,13 +248,13 @@ public class SendRequestFragment extends Fragment {
                 for (DataSnapshot child : children) {
                     requestedUser = child.getValue(User.class);
                     if(requestedUser != null) {
-
                         //Check Format of Username
                         if(splitUsername.length == 2) {
                             //Check if User ID and then Username exists
                             if (requestedUser.getUser_ID().substring(0, 4).equals(splitUsername[1].trim())) {
                                 if (requestedUser.getFull_Name().equals(splitUsername[0])) {
                                     sendRequest(typeOfRequest);
+                                    userNotFound = false;
                                     break;
                                 }
                             } else {
@@ -261,16 +262,17 @@ public class SendRequestFragment extends Fragment {
                             }
                         }
                         else{
-
                             feedback = "User Username is in the Wrong Format (Required: Username#XXXX)";
-
                         }
                     }
                 }
                 if(userNotFound){
                     feedback = "User not found.";
+                    setUserFeedback(feedback,typeOfRequest);
                 }
-                setUserFeedback(feedback,typeOfRequest);
+                else{
+                    setUserFeedback("A request has been sent",typeOfRequest);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
