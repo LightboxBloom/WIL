@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        database.getInstance().setPersistenceEnabled(true);
+        database.getInstance().setPersistenceEnabled(false);
 
         //Declaring UI Components
         mLogin = findViewById(R.id.btnLogin);
