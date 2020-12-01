@@ -45,7 +45,7 @@ public class DiaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_diary, container, false);
+        final View view = inflater.inflate(R.layout.fragment_diary, container, false);
         //UI Declarations
         mAdd = view.findViewById(R.id.btnAddEntry);
         mBack = view.findViewById(R.id.btnPuzzleBack);
@@ -71,7 +71,7 @@ public class DiaryFragment extends Fragment {
                 }
                 if(entries.size() >= 0){
                     entries = reverseEntries();
-                    diaryAdapter = new DiaryAdapter(getContext(),android.R.layout.simple_list_item_1,entries);
+                    diaryAdapter = new DiaryAdapter(view.getContext(),android.R.layout.simple_list_item_1,entries);
                     lvEntries.setAdapter(diaryAdapter);
                 }
                 else{
@@ -81,7 +81,6 @@ public class DiaryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
         //On button press Navigate to Add Diary Entry Fragment
