@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -13,8 +15,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 import com.katherine.bloomuii.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 /*
@@ -33,13 +45,23 @@ Version: 3
 public class PuzzleLogic extends AppCompatActivity {
 
     private static int COLUMNS, ROWS, DIMENSIONS, puzzleID;
+
     private static String [] tileList;
     private static GestureDetectGridView mGridView;
+
+    private static Bitmap image;
+
+    private static UserScore user;
+
     private static int mColumnWidth, mColumnHeight;
     public static final String UP = "up";
     public static final String DOWN = "down";
     public static final String LEFT = "left";
     public static final String RIGHT = "right";
+
+    //Firebase
+    private static FirebaseDatabase database;
+    private static DatabaseReference myRef;
 
     //onCreate method, puzzle component initializer
     @Override
@@ -52,12 +74,33 @@ public class PuzzleLogic extends AppCompatActivity {
         ROWS = getIntent().getIntExtra("puzzleRows",0);
         DIMENSIONS = COLUMNS*COLUMNS;
 
+        user = UserScore.getInstance();
+        StorageReference storageRef = FirebaseStorage.getInstance()
+                .getReferenceFromUrl("gs://bloom-database.appspot.com/Puzzle/Uploads");
+
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                int random = new Random().nextInt(listResult.getItems().size());
+                listResult.getItems().get(random).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        try {
+                            new Firebase().execute(uri.toString()).get().wait();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        //scramble the tiles
+                        PuzzleLogic.this.scramble();
+
+                        display(PuzzleLogic.this.getApplicationContext());
+                    }
+                });
+            }
+        });
+
         //create tile list and set up grid view
         init();
-
-        //scramble the tiles
-        scramble();
-
         //set the dimensions of the tiles
         setDimensions();
     }
@@ -77,7 +120,6 @@ public class PuzzleLogic extends AppCompatActivity {
                 mColumnWidth = displayWidth/COLUMNS;
                 mColumnHeight = requiredHeight/COLUMNS;
 
-                display(getApplicationContext());
             }
         });
     }
@@ -113,23 +155,11 @@ public class PuzzleLogic extends AppCompatActivity {
         //add the adapter to the grid view
         mGridView.setAdapter(new CustomAdapter(buttons, mColumnWidth, mColumnHeight));
     }
+
     //Split single image into smaller pieces
     private static ArrayList<BitmapDrawable> splitImage(Context context) {
 
         int chunkNumbers = COLUMNS*COLUMNS;
-        Bitmap image;
-
-        //set puzzle picture based on puzzle id
-        if(puzzleID==1){
-            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.pigeon);
-        }else if(puzzleID==2){
-            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.spring_bok_toy);
-        }else{
-            image = BitmapFactory.decodeResource(context.getResources(), R.drawable.train);
-        }
-
-        //For the number of rows and columns of the grid to be displayed
-        int rows,cols;
 
         //For height and width of the small image chunks
         int chunkHeight,chunkWidth;
@@ -194,9 +224,9 @@ public class PuzzleLogic extends AppCompatActivity {
         tileList[position + swap] = tileList[position];
         tileList[position] = newPosition;
         display(context);
+
         //check if the puzzle is solved
         if (isSolved()){
-            UserScore user = UserScore.getInstance();
             user.addScore();
             //check if achievement should be rewarded
             if (user.hasAchievement()){
@@ -207,8 +237,7 @@ public class PuzzleLogic extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
                             }
-                        })
-                        .show();
+                        }).show();
             }
             else{
                 Toast.makeText(context,"Puzzle completed!",Toast.LENGTH_SHORT).show();
@@ -296,4 +325,26 @@ public class PuzzleLogic extends AppCompatActivity {
             else swap(context, position, COLUMNS);
         }
     }
+
+    public class Firebase extends AsyncTask<String,Void,Void> {
+
+        public Void doInBackground(String...uri) {
+            Bitmap bitmap;
+            try {
+                URL url = new URL(uri[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                image = BitmapFactory.decodeStream(input);
+                connection.disconnect();
+            } catch (IOException e) {
+                // Log exception
+                return null;
+            }
+            return null;
+        }
+
+    }
+
 }
