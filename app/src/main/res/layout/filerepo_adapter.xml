@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="411dp"
@@ -32,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:hint="File Name"
+                android:fontFamily="@font/abeezee"
                 android:textAlignment="textStart"
                 android:textSize="24sp" />
         </LinearLayout>
