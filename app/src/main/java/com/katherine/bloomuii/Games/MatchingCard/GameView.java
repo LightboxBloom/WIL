@@ -190,7 +190,7 @@ public class GameView extends SurfaceView implements Runnable {
                 card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_1));
                 card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_2));
                 card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_3));
-                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.cat_4));
+                card1Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
 
                 card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_1));
                 card2Bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.chicken_2));
