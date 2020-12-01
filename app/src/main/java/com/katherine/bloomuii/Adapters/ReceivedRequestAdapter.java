@@ -2,21 +2,27 @@
 package com.katherine.bloomuii.Adapters;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.katherine.bloomuii.Fragments.MyRequestFragment;
+import com.katherine.bloomuii.MailService.JavaMailAPI;
 import com.katherine.bloomuii.ObjectClasses.ReceivedRequest;
 import com.katherine.bloomuii.R;
 
@@ -32,23 +38,39 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     //Global Variable
+    String fullname;
     Bundle typeOfRequest;
     //Constructor
     public ReceivedRequestAdapter(Context context, int simple_list_item_1, List<ReceivedRequest> sentRequestList){
         super(context,0, sentRequestList);
     }
-    //Retrieve Recieved Request and bind the data to UI Components
+    //Retrieve Received Request and bind the data to UI Components
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        myRef = database.getReference().child("Users/"+currentUser.getUid()+"/Full_Name");
+        // Read from the database to get users full name
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                fullname = dataSnapshot.getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
         final ReceivedRequest request = getItem(position);
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.received_request_adapter,parent,false);
         }
         if(request != null){
             //Firebase Declarations
-            database = FirebaseDatabase.getInstance();
-            mAuth = FirebaseAuth.getInstance();
-            currentUser = mAuth.getCurrentUser();
+
             myRef = database.getReference().child("Users/"+currentUser.getUid()+"/Requests_Received/"+request.getClassroom_Id());
             teacherRef = database.getReference("Users/"+request.getTeacher_Id()+"/MyClassrooms/"+request.getClassroom_Id()+"/Requests_Sent/"+currentUser.getUid());
             allClasses = database.getReference("Classrooms/"+ request.getClassroom_Id() + "/Students/");
@@ -83,6 +105,7 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
                         joinedClassroomsRef.child("Teacher_Name").setValue(request.getTeacher_Name());
                         allClasses.child(currentUser.getUid()).child("User_ID").setValue(currentUser.getUid());
                         databaseUpdated = true;
+                        sendMail(request.getClassroom_Name(), request.getTeacher_Name());
                     }
                     if(!databaseUpdated) {
                         if (request.getType_Of_Request().equals("Contributor")) {
@@ -104,5 +127,19 @@ public class ReceivedRequestAdapter extends ArrayAdapter<ReceivedRequest> {
             });
         }
         return convertView;
+    }
+
+    private void sendMail(String classroomName, String teacherName){
+        String email = currentUser.getEmail();
+        String subject = "New classroom signup";
+        String message = "Dear " + fullname + ","+
+                "\n\nPlease note that you have successfully joined the class: " + classroomName + ". " +
+                "\n\nThe allocated teacher is: " + teacherName +
+                "\n\nHappy Learning" +
+                "\n\nRegards" +
+                "\nThe Bloom Team.";
+
+        JavaMailAPI javaMailAPI = new JavaMailAPI(getContext(), email, subject, message);
+        javaMailAPI.execute();
     }
 }

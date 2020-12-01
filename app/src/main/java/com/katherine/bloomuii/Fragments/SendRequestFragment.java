@@ -110,12 +110,13 @@ public class SendRequestFragment extends Fragment {
                     }
                 }
                 createClassList();
-                if (!myclasses.isEmpty()) {
-                    myClassesAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, strMyClasses);
+                if (!myclasses.isEmpty() && getActivity() != null) {
+                    myClassesAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, strMyClasses);
                     myClassesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spMyClasses.setAdapter(myClassesAdapter);
                 } else {
-                    Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
+                    if( getActivity() != null)
+                        Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
                 }
             }
 
