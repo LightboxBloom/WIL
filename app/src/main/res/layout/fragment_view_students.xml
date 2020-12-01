@@ -27,13 +27,14 @@
                 android:src="@drawable/ic_back"/>
 
             <TextView
+                android:id="@+id/txtTypeOfUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="50dp"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
                 android:text="My Students"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
                 android:textSize="32sp" />

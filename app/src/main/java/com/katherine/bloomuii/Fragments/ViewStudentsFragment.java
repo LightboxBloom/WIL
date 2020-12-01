@@ -38,14 +38,17 @@ public class ViewStudentsFragment extends Fragment {
     Button leaveNo;
     TextView header;
     TextView message;
+    TextView typeOfUsers;
     //Global Variables
-    private ArrayList<User> students;
+    private ArrayList<User> users;
     private StudentAdapter studentAdapter;
     private Bundle bundle;
     private int classroom_id;
+    private String typeOfUser;
     //Firebase Initializations
     private FirebaseDatabase database;
-    private DatabaseReference myclassRef;
+    private DatabaseReference studclassRef;
+    private DatabaseReference conclassRef;
     private DatabaseReference studentRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
@@ -55,7 +58,8 @@ public class ViewStudentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_students, container, false);
         lvStudents = view.findViewById(R.id.lvStudents);
-        //Firebase Declarations
+        typeOfUsers = view.findViewById(R.id.txtTypeOfUser);
+                //Firebase Declarations
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -64,19 +68,30 @@ public class ViewStudentsFragment extends Fragment {
         leaveClass_popup.setContentView(R.layout.leaveclass_dialog);
         header = leaveClass_popup.findViewById(R.id.txtDialogHeader);
         message = leaveClass_popup.findViewById(R.id.txtDialogMessage);
+
         bundle = new Bundle();
-        students = new ArrayList<>();
+        users = new ArrayList<>();
         bundle = getArguments();
         if(bundle != null) {
             classroom_id = bundle.getInt("ClassroomId");
-            myclassRef = database.getReference().child("Classrooms/"+classroom_id+"/Students");
-            retrieveStudents(classroom_id);
+            typeOfUser = bundle.getString("TypeOfUser");
+            studclassRef = database.getReference().child("Classrooms/"+classroom_id+"/Students");
+            conclassRef = database.getReference().child("Classrooms/"+classroom_id+"/Contributors");
+            if(typeOfUser.equals("Students")) {
+                typeOfUsers.setText("My Students");
+                retrieveStudents(classroom_id);
+            }
+            else if(typeOfUser.equals("Contributors")){
+                typeOfUsers.setText("My Contributors");
+                retrieveContributors(classroom_id);
+
+            }
         }
-        removeStudent();
+        removeUser();
         return view;
     }
     private void retrieveStudents(int class_id){
-        myclassRef.addValueEventListener(new ValueEventListener() {
+        studclassRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> children = snapshot.getChildren();
@@ -101,10 +116,10 @@ public class ViewStudentsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User student = snapshot.getValue(User.class);
                 if(student != null){
-                    students.add(student);
+                    users.add(student);
                 }
-                if(students.size() >= 0){
-                    studentAdapter = new StudentAdapter(getContext(),android.R.layout.simple_list_item_1,students);
+                if(users.size() >= 0){
+                    studentAdapter = new StudentAdapter(getContext(),android.R.layout.simple_list_item_1,users);
                     lvStudents.setAdapter(studentAdapter);
                 }
                 else{
@@ -118,15 +133,15 @@ public class ViewStudentsFragment extends Fragment {
             }
         });
     }
-    //TODO:Not working on CLick
-    private void removeStudent(){
+    //TODO:Not working on CLick and TODO Contributor Remove
+    private void removeUser(){
         lvStudents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 leaveYes = leaveClass_popup.findViewById(R.id.btnLeaveYes);
                 leaveNo = leaveClass_popup.findViewById(R.id.btnLeaveNo);
                 header.setText("Remove Student");
-                message.setText("Are you sure you want to remove" + students.get(i).getFull_Name() +"?");
+                message.setText("Are you sure you want to remove" + users.get(i).getFull_Name() +"?");
                 leaveClass_popup.show();
 
                 leaveYes.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +149,7 @@ public class ViewStudentsFragment extends Fragment {
                     public void onClick(View view) {
                         //Delete Student from Class
                         studentRef.child("JoinedClassrooms/"+classroom_id).removeValue();
-                        myclassRef.child(students.get(i).getUser_ID()).removeValue();
+                        studclassRef.child(users.get(i).getUser_ID()).removeValue();
                     }
                 });
                 leaveNo.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +158,51 @@ public class ViewStudentsFragment extends Fragment {
                         leaveClass_popup.dismiss();
                     }
                 });
+            }
+        });
+    }
+
+    private void retrieveContributors(int classroom_id){
+        conclassRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for(DataSnapshot child: children){
+                    User contributor = child.getValue(User.class);
+                    if(contributor != null){
+                        findContributorsDetails(contributor);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void findContributorsDetails(User contributor){
+        conclassRef = database.getReference("Users/"+contributor.getUser_ID());
+        conclassRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User student = snapshot.getValue(User.class);
+                if(student != null){
+                    users.add(student);
+                }
+                if(users.size() >= 0){
+                    studentAdapter = new StudentAdapter(getContext(),android.R.layout.simple_list_item_1,users);
+                    lvStudents.setAdapter(studentAdapter);
+                }
+                else{
+                    Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

@@ -34,6 +34,7 @@ public class MyClassroomFragment extends Fragment {
     Bundle bundle;
     CardView itemStudents;
     CardView itemFiles;
+    CardView itemContributors;
     //Global Variables
     private String typeOfClass;
     private String classroomName;
@@ -55,6 +56,7 @@ public class MyClassroomFragment extends Fragment {
         txtClassroomName = view.findViewById(R.id.txtClassName);
         itemStudents = view.findViewById(R.id.itemStudents);
         itemFiles = view.findViewById(R.id.itemFiles);
+        itemContributors = view.findViewById(R.id.itemContributors);
         leaveClass_popup = new Dialog(getContext());
         leaveClass_popup.setContentView(R.layout.leaveclass_dialog);
         //Firebase Declarations
@@ -81,6 +83,7 @@ public class MyClassroomFragment extends Fragment {
         viewFiles();
         if(typeOfClass.equals("MyClassrooms")){
             viewStudents();
+            viewContributors();
         }
         else{
             itemStudents.setVisibility(View.INVISIBLE);
@@ -142,6 +145,24 @@ public class MyClassroomFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
                 ViewStudentsFragment viewStudentsFragment = new ViewStudentsFragment();
                 bundle.putInt("ClassroomId", classroomId);
+                bundle.putString("TypeOfUser","Students");
+                viewStudentsFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragmentContainer, viewStudentsFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+    //Navigate to view all Contributors
+    private void viewContributors(){
+        itemContributors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Navigate to view Students Fragment
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                ViewStudentsFragment viewStudentsFragment = new ViewStudentsFragment();
+                bundle.putInt("ClassroomId", classroomId);
+                bundle.putString("TypeOfUser","Contributors");
                 viewStudentsFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragmentContainer, viewStudentsFragment);
                 fragmentTransaction.commit();

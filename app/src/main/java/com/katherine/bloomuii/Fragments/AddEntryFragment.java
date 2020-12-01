@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,7 +40,7 @@ public class AddEntryFragment extends Fragment {
     private String emotionChosen = "";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private ImageView mBack;
-    private FloatingActionButton addEntry;
+    private Button addEntry;
 
     //Firebase
     private FirebaseDatabase database;
@@ -227,21 +228,23 @@ public class AddEntryFragment extends Fragment {
                         myRef.child("Diary_Date").setValue(entry.getDiary_Date());
                         myRef.child("Diary_Emotion").setValue(entry.getDiary_Emotion());
                         myRef.child("Diary_Entry").setValue(entry.getDiary_Entry());
-//TODO: @Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
-//**************************************************************************************************************************************
-                        // this is done correctly, i dont understand why its taking you to the login activity.
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        DiaryFragment diaryEntry = new DiaryFragment();
-                        fragmentTransaction.replace(R.id.fragmentContainer, diaryEntry);
-                        fragmentTransaction.commit();
-//*************************************************************************************************************************************
-                        Toast.makeText(getActivity(), "Diary Entry Added", Toast.LENGTH_SHORT).show();
+                        viewAllDiaryEnteries();
                     } else {
-                        Toast.makeText(getActivity(), "All fields are required to add this Diary Entry.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "All fields are required to add this Diary Entry.", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+        private void viewAllDiaryEnteries(){
+            //TODO: @Katherine check this out - dosnt want to navigate back to diary fragment but goes back to Login Activity
+//**************************************************************************************************************************************
+            // this is done correctly, i dont understand why its taking you to the login activity.
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DiaryFragment diaryFragment = new DiaryFragment();
+            fragmentTransaction.replace(R.id.fragmentContainer, diaryFragment);
+            fragmentTransaction.commit();
+//*************************************************************************************************************************************
         }
 
     }

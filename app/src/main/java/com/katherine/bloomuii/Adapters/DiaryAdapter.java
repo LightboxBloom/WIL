@@ -39,7 +39,6 @@ public class DiaryAdapter extends ArrayAdapter<DiaryEntry> {
         if(entry != null){
             TextView date = convertView.findViewById(R.id.txtAdapterDiaryDate);
             ImageView emotion = convertView.findViewById(R.id.ivAdapterDiaryEmotion);
-            CardView item = convertView.findViewById(R.id.cdItem);
 
             date.setText(entry.getDiary_Date());
             //Set Each Emotion depending on field data
