@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class OrderFragment extends Fragment  implements View.OnClickListener {
     public static Button[] buttons = new Button[8]; //Button array used to initialize all buttons
@@ -35,6 +36,9 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
     public static String displayUserAnswer = "";
     public static List<Integer> userAnswer = new ArrayList<Integer>();
     int clickCount = 0;
+
+    public static Random random = new Random();
+    public static boolean orderBool = true;
 
     ImageView btnBack;
     private FragmentManager fragmentManager;
@@ -71,6 +75,7 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
             int resID = getResources().getIdentifier(textViewID, "id", getActivity().getPackageName());
             textViews[i] = view.findViewById(resID);
         }
+
         btnBack = (ImageView) view.findViewById(R.id.btnBack);
 
         btnBackClicked();
@@ -92,7 +97,20 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
         });
     }
 
+    public static void ascOrDesc(){
+        orderBool = random.nextInt(2) == 0;
+
+        if (orderBool){
+            textViews[0].setText("Reorder the above numbers from LOWEST to HIGHEST");
+        }
+        else {
+            textViews[0].setText("Reorder the above numbers from HIGHEST to LOWEST");
+        }
+    }
+
     public static void levelCreate() {
+        ascOrDesc();
+
         textViews[1].setText("Level: " + levelNumber);
 
         if (levelNumber <= 3) {
@@ -374,16 +392,31 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
             case R.id.button7: //submit
                 int correctCount = 0;
 
-                for(int i=0; i<userAnswer.size() - 1; i++) {
-                    {
-                        if(userAnswer.get(i) < userAnswer.get(i+1)){
-                            correctCount++;
-                        }
-                        else {
+                if(orderBool == true){
+                    for(int i=0; i<userAnswer.size() - 1; i++) {
+                        {
+                            if(userAnswer.get(i) < userAnswer.get(i+1)){
+                                correctCount++;
+                            }
+                            else {
 
+                            }
                         }
                     }
                 }
+                else{
+                    for(int i=0; i<userAnswer.size() - 1; i++) {
+                        {
+                            if(userAnswer.get(i) > userAnswer.get(i+1)){
+                                correctCount++;
+                            }
+                            else {
+
+                            }
+                        }
+                    }
+                }
+
                 if (correctCount == userAnswer.size() -1){
                     if(levelNumber == 60){
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
