@@ -139,6 +139,7 @@
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="4dp"
+        android:visibility="invisible"
         android:fontFamily="@font/abeezee"
         android:layout_y="30dp"></TextView>
 

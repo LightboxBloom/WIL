@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -38,10 +37,11 @@ import java.util.Random;
 
 public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchListener{
     TextView temp, selectedlabel,label1, label2, label3, label4, label5, label6;
-    ImageView photo1Img, photo1Match, photo2Img, photo2Match, photo3Img, photo3Match, photo4Img, photo4Match, photo5Img, photo5Match, photo6Img, photo6Match;
+    ImageView photo1Img, photo1Match, photo2Img, photo2Match, photo3Img, photo3Match, photo4Img,
+            photo4Match, photo5Img, photo5Match, photo6Img, photo6Match;
     private AbsoluteLayout mainLayout;
     private Random randomGenerator = new Random();
-    private int index, consecutiveCounter, totalMatchCounter, answerCounter, achievementLevel, totalMatchesCount;
+    private int index, consecutiveCounter, totalMatchCounter, answerCounter, achievementLevel;
     private boolean dragging = false;
     private Rect photo1HitRect = new Rect();
     private Rect photo2HitRect = new Rect();
@@ -60,19 +60,15 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
 
     //text to speech
     private TextToSpeech speech;
-
     List<String> originalLabelArray = new ArrayList();
     List<String> labelArray_six = new ArrayList();
     List<String> labelArray = new ArrayList();
     List<PhotoLabel> originalPhotoArray = new ArrayList();
     List<PhotoLabel> photoArray_six = new ArrayList();
     List<PhotoLabel> photoArray = new ArrayList();
-
     final Handler handler = new Handler();
-
     ImageView btnBack;
     private FragmentManager fragmentManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,10 +111,8 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         btnBackClicked();
 
     }
-
     //click to get back to home fragment
-    private void btnBackClicked()
-    {
+    private void btnBackClicked() {
         final Fragment homeFragment = new HomeFragment();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +121,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             }
         });
     }
-
+    //Logic for click, drag and drop for a label
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(!dragging){
@@ -262,6 +256,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         }
         return eventConsumed;
     }
+    //declares all components to be used
     private void declareComponents(){
         temp= findViewById(R.id.temp);
         label1= findViewById(R.id.label1);
@@ -283,6 +278,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         photo6Img = findViewById(R.id.photo6Img);
         photo6Match = findViewById(R.id.photo6Match);
     }
+    //retrieves data from firebase
     private void retrieveFromDatabase(){
         originalLabelArray.clear();
         originalPhotoArray.clear();
@@ -321,7 +317,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 //Total match check
                 if(ds.child("TotalAchievement").exists()){
                     String tot = ds.child("TotalAchievement").getValue().toString();
-                    totalMatchesCount = Integer.valueOf(tot);
+                    totalMatchCounter = Integer.valueOf(tot);
                 }
             }
             @Override
@@ -331,6 +327,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         });
 
     }
+    //creates local list so that the user only uses data once and the logic to randomize the list
     private void randomiseLists(){
         List<String> tempLabelList = new ArrayList<>();
         List<PhotoLabel> tempPhotoList = new ArrayList();
@@ -362,6 +359,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             photoArray_six.remove(ran2);
         }
     }
+    //logic to assign images and labels
     private void assignImages(){
         TextView [] labelImageViews= new TextView[]{label1, label2, label3, label4, label5, label6};
         ImageView [] photoImageViews = new ImageView[]{ photo1Img,photo2Img,photo3Img,photo4Img,photo5Img,photo6Img };
@@ -378,6 +376,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                     .into(matchingImageViews[i]);
         }
     }
+    //logic to declare onTouch listenera
     private void declareOntouchListeners(){
         label1.setOnTouchListener(this);
         label2.setOnTouchListener(this);
@@ -399,6 +398,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         alp.y = y/1000;
         v.setLayoutParams(alp);
     }
+    //Logic to confirm if the dropped image is a match to the corresponding image
     private void confirmMatch(int photoIndex, Rect rect, TextView image){
         if(labelArray.get(index).equals(photoArray.get(photoIndex).label)){
             if(mp.isPlaying()){
@@ -413,6 +413,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             answerCounter++;
             achievements();
             updateActivity();
+            temp.setVisibility(View.INVISIBLE);
         }
         else{
             Toast.makeText(this, "No Match", Toast.LENGTH_SHORT).show();
@@ -420,6 +421,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             temp.setVisibility(View.INVISIBLE);
         }
     }
+    //logic to update achievements for each user
     private void achievements(){
         myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PhotoLabelling");
         //Total shape match achievement check
@@ -436,7 +438,6 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         if(totalMatchCounter == 50){
             Toast.makeText(this, "Congratulations on making 50 matches.", Toast.LENGTH_SHORT).show();
         }
-
         //Consecutive achievement check
         if(consecutiveCounter == 10 && achievementLevel < 1){
             Toast.makeText(this, "Congratulations, You have earned the Consecutive Bronze medal",
@@ -460,6 +461,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             Toast.makeText(this, "Well done! " + consecutiveCounter + " in a row!",
                     Toast.LENGTH_SHORT).show();
     }
+    //Logic to update the activity after all photos are matched correctly
     private void updateActivity(){
         if(answerCounter == 6){
             setContentView(R.layout.activity_photo_label);
@@ -472,6 +474,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
             answerCounter = 0;
         }
     }
+    //Logic to center the label in the drop zone after a correct match is made.
     private void updateImageViews(Rect rect, TextView image){
         float x, y;
         x = rect.centerX()  - image.getWidth()/2;
