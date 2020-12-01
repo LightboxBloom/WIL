@@ -131,13 +131,6 @@ public class MatchShapesActivity extends AppCompatActivity {
         lvl4Btn = findViewById(R.id.level4Btn);
         lvl5Btn = findViewById(R.id.level5Btn);
         freeModeBtn = findViewById(R.id.freeModeBtn);
-        consecSilverImg = findViewById(R.id.consecSilverImage);
-        consecBronzeImg = findViewById(R.id.consecBronzeImage);
-        consecGoldImg = findViewById(R.id.consecGoldImage);
-        totalBronzeImage = findViewById(R.id.totalBronzeImage);
-        totalSilverImage = findViewById(R.id.totalSilverImage);
-        totalGoldImage= findViewById(R.id.totalGoldImage);
-        totalMasterImage = findViewById(R.id.masterTotalImage);
     }
 
     /*    readingGameLevel
