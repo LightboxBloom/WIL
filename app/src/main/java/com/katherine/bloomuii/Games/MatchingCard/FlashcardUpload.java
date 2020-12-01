@@ -3,40 +3,26 @@ package com.katherine.bloomuii.Games.MatchingCard;
 import java.util.ArrayList;
 
 public class FlashcardUpload {
-    private String _id;
     private String BackgroundColor;
     private String Caption;
     private String OwnerUid;
+    private long ClassroomId;
     private String Sentence;
     private ArrayList<String> StorageUris;
     private String TextColor;
 
-    public FlashcardUpload(String _id, String backgroundColor, String caption, String ownerUid, String sentence, ArrayList<String> storageUris, String textColor) {
-        this._id = _id;
+    public FlashcardUpload(String backgroundColor, String caption, String ownerUid, long classroomId, String sentence, ArrayList<String> storageUris, String textColor) {
         BackgroundColor = backgroundColor;
         Caption = caption;
         OwnerUid = ownerUid;
         Sentence = sentence;
         StorageUris = storageUris;
         TextColor = textColor;
+        ClassroomId = classroomId;
     }
 
     public FlashcardUpload() {
-        _id = "";
-        BackgroundColor = "";
-        Caption = "";
-        OwnerUid = "";
-        Sentence = "";
-        StorageUris = new ArrayList<>();
-        TextColor = "";
-    }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
     }
 
     public String getBackgroundColor() {
@@ -86,4 +72,14 @@ public class FlashcardUpload {
     public void setTextColor(String textColor) {
         TextColor = textColor;
     }
+
+    public long getClassroomId() {
+        return ClassroomId;
+    }
+
+    public void setClassroomId(long classroomId) {
+        ClassroomId = classroomId;
+    }
+
+
 }

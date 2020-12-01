@@ -17,7 +17,8 @@
         <activity android:name=".Games.PartOfSpeech.PartOfSpeechMenuActivity" />
         <activity android:name=".Games.PhotoLabel.PhotoLabelMenu" />
         <activity android:name=".Games.MatchShape.MatchShapesActivity" />
-        <activity android:name=".Games.MatchingCard.MatchingCardsMainActivity" />
+        <activity android:name=".Games.MatchingCard.MatchingCardsMainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Games.MatchShape.ShapeMain" />
         <activity android:name=".Games.Puzzle.PuzzleLogic" />
         <activity android:name=".Games.Puzzle.PuzzleMain" />

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
+import com.katherine.bloomuii.ObjectClasses.Classroom;
 import com.katherine.bloomuii.R;
 
 import java.io.IOException;
@@ -38,7 +40,7 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
         //Firebase
         final FirebaseDatabase database;
         final DatabaseReference levelReference;
-        FirebaseUser currentUser;
+        final FirebaseUser currentUser;
         FirebaseAuth mAuth;
         //Reading in Game Level from Firebase
         //Firebase Declarations
@@ -62,100 +64,129 @@ public class MatchingCardsMainActivity extends AppCompatActivity {
                     levelReference.child("ConsecutiveMatches").setValue(0);
                 }
 
-                final DatabaseReference flashcardsReference = database.getReference("Flashcards/Uploads");
                 final UserGameState finalUserProgress = userProgress;
-                flashcardsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                final DatabaseReference joinedClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/JoinedClassrooms");
+                joinedClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<FlashcardUpload> userUploads = new ArrayList<>();
+                        final ArrayList<Long> classroomIds = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            FlashcardUpload flashcardUpload = snapshot.getValue(FlashcardUpload.class);
-                            //TODO: Implement only downloading images in their class
-//                            if (flashcardUpload.getOwnerUid().equals("fHRTVSzz1EXpC89KzxfPWczk9hv2")) {
-//
-//                            }
-                            userUploads.add(flashcardUpload);
-
+                            Classroom classroom = snapshot.getValue(Classroom.class);
+                            classroomIds.add((long) classroom.getClassroom_Id());
                         }
 
+                        final DatabaseReference myClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/MyClassrooms");
+                        myClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Classroom classroom = snapshot.getValue(Classroom.class);
+                                    classroomIds.add((long) classroom.getClassroom_Id());
+                                }
 
-                        try {
-                            new DownloadBitmaps().execute(userUploads).get();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                                final DatabaseReference flashcardsReference = database.getReference("Flashcards/Uploads");
+                                flashcardsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        ArrayList<FlashcardUpload> userUploads = new ArrayList<>();
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            FlashcardUpload flashcardUpload = snapshot.getValue(FlashcardUpload.class);
+                                            if(classroomIds.contains(flashcardUpload.getClassroomId())){
+                                                userUploads.add(flashcardUpload);
+                                            }
+                                        }
+                                        try {
+                                            new DownloadBitmaps().execute(userUploads).get();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
 
-                        GameView gameView = new GameView(getBaseContext(), finalUserProgress, gameFlashcards);
-                        setContentView(gameView);
+                                        GameView gameView = new GameView(getBaseContext(), finalUserProgress, gameFlashcards);
+                                        setContentView(gameView);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NotNull DatabaseError databaseError) {
+                                System.out.println("The read failed: " + databaseError.getCode());
+                            }
+                        });
+
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    public void onCancelled(@NotNull DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
 
 
+
             }
 
-            @Override
-            public void onCancelled(@NotNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+            class DownloadBitmaps extends AsyncTask<ArrayList<FlashcardUpload>, Void, Void> {
 
-
-    }
-
-    class DownloadBitmaps extends AsyncTask<ArrayList<FlashcardUpload>, Void, Void> {
-
-        @Override
-        protected Void doInBackground(ArrayList<FlashcardUpload>... lists) {
-            ArrayList<FlashcardUpload> flashcards = lists[0];
-            ArrayList<FlashcardUpload> flashcardsToDownload;
-            if (flashcards.size() <= 4) {
-                flashcardsToDownload = flashcards;
-            } else {
-                flashcardsToDownload = getFlashcardsToDownload(flashcards);
-            }
-            ArrayList<Flashcard> downloadedFlashcards = new ArrayList<>();
-
-            for (FlashcardUpload flashcardUpload : flashcardsToDownload) {
-                Flashcard flashcard = new Flashcard();
-                for (String uri : flashcardUpload.getStorageUris()) {
-                    try {
-                        URL url = new URL(uri);
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setDoInput(true);
-                        connection.connect();
-                        InputStream input = connection.getInputStream();
-                        Bitmap bitmap = BitmapFactory.decodeStream(input);
-                        flashcard.addBitmap(bitmap);
-                        connection.disconnect();
-                    } catch (IOException e) {
-                        // Log exception
-                        return null;
+                @Override
+                protected Void doInBackground(ArrayList<FlashcardUpload>... lists) {
+                    ArrayList<FlashcardUpload> flashcards = lists[0];
+                    ArrayList<FlashcardUpload> flashcardsToDownload;
+                    if (flashcards.size() <= 4) {
+                        flashcardsToDownload = flashcards;
+                    } else {
+                        flashcardsToDownload = getFlashcardsToDownload(flashcards);
                     }
+                    ArrayList<Flashcard> downloadedFlashcards = new ArrayList<>();
+
+                    for (FlashcardUpload flashcardUpload : flashcardsToDownload) {
+                        Flashcard flashcard = new Flashcard();
+                        for (String uri : flashcardUpload.getStorageUris()) {
+                            try {
+                                URL url = new URL(uri);
+                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                connection.setDoInput(true);
+                                connection.connect();
+                                InputStream input = connection.getInputStream();
+                                Bitmap bitmap = BitmapFactory.decodeStream(input);
+                                flashcard.addBitmap(bitmap);
+                                connection.disconnect();
+                            } catch (IOException e) {
+                                // Log exception
+                                return null;
+                            }
+                        }
+                        downloadedFlashcards.add(flashcard);
+                    }
+
+                    for (Flashcard flashcard : downloadedFlashcards) {
+                        flashcard.addBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
+                    }
+
+                    gameFlashcards = downloadedFlashcards;
+                    return null;
                 }
-                downloadedFlashcards.add(flashcard);
+
+                private ArrayList<FlashcardUpload> getFlashcardsToDownload(ArrayList<FlashcardUpload> flashcards) {
+                    Collections.shuffle(flashcards);
+                    ArrayList<FlashcardUpload> outputFlashcards = new ArrayList<>();
+                    for (int i = 0; i < 4; i++) {
+                        outputFlashcards.add(flashcards.get(i));
+                    }
+                    return outputFlashcards;
+                }
             }
 
-            for (Flashcard flashcard : downloadedFlashcards) {
-                flashcard.addBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blank));
-            }
-
-            gameFlashcards = downloadedFlashcards;
-            return null;
         }
-
-        private ArrayList<FlashcardUpload> getFlashcardsToDownload(ArrayList<FlashcardUpload> flashcards) {
-            Collections.shuffle(flashcards);
-            ArrayList<FlashcardUpload> outputFlashcards = new ArrayList<>();
-            for (int i = 0; i < 4; i++) {
-                outputFlashcards.add(flashcards.get(i));
-            }
-            return outputFlashcards;
-        }
-    }
-
-}
