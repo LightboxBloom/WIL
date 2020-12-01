@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +51,9 @@ public class FileRepoFragment extends Fragment {
     private FirebaseAuth mAuth;
     private StorageReference storage;
     private StorageReference fileRef;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     //TODO: Complete Pulling list of files in file storage @Cameron and @Rohini
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +84,26 @@ public class FileRepoFragment extends Fragment {
         }
         getFileName();
 
+        btnBack = (ImageView) view.findViewById(R.id.btnPuzzleBack);
+
+        btnBackClicked();
+
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment viewClassroomFragment = new ViewClassroomFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, viewClassroomFragment)
+                        .commit();
+            }
+        });
     }
     private void displayAllFiles(){
         fileRef = storage.child("FileRepo/Uploads/" + classroomId);

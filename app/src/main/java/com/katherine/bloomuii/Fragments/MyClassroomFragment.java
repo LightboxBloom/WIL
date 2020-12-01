@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,9 @@ public class MyClassroomFragment extends Fragment {
     private FirebaseAuth mAuth;
     private StorageReference storage;
     private StorageReference fileRef;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,7 +93,26 @@ public class MyClassroomFragment extends Fragment {
             itemStudents.setVisibility(View.INVISIBLE);
         }
         leaveClass();
+
+        btnBack = (ImageView) view.findViewById(R.id.btnPuzzleBack);
+
+        btnBackClicked();
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment viewClassroomFragment = new ViewClassroomFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, viewClassroomFragment)
+                        .commit();
+            }
+        });
     }
     //Remove Student from Class
     private void leaveClass(){

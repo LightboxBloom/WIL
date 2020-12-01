@@ -7,11 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +38,9 @@ public class FragmentTermsOfUse extends Fragment {
     private StorageReference fileRef;
     //UI Components
     PDFView pdfView;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +67,26 @@ public class FragmentTermsOfUse extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        btnBack = (ImageView) view.findViewById(R.id.btnPuzzleBack);
+
+        btnBackClicked();
+
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment profileFragment = new ProfileFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, profileFragment)
+                        .commit();
+            }
+        });
     }
     //Retrieve and Display PDF
     private void retrievePdf(){

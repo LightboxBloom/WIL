@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,9 @@ public class ViewStudentsFragment extends Fragment {
     private DatabaseReference studentRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,8 +93,27 @@ public class ViewStudentsFragment extends Fragment {
             }
         }
         removeUser();
+
+        btnBack = (ImageView) view.findViewById(R.id.btnPuzzleBack);
+
+        btnBackClicked();
         return view;
     }
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment viewClassroomFragment = new ViewClassroomFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, viewClassroomFragment)
+                        .commit();
+            }
+        });
+    }
+
     private void retrieveStudents(int class_id){
         studclassRef.addValueEventListener(new ValueEventListener() {
             @Override
