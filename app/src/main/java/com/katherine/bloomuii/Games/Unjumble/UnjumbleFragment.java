@@ -3,14 +3,17 @@ package com.katherine.bloomuii.Games.Unjumble;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.ObjectClasses.Sentence;
 import com.katherine.bloomuii.R;
 
@@ -43,6 +46,9 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
     Button button6;
     Button button7;
     Button button8;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,8 +86,26 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
         //These two buttons are deactivated while the data is being pulled from firebase
         buttons[6].setEnabled(false);
         buttons[7].setEnabled(false);
+        btnBack = (ImageView) view.findViewById(R.id.btnBack);
+
+        btnBackClicked();
 
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, homeFragment)
+                        .commit();
+            }
+        });
     }
     @Override
     public void onClick(View v) {

@@ -3,16 +3,19 @@ package com.katherine.bloomuii.Games.Math;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -35,6 +38,9 @@ public class MathFragment extends Fragment implements View.OnClickListener {
     public static boolean plusPlus = false;
     public static boolean plusMin = false;
     EditText editTextNumber;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +69,25 @@ public class MathFragment extends Fragment implements View.OnClickListener {
         MathHandler.getSetUserLevel();
         //sumType();                                                  //sets the plus or minus signs and sets the correctAns value
         //textViews[5].setText("Current Level: " + levelNumber);     //displays current level
+        btnBack = (ImageView) view.findViewById(R.id.btnBack);
+
+        btnBackClicked();
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, homeFragment)
+                        .commit();
+            }
+        });
     }
     public static void sumType(){
         valueNum();                                                 //sets values of the symbols

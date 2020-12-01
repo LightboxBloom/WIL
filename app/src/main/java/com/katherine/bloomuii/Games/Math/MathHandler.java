@@ -18,7 +18,7 @@ public class MathHandler {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(MathFragment.levelNumber == -100){ //get user's level from database
                     MathFragment.levelNumber = Integer.parseInt(String.valueOf(snapshot.child("mathLevel").getValue()));
-                    MathFragment.sumType();
+                    //MathFragment.sumType();
                 }
                 else { //updates level in database
                     dbRef.child("mathLevel").setValue(MathFragment.levelNumber);

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
 import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.Games.MatchShape.ShapeMain;
 import com.katherine.bloomuii.R;
 
 /*
@@ -73,10 +74,7 @@ public class PuzzleMain extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, homeFragment)
-                        .commit();
+                PuzzleMain.this.onBackPressed();
             }
         });
     }

@@ -31,7 +31,7 @@ public class UnjumbleHandler {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (UnjumbleFragment.testNumber == -100) { //get user's level from database
                         UnjumbleFragment.testNumber = Integer.parseInt(String.valueOf(snapshot.child("userLevel").getValue()));
-                        FirebaseData();
+                        //FirebaseData();
                     } else if (UnjumbleFragment.testNumber > UnjumbleHandler.counter.getCount()) { //Indicates that all levels are completed
                         UnjumbleFragment.shuffle(Sentence.sentenceArray[UnjumbleFragment.testNumber - 2]);
                         UnjumbleFragment.hideButtons();

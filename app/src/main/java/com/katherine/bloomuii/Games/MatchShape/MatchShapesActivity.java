@@ -2,6 +2,8 @@ package com.katherine.bloomuii.Games.MatchShape;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
+import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.R;
 
 public class MatchShapesActivity extends AppCompatActivity {
@@ -30,6 +33,9 @@ public class MatchShapesActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
 
     /*    onCreate
     loads activity with the levels and achievements the user has reached and achieved
@@ -97,6 +103,20 @@ public class MatchShapesActivity extends AppCompatActivity {
                 level = 6;
                 readingGameLevel();
                 openShapeMain();
+            }
+        });
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+
+        btnBackClicked();
+    }
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatchShapesActivity.this.onBackPressed();
             }
         });
     }

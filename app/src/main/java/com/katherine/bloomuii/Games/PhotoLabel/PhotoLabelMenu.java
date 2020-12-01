@@ -2,6 +2,8 @@ package com.katherine.bloomuii.Games.PhotoLabel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.graphics.Rect;
 import android.media.MediaPlayer;
@@ -25,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
+import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -66,6 +70,9 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
 
     final Handler handler = new Handler();
 
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,8 +110,24 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                 assignImages();
             }
         }, 1000);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+
+        btnBackClicked();
 
     }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoLabelMenu.this.onBackPressed();
+            }
+        });
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(!dragging){

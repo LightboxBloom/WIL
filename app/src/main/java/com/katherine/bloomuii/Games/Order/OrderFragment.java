@@ -5,14 +5,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -32,6 +35,9 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
     public static String displayUserAnswer = "";
     public static List<Integer> userAnswer = new ArrayList<Integer>();
     int clickCount = 0;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +71,25 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
             int resID = getResources().getIdentifier(textViewID, "id", getActivity().getPackageName());
             textViews[i] = view.findViewById(resID);
         }
+        btnBack = (ImageView) view.findViewById(R.id.btnBack);
+
+        btnBackClicked();
         return view;
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, homeFragment)
+                        .commit();
+            }
+        });
     }
 
     public static void levelCreate() {

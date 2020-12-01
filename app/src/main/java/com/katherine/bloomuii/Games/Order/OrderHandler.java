@@ -20,7 +20,7 @@ public class OrderHandler {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(OrderFragment.levelNumber == -100){ //get user's level from database
                     OrderFragment.levelNumber = Integer.parseInt(String.valueOf(snapshot.child("orderNumberLevel").getValue()));
-                    OrderFragment.levelCreate();
+                    //OrderFragment.levelCreate();
                 }
                 else { //updates level in database
                     dbRef.child("orderNumberLevel").setValue(OrderFragment.levelNumber);

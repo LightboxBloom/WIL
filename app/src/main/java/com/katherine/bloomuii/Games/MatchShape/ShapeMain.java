@@ -2,6 +2,7 @@ package com.katherine.bloomuii.Games.MatchShape;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
@@ -65,6 +65,10 @@ public class ShapeMain extends Activity implements OnTouchListener {
     private Dialog popUpDialog, levelDialog;
     private Button startAgainBtn, freeModeBtn ,returnBtn;
 
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
+
+
     /*    onCreate
     When the activity loads, this is the first method to be called.
     Version 5  */
@@ -111,7 +115,24 @@ public class ShapeMain extends Activity implements OnTouchListener {
         totalMatchCounter = Integer.parseInt(getIntent().getExtras().get("TotalShapesAchievement").toString());
         retrieveFromDatabase();
         assignResources();
+
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+
+        btnBackClicked();
     }
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShapeMain.this.onBackPressed();
+            }
+        });
+    }
+
+
     /*    onTouch
         What happens when the User touchs an Image View on the screen
         Version 2  */

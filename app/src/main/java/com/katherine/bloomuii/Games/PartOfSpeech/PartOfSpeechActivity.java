@@ -2,6 +2,8 @@ package com.katherine.bloomuii.Games.PartOfSpeech;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -69,6 +72,9 @@ public class PartOfSpeechActivity extends AppCompatActivity implements View.OnTo
     /*    onCreate
     Method that runs when the activity is opened
     Version 1 */
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +119,22 @@ public class PartOfSpeechActivity extends AppCompatActivity implements View.OnTo
                 assignImages();
             }
         }, 2000);
+
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+
+        btnBackClicked();
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PartOfSpeechActivity.this.onBackPressed();
+            }
+        });
     }
     /*    retrieveFromDatabase
 Method that retrieves all the words and populates an array

@@ -1,6 +1,8 @@
 package com.katherine.bloomuii.Games.PartOfSpeech;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
+import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
 import com.katherine.bloomuii.R;
 /*
  * Class name: PartsOfSpeechMenu
@@ -36,6 +40,9 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+
+    ImageView btnBack;
+    private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +79,21 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 level = 4;
                 openPartsOfSpeechMain();
+            }
+        });
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+
+        btnBackClicked();
+    }
+
+    //click to get back to home fragment
+    private void btnBackClicked()
+    {
+        final Fragment homeFragment = new HomeFragment();
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PartOfSpeechMenuActivity.this.onBackPressed();
             }
         });
     }

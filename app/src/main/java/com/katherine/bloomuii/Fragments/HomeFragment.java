@@ -4,6 +4,7 @@ package com.katherine.bloomuii.Fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.katherine.bloomuii.Games.PartOfSpeech.PartOfSpeechMenuActivity;
 import com.katherine.bloomuii.Games.PhotoLabel.PhotoLabelMenu;
 import com.katherine.bloomuii.Games.Puzzle.PuzzleMain;
 import com.katherine.bloomuii.Games.Unjumble.UnjumbleFragment;
+import com.katherine.bloomuii.Games.Unjumble.UnjumbleHandler;
 import com.katherine.bloomuii.Handlers.StoryBoardHandler;
 import com.katherine.bloomuii.R;
 import com.katherine.bloomuii.ObjectClasses.User;
@@ -152,6 +154,14 @@ public class HomeFragment extends Fragment {
                 UnjumbleFragment fragment = new UnjumbleFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // yourMethod();
+                        UnjumbleHandler.FirebaseData();
+                    }
+                }, 2000);   //5 seconds
             }
         });
     }
@@ -172,6 +182,14 @@ public class HomeFragment extends Fragment {
                 OrderFragment fragment = new OrderFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // yourMethod();
+                        OrderFragment.levelCreate();
+                    }
+                }, 2000);   //5 seconds
             }
         });
     }
@@ -184,6 +202,14 @@ public class HomeFragment extends Fragment {
                 MathFragment fragment = new MathFragment();
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // yourMethod();
+                        MathFragment.sumType();
+                    }
+                }, 2000);   //5 seconds
             }
         });
     }
