@@ -46,12 +46,14 @@ public class PuzzleMain extends AppCompatActivity {
     private void selectedPuzzle() {
         Button btnLevel1 = (Button) findViewById(R.id.btnLevel1);
         Button btnLevel2 = (Button) findViewById(R.id.btnLevel2);
+        Button btnLevel3 = (Button) findViewById(R.id.btnLevel3);
 
         btnLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PuzzleMain.this, PuzzleLogic.class);
-                intent.putExtra("puzzleColumns", 3);
+                intent.putExtra("puzzleColumns", 2);
+                intent.putExtra("puzzleRows", 2);
                 intent.putExtra("puzzleID", 1);
                 startActivity(intent);
             }
@@ -61,8 +63,20 @@ public class PuzzleMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PuzzleMain.this, PuzzleLogic.class);
-                intent.putExtra("puzzleColumns", 4);
+                intent.putExtra("puzzleColumns", 3);
+                intent.putExtra("puzzleRows", 3);
                 intent.putExtra("puzzleID", 2);
+                startActivity(intent);
+            }
+        });
+
+        btnLevel3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PuzzleMain.this, PuzzleLogic.class);
+                intent.putExtra("puzzleColumns", 4);
+                intent.putExtra("puzzleRows", 4);
+                intent.putExtra("puzzleID", 3);
                 startActivity(intent);
             }
         });
