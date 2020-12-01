@@ -76,7 +76,7 @@
             android:fontFamily="@font/abeezee"
             android:text="a"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/button2"
@@ -88,7 +88,7 @@
             android:fontFamily="@font/abeezee"
             android:text="kind"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp"  />
 
     </LinearLayout>
 
@@ -109,7 +109,7 @@
             android:fontFamily="@font/abeezee"
             android:text="she"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/button4"
@@ -121,7 +121,7 @@
             android:fontFamily="@font/abeezee"
             android:text="is"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -141,7 +141,7 @@
             android:fontFamily="@font/abeezee"
             android:text="girl"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/button6"
@@ -153,7 +153,7 @@
             android:fontFamily="@font/abeezee"
             android:text="6"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -171,7 +171,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/abeezee"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="25sp"
             android:hint="Sentence will display here"
             android:textColor="@color/grey" />
 
@@ -198,7 +198,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/abeezee"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="25sp"
             android:hint="Current Level will display here"
             android:textColor="@color/grey" />
 
@@ -213,17 +213,18 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/button8"
             android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@drawable/btn_unjumble_rounded"
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
-            android:text="Submit"
-            android:textSize="24sp" />
+            android:text="Restart"
+            android:textSize="25sp" />
+
 
         <Space
             android:layout_width="0dp"
@@ -231,15 +232,16 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/button7"
             android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@drawable/btn_unjumble_rounded"
             android:elevation="10dp"
             android:fontFamily="@font/abeezee"
-            android:text="Restart"
-            android:textSize="24sp" />
+            android:text="Submit"
+            android:textSize="25sp" />
 
     </LinearLayout>
 </LinearLayout>

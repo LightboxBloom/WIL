@@ -105,13 +105,6 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
         lvl2Btn = findViewById(R.id.level2Btn);
         lvl3Btn = findViewById(R.id.level3Btn);
         freeModeBtn = findViewById(R.id.freeModeBtn);
-        consecSilverImg = findViewById(R.id.consecSilverImage);
-        consecBronzeImg = findViewById(R.id.consecBronzeImage);
-        consecGoldImg = findViewById(R.id.consecGoldImage);
-        totalBronzeImage = findViewById(R.id.totalBronzeImage);
-        totalSilverImage = findViewById(R.id.totalSilverImage);
-        totalGoldImage= findViewById(R.id.totalGoldImage);
-        totalMasterImage = findViewById(R.id.masterTotalImage);
     }
     /*    readingGameLevel
   reads the database for information about user
@@ -147,7 +140,6 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
                     String tot = ds.child("TotalAchievement").getValue().toString();
                     totalMatchesCount = Integer.valueOf(tot);
                 }
-                displayAchievements();
             }
 
             @Override
@@ -155,39 +147,6 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-    }
-    /*    displayAchievements
-   displays the users achievements based off of database data
-   Version 5  */
-    private void displayAchievements(){
-        //displays what levels are available
-        if(level >= 2){
-            lvl2Btn.setVisibility(View.VISIBLE);
-        }
-        if(level >= 3){
-            lvl3Btn.setVisibility(View.VISIBLE);
-        }
-        if(level >= 4 ){
-            freeModeBtn.setVisibility(View.VISIBLE);
-        }
-        //displays what consecutive achievements are completed
-        if(achievementLevel >=1)
-            consecBronzeImg.setVisibility(View.VISIBLE);
-        if(achievementLevel >=2)
-            consecSilverImg.setVisibility(View.VISIBLE);
-        if(achievementLevel ==3)
-            consecGoldImg.setVisibility(View.VISIBLE);
-
-        //displays what total matches achievements are completed
-        if(totalMatchesCount >= 1)
-            totalBronzeImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >=20)
-            totalSilverImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >= 50)
-            totalGoldImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >= 150)
-            totalMasterImage.setVisibility(View.VISIBLE);
-
     }
     /*    openPartsOfSpeechMain
     method to open the main Parts of speech activity and pass it values

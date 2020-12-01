@@ -4,7 +4,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorAccent">
 
     <!--    heading-->
     <androidx.cardview.widget.CardView
@@ -134,13 +134,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:textColor="@android:color/black"
         android:textAlignment="center"
         android:background="@color/txtBackground"
         android:textSize="20sp"
         android:layout_x="4dp"
         android:visibility="invisible"
         android:fontFamily="@font/abeezee"
-        android:layout_y="40dp"></TextView>
+        android:layout_y="30dp"></TextView>
 
     <TextView
         android:id="@+id/label1"
@@ -148,6 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_x="5dp"
         android:layout_y="90dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
@@ -160,6 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_x="135dp"
         android:layout_y="90dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
@@ -172,6 +175,7 @@
         android:layout_height="wrap_content"
         android:layout_x="275dp"
         android:layout_y="90dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
@@ -184,6 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_x="5dp"
         android:layout_y="140dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
@@ -196,6 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_x="135dp"
         android:layout_y="140dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
@@ -208,6 +214,7 @@
         android:layout_height="wrap_content"
         android:layout_x="275dp"
         android:layout_y="140dp"
+        android:textColor="@android:color/black"
         android:background="@color/txtBackground"
         android:fontFamily="@font/abeezee"
         android:padding="5dp"
