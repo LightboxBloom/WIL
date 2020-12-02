@@ -45,10 +45,11 @@ public class AchievementFragment extends Fragment {
     shapesTotHundred, shapesTotMaster, diaryFirst, amDiary, begDiary, intDiary, masterDiary,
     labelFirst, labelConsTen, labelConsTwenty, labelTotTwenty, labelTotFifty, labelTotHundred, labelMaster,
     posFirst, posConsTen, posConsTwenty, posTotTwenty, posTotFifty, posTotHundred, posMaster,
-    cardFirst, cardConsTen, cardConsTwenty, cardTotTwenty, cardTotFifty, cardTotHundred, cardMaster;
+    cardFirst, cardConsTen, cardConsTwenty, cardTotTwenty, cardTotFifty, cardTotHundred, cardMaster,
+    puzzleFirst,puzzleTotTwenty, puzzleTotFifty, puzzleTotHundred, puzzleMaster;
 
     //variables
-    int shapeCons, shapeTot, labelCons, labelTot, posCons, posTot, cardCons, cardTot;
+    int shapeCons, shapeTot, labelCons, labelTot, posCons, posTot, cardCons, cardTot, puzzleTot;
     private List<String> dates = new ArrayList<>();
 
     @Nullable
@@ -62,11 +63,13 @@ public class AchievementFragment extends Fragment {
 
         declarations(view);
 
-        retrieveDiaryEntry();
-        retrieveLabelThat();
+        diaryEntry();
+        labelThat();
         matchingCards();
-        retrieveShapes();
+        matchingShapes();
         partsOfSpeech();
+        puzzle();
+
         btnBackClicked();
 
         return view;
@@ -111,6 +114,12 @@ public class AchievementFragment extends Fragment {
         cardTotHundred = view.findViewById(R.id.imgCardMaster);
         cardMaster = view.findViewById(R.id.imgCardMaster);
 
+        puzzleFirst = view.findViewById(R.id.imgCardMaster);
+        puzzleTotTwenty = view.findViewById(R.id.imgCardMaster);
+        puzzleTotFifty = view.findViewById(R.id.imgCardMaster);
+        puzzleTotHundred = view.findViewById(R.id.imgCardMaster);
+        puzzleMaster = view.findViewById(R.id.imgCardMaster);
+
         mBack = view.findViewById(R.id.btnPuzzleBack);
     }
 
@@ -127,7 +136,7 @@ public class AchievementFragment extends Fragment {
         });
     }
 
-    private void retrieveDiaryEntry() {
+    private void diaryEntry() {
         myRef = database.getReference("Users/"+ currentUser.getUid() +"/DiaryEntries");
         myRef.keepSynced(true);
         //Read Level
@@ -186,7 +195,7 @@ public class AchievementFragment extends Fragment {
             }
         });
     }
-    private void retrieveLabelThat(){
+    private void labelThat(){
         myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PhotoLabelling");
         myRef.keepSynced(true);
         //Read Level
@@ -270,7 +279,7 @@ public class AchievementFragment extends Fragment {
             }
         });
     }
-    private void retrieveShapes(){
+    private void matchingShapes(){
         myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MatchingShape");
         myRef.keepSynced(true);
         //Read Level
@@ -358,7 +367,36 @@ public class AchievementFragment extends Fragment {
         });
     }
     private void puzzle(){
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/Puzzle");
+        myRef.keepSynced(true);
+        //Read Level
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                //Total match check
+                if(dataSnapshot.child("TotalAchievement").exists()){
+                    String tot = dataSnapshot.child("TotalAchievement").getValue().toString();
+                    puzzleTot = Integer.valueOf(tot);
+                }
+                //displays what total matches achievements are completed
+                if(puzzleTot >= 1)
+                    puzzleFirst.setImageResource(R.drawable.first_puzzle_complete);
+                if(puzzleTot >=20)
+                    puzzleTotTwenty.setImageResource(R.drawable.completed_20_puzzles);
+                if(puzzleTot >= 50)
+                    puzzleTotFifty.setImageResource(R.drawable.completed_50_puzzles);
+                if(puzzleTot >= 100)
+                    puzzleTotHundred.setImageResource(R.drawable.completed_100_puzzles);
+                if(puzzleTot >= 150)
+                    puzzleMaster.setImageResource(R.drawable.puzzle_master);
 
+                Log.d("TAG", "Puzzle Total: " + puzzleTot);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void unjumble(){
 
