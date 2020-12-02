@@ -35,18 +35,15 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtSendEmailResetPassword;
     private TextView errorFeedback;
     private ProgressBar progress;
-
     //Authentication
     private FirebaseAuth  mAuth;
-    private FirebaseDatabase database;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        database.getInstance().setPersistenceEnabled(false);
+        //database.getInstance().setPersistenceEnabled(false);
 
         //Declaring UI Components
         mLogin = findViewById(R.id.btnLogin);
@@ -63,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login(mAuth);
         //Navigate to Sign Up if User has no Account
         go_to_regi();
+
     }
 
     private void sendEmailAndRestPassword(){
@@ -100,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(!(email.getText().toString().equals("")) || !(password.getText().toString().equals(""))){
                     progress.setVisibility(View.VISIBLE);
                     Login();
-
                 }
                else{
                     errorFeedback.setText("All fields required.");
@@ -172,7 +169,6 @@ public class LoginActivity extends AppCompatActivity {
                     // after email is sent just logout the user and finish this activity
                     FirebaseAuth.getInstance().signOut();
                     progress.setVisibility(View.INVISIBLE);
-                    finish();
                 }
             }
         });
@@ -180,11 +176,11 @@ public class LoginActivity extends AppCompatActivity {
     //Check if user is signed in and update UI accordingly
     public void onStart(){
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            i.putExtra("CurrentUser", currentUser.getUid());
-            startActivity(i);
-        }
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null) {
+//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//            i.putExtra("CurrentUser", currentUser.getUid());
+//            startActivity(i);
+//        }
     }
 }//End of Activity

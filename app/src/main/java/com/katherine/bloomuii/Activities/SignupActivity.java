@@ -158,8 +158,6 @@ public class SignupActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(fullName.getText().toString()).build();
                                 //Save new Users Information
                                 User newUser = new User(email.getText().toString(), fullName.getText().toString(), mDisplayDate.getText().toString(), "English");
                                 SaveUserToDatabase(newUser);
@@ -207,7 +205,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean exists = false;
-                if(!emailAddress.equals("")) {
+                if(!emailAddress.equals("")||emailAddress.equals(null)) {
                     Iterable<DataSnapshot> children = snapshot.getChildren();
                 for(DataSnapshot child: children){
                     User user = child.getValue(User.class);
