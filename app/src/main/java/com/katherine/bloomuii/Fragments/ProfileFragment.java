@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ public class ProfileFragment extends Fragment {
     ImageView mBack;
     TextView mEdit, mLanguage, mTerms;
     TextView mLogout;
+    TextView mShare;
     ImageView btnPicture;
     ImageView mProfilePicture;
     //Firebase Initializations
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment {
         mLanguage = view.findViewById(R.id.txtLanguage);
         mTerms = view.findViewById(R.id.txtTerms);
         mLogout = view.findViewById(R.id.btnLogout);
+        mShare = view.findViewById(R.id.txtShare);
         fullName = view.findViewById(R.id.txtHomeUsername);
         btnPicture = view.findViewById(R.id.btnEditProfilePicture);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
@@ -70,6 +73,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 fullName.setText(user.getFull_Name());
+                mShareClicked(user, currentUser);
             }
 
             @Override
@@ -86,6 +90,23 @@ public class ProfileFragment extends Fragment {
         btnLogoutClicked();
         return view;
     }
+
+    //Method to handle share button click
+    private void mShareClicked(User user, FirebaseUser _currentUser) {
+        final User finalUser = user;
+        final FirebaseUser finalCurrentUser = _currentUser;
+        mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey there! Add me to your classroom using my username: "+finalUser.getFull_Name() + "#" + finalCurrentUser.getUid().substring(0, 4));
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+    }
+
     //click to get to language fragment
     private void btnLanguageClicked() {
         mLanguage.setOnClickListener(new View.OnClickListener() {
