@@ -25,8 +25,6 @@ import com.katherine.bloomuii.R;
 public class MatchShapesActivity extends AppCompatActivity {
     Button lvl1Btn,lvl2Btn, lvl3Btn, lvl4Btn, lvl5Btn, freeModeBtn;
     int level, achievementLevel = 0, totalMatchesCount;
-    ImageView consecBronzeImg, consecSilverImg, consecGoldImg, totalBronzeImage, totalSilverImage,
-            totalGoldImage, totalMasterImage;
 
     //Firebase
     private FirebaseDatabase database;
@@ -110,8 +108,7 @@ public class MatchShapesActivity extends AppCompatActivity {
         btnBackClicked();
     }
     //click to get back to home fragment
-    private void btnBackClicked()
-    {
+    private void btnBackClicked(){
         final Fragment homeFragment = new HomeFragment();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,11 +136,10 @@ public class MatchShapesActivity extends AppCompatActivity {
     private void readingGameLevel() {
         //Reading in Game Level from Firebase
         //Firebase Declarations
-
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MatchingShapes"); /*"Users/"+ currentUser.getUid() +"/Games/MatchingShapes"*/
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MatchingShape");
         myRef.keepSynced(true);
         //Read Level
         myRef.addValueEventListener(new ValueEventListener() {
@@ -202,26 +198,7 @@ public class MatchShapesActivity extends AppCompatActivity {
         if(level >= 6){
             freeModeBtn.setVisibility(View.VISIBLE);
         }
-        //displays what consecutive achievements are completed
-        if(achievementLevel >=1)
-            consecBronzeImg.setVisibility(View.VISIBLE);
-        if(achievementLevel >=2)
-            consecSilverImg.setVisibility(View.VISIBLE);
-        if(achievementLevel ==3)
-            consecGoldImg.setVisibility(View.VISIBLE);
-
-        //displays what total matches achievements are completed
-        if(totalMatchesCount >= 10)
-            totalBronzeImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >=20)
-            totalSilverImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >= 30)
-            totalGoldImage.setVisibility(View.VISIBLE);
-        if(totalMatchesCount >= 50)
-            totalMasterImage.setVisibility(View.VISIBLE);
-
     }
-
     /*    openShapeMain
     method to open the main shape activity and pass it values
     Version 5  */
