@@ -30,16 +30,6 @@
                 android:textAlignment="textStart"
                 android:textSize="30sp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnRemoveStudent"
-                android:layout_width="68dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:elevation="10dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

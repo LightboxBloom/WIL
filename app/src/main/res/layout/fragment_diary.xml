@@ -81,7 +81,7 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:clickable="true"
             android:elevation="10dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_add_grey"
             app:elevation="10dp" />
 
     </LinearLayout>

@@ -54,7 +54,6 @@ public class ProfileFragment extends Fragment {
         //UI Declarations
         mBack = view.findViewById(R.id.btnPuzzleBack);
         mEdit = view.findViewById(R.id.txtEditProfile);
-        mLanguage = view.findViewById(R.id.txtLanguage);
         mTerms = view.findViewById(R.id.txtTerms);
         mLogout = view.findViewById(R.id.btnLogout);
         mShare = view.findViewById(R.id.txtShare);
@@ -85,7 +84,6 @@ public class ProfileFragment extends Fragment {
         setProfilePicture();
         btnBackClicked();
         btnEditClicked();
-        btnLanguageClicked();
         btnTermsOfUse();
         btnLogoutClicked();
         return view;
@@ -107,19 +105,6 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    //click to get to language fragment
-    private void btnLanguageClicked() {
-        mLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                LanguageFragment languageFragment = new LanguageFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, languageFragment);
-                fragmentTransaction.commit();
-            }
-        });
-    }
     //click to get to edit profile
     private void btnEditClicked() {
         mEdit.setOnClickListener(new View.OnClickListener() {

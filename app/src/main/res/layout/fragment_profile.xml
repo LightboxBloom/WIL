@@ -55,18 +55,20 @@
 
         <TextView
             android:id="@+id/txtHomeUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_width="362dp"
+            android:layout_height="51dp"
+            android:paddingTop="6dp"
             android:fontFamily="@font/abeezee"
             android:text="@string/username"
             android:textAlignment="center"
             android:textColor="@color/grey"
             android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/imgCircle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgRec" />
+            app:layout_constraintStart_toEndOf="@+id/btnPuzzleBack"
+            app:layout_constraintTop_toTopOf="@+id/imgRec"
+            app:layout_constraintVertical_bias="0.172" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -74,8 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:padding="5dp"
         android:background="@color/grey"
+        android:padding="5dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
@@ -92,14 +94,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/profile"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/abeezee"
+                    android:text="@string/profile"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp"/>
+                    android:textSize="35sp" />
 
-<!--                horizontal linear layout for each-->
-<!--                edit profile-->
+                <!--                horizontal linear layout for each-->
+                <!--                edit profile-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,23 +112,23 @@
                         android:layout_height="35dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_edit"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_edit_new" />
 
                     <TextView
                         android:id="@+id/txtEditProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/edit_profile"
-                        android:textAlignment="textStart"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:text="@string/edit_profile"
+                        android:textAlignment="textStart"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
+                        android:textSize="28dp" />
 
                 </LinearLayout>
-<!--                share-->
+                <!--                share-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,129 +139,40 @@
                         android:layout_height="35dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_share"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_share" />
 
                     <TextView
                         android:id="@+id/txtShare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/share"
                         android:textAlignment="textStart"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
+                        android:textSize="28dp" />
 
 
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorPrimaryDark" />
 
+                <!--                terms of use-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/general"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/abeezee"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp"/>
-
-<!--                notifications-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_notification"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notifications"
-                        android:textAlignment="textStart"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-
-                    <Switch
-                        android:id="@+id/swtNotifications"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
-
-
-                </LinearLayout>
-
-<!--                language-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_language"
-                        android:layout_marginBottom="10dp"/>
-
-                    <TextView
-                        android:id="@+id/txtLanguage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Language"
-                        android:textAlignment="textStart"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="25sp"/>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimaryDark" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/about"
-                    android:layout_margin="10dp"
-                    android:fontFamily="@font/abeezee"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="32sp"/>
+                    android:textSize="35sp" />
 
-<!--                terms of use-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -283,7 +196,7 @@
                         android:text="@string/terms_of_use"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp" />
+                        android:textSize="28dp" />
 
 
                 </LinearLayout>
@@ -294,7 +207,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/colorPrimaryDark" />
 
-<!--                logout-->
+                <!--                logout-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,7 +216,7 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="14dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:src="@drawable/ic_logout" />
@@ -318,7 +231,7 @@
                         android:text="@string/logout"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="25sp" />
+                        android:textSize="28dp" />
 
 
                 </LinearLayout>
@@ -328,8 +241,6 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.cardview.widget.CardView>
-
-
 
 
 </LinearLayout>

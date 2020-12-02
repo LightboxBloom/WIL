@@ -439,7 +439,7 @@
             android:clickable="true"
             android:elevation="10dp"
             android:focusable="auto"
-            android:src="@drawable/ic_view"
+            android:src="@drawable/ic_school_grey"
             app:elevation="10dp" />
 
     </LinearLayout>

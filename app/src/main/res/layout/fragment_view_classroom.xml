@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/txtMyClasses"
                 android:layout_width="match_parent"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
@@ -104,7 +104,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="414dp"
             android:layout_height="5dp"
-            android:layout_marginTop="122dp"
+            android:layout_marginTop="125dp"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimaryDark"
             android:progressTint="@color/colorPrimaryDark" />
@@ -151,7 +151,7 @@
             android:clickable="true"
             android:elevation="10dp"
             android:focusable="auto"
-            android:src="@android:drawable/ic_menu_send"
+            android:src="@drawable/ic_send_grey"
             app:elevation="10dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -165,7 +165,7 @@
             android:clickable="true"
             android:elevation="10dp"
             android:focusable="auto"
-            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:src="@drawable/ic_list_grey"
             app:elevation="10dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -179,7 +179,7 @@
             android:clickable="true"
             android:elevation="10dp"
             android:focusable="auto"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_add_grey"
             app:elevation="10dp" />
     </LinearLayout>
 

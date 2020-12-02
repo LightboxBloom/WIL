@@ -182,7 +182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="Contributors"
+                            android:text="Teachers"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
