@@ -67,8 +67,6 @@ public class ShapeMain extends Activity implements OnTouchListener {
 
     ImageView btnBack;
     private FragmentManager fragmentManager;
-
-
     /*    onCreate
     When the activity loads, this is the first method to be called.
     Version 5  */
@@ -107,7 +105,6 @@ public class ShapeMain extends Activity implements OnTouchListener {
             }
         });
         database = FirebaseDatabase.getInstance();
-        Log.d("TAG", "onCreate: User ID: " + currentUser.getUid());
         myRef = database.getReference("Users/" + currentUser.getUid() +"/Games/MatchingShape");
         declareComponents();
         level = Integer.parseInt(getIntent().getExtras().get("ShapesLevel").toString());
@@ -121,8 +118,7 @@ public class ShapeMain extends Activity implements OnTouchListener {
         btnBackClicked();
     }
     //click to get back to home fragment
-    private void btnBackClicked()
-    {
+    private void btnBackClicked(){
         final Fragment homeFragment = new HomeFragment();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,8 +127,6 @@ public class ShapeMain extends Activity implements OnTouchListener {
             }
         });
     }
-
-
     /*    onTouch
         What happens when the User touchs an Image View on the screen
         Version 2  */

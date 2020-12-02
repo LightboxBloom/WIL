@@ -120,16 +120,16 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NotNull DataSnapshot ds) {
-                if(ds.child("Level").exists()){
-                    level = Integer.valueOf(ds.child("Level").getValue().toString());
-                }
-                else
-                    level = 1;
                 if(ds.child("hasCompleted").exists()){
                     lvl2Btn.setVisibility(View.VISIBLE);
                     lvl3Btn.setVisibility(View.VISIBLE);
                     freeModeBtn.setVisibility(View.VISIBLE);
                 }
+                if(ds.child("Level").exists()){
+                    level = Integer.valueOf(ds.child("Level").getValue().toString());
+                }
+                else
+                    level = 1;
                 //Consecutive achievement check
                 if(ds.child("ConsecutiveAchievement").exists()){
                     String ach = ds.child("ConsecutiveAchievement").getValue().toString();
@@ -140,13 +140,28 @@ public class PartOfSpeechMenuActivity extends AppCompatActivity {
                     String tot = ds.child("TotalAchievement").getValue().toString();
                     totalMatchesCount = Integer.valueOf(tot);
                 }
+                displayAchievements();
             }
-
             @Override
             public void onCancelled(@NotNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+    }
+    /*    displayAchievements
+displays the users achievements based off of database data
+Version 5  */
+    private void displayAchievements(){
+        //displays what levels are available
+        if(level >= 2){
+            lvl2Btn.setVisibility(View.VISIBLE);
+        }
+        if(level >= 3){
+            lvl3Btn.setVisibility(View.VISIBLE);
+        }
+        if(level >= 6){
+            freeModeBtn.setVisibility(View.VISIBLE);
+        }
     }
     /*    openPartsOfSpeechMain
     method to open the main Parts of speech activity and pass it values

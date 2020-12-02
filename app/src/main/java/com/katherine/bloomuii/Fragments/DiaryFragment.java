@@ -56,6 +56,7 @@ public class DiaryFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         myRef = database.getReference("Users/" + currentUser.getUid() + "/DiaryEntries");
+        myRef.keepSynced(true);
         bundle = new Bundle();
         //Retrieve all Diary Entries and Display
         myRef.addValueEventListener(new ValueEventListener() {
@@ -78,7 +79,6 @@ public class DiaryFragment extends Fragment {
                     Toast.makeText(getActivity(), "Retrieving Entries failed", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
