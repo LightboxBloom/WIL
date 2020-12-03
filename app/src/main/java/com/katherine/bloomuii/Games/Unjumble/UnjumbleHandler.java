@@ -121,8 +121,75 @@ public class UnjumbleHandler {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 counter.setCount((int) snapshot.getChildrenCount()); //counter is set to the number of sentences in the db
 
-                Sentence.arrayCreate(counter.getCount()); //arrayCreate method is called
-                int i = -1; //used for loop to assign word into different sentence lists
+                Sentence.arrayCreate(counter.getCount() + 12); //arrayCreate method is called
+                //Default Unjumble Sentences
+                Sentence.sentenceArray[0].add("The");
+                Sentence.sentenceArray[0].add("dog");
+                Sentence.sentenceArray[0].add("barks");
+
+                Sentence.sentenceArray[1].add("The");
+                Sentence.sentenceArray[1].add("cat");
+                Sentence.sentenceArray[1].add("meows");
+
+                Sentence.sentenceArray[2].add("He");
+                Sentence.sentenceArray[2].add("was");
+                Sentence.sentenceArray[2].add("happy");
+
+                Sentence.sentenceArray[3].add("She");
+                Sentence.sentenceArray[3].add("kicked");
+                Sentence.sentenceArray[3].add("a");
+                Sentence.sentenceArray[3].add("ball");
+
+                Sentence.sentenceArray[4].add("The");
+                Sentence.sentenceArray[4].add("leaves");
+                Sentence.sentenceArray[4].add("are");
+                Sentence.sentenceArray[4].add("green");
+
+                Sentence.sentenceArray[5].add("An");
+                Sentence.sentenceArray[5].add("elephant");
+                Sentence.sentenceArray[5].add("was");
+                Sentence.sentenceArray[5].add("walking");
+
+                Sentence.sentenceArray[6].add("She");
+                Sentence.sentenceArray[6].add("is");
+                Sentence.sentenceArray[6].add("a");
+                Sentence.sentenceArray[6].add("kind");
+                Sentence.sentenceArray[6].add("girl");
+
+                Sentence.sentenceArray[7].add("He");
+                Sentence.sentenceArray[7].add("saw");
+                Sentence.sentenceArray[7].add("a");
+                Sentence.sentenceArray[7].add("big");
+                Sentence.sentenceArray[7].add("cow");
+
+                Sentence.sentenceArray[8].add("The");
+                Sentence.sentenceArray[8].add("fat");
+                Sentence.sentenceArray[8].add("cat");
+                Sentence.sentenceArray[8].add("ate");
+                Sentence.sentenceArray[8].add("fish");
+
+                Sentence.sentenceArray[9].add("The");
+                Sentence.sentenceArray[9].add("small");
+                Sentence.sentenceArray[9].add("cat");
+                Sentence.sentenceArray[9].add("was");
+                Sentence.sentenceArray[9].add("being");
+                Sentence.sentenceArray[9].add("chased");
+
+                Sentence.sentenceArray[10].add("He");
+                Sentence.sentenceArray[10].add("was");
+                Sentence.sentenceArray[10].add("carrying");
+                Sentence.sentenceArray[10].add("a");
+                Sentence.sentenceArray[10].add("big");
+                Sentence.sentenceArray[10].add("bag");
+
+                Sentence.sentenceArray[11].add("She");
+                Sentence.sentenceArray[11].add("was");
+                Sentence.sentenceArray[11].add("reading");
+                Sentence.sentenceArray[11].add("an");
+                Sentence.sentenceArray[11].add("interesting");
+                Sentence.sentenceArray[11].add("book");
+
+                int i = 11; //used for loop to assign word into different sentence lists
 
                 /*for (DataSnapshot dataSnapshot : snapshot.getChildren()) { //after a sentence's words are assigned, the next sentence is filled
                     i++;
@@ -145,7 +212,7 @@ public class UnjumbleHandler {
 
                     //shuffle happens after sentences have words to avoid crashing,
                     //submit and restart buttons are only enabled once the firebase data has been pulled (this stops the user from skipping levels before the data loads)
-                    if (UnjumbleFragment.testNumber <= UnjumbleHandler.counter.getCount()) {
+                    if (UnjumbleFragment.testNumber <= UnjumbleHandler.counter.getCount() + 12) {
                         UnjumbleFragment.shuffle(Sentence.sentenceArray[UnjumbleFragment.testNumber - 1]);
                         UnjumbleFragment.buttons[6].setEnabled(true);
                         UnjumbleFragment.buttons[7].setEnabled(true);
