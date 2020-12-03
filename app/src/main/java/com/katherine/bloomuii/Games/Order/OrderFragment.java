@@ -444,8 +444,9 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
                     else {
                         Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
                         levelNumber++;
+                        OrderHandler.myRef.child("Level").setValue(OrderFragment.levelNumber);
                         OrderHandler.getSetUserLevel();
-                        levelCreate();
+                        //levelCreate();
                         userAnswer.clear();
                         displayUserAnswer = "";
                         textViews[2].setText(displayUserAnswer);
