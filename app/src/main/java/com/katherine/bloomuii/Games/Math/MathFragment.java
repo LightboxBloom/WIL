@@ -37,6 +37,8 @@ public class MathFragment extends Fragment implements View.OnClickListener {
     public static boolean minPlus = false;
     public static boolean plusPlus = false;
     public static boolean plusMin = false;
+    public static int consecutiveCounter = 0;
+    public static int achievementLevel = 0;
     EditText editTextNumber;
 
     ImageView btnBack;
@@ -88,6 +90,19 @@ public class MathFragment extends Fragment implements View.OnClickListener {
                         .commit();
             }
         });
+    }
+    public static void achievements(){
+        MathHandler.myRef.child("TotalAchievement").setValue(levelNumber - 1);
+
+        //Consecutive achievement check
+        if(consecutiveCounter == 10 && achievementLevel < 1){
+            MathHandler.myRef.child("ConsecutiveAchievement").setValue("1");
+            achievementLevel++;
+        }
+        else if(consecutiveCounter == 20 && achievementLevel < 2){
+            MathHandler.myRef.child("ConsecutiveAchievement").setValue("2");
+            achievementLevel++;
+        }
     }
     public static void sumType(){
         valueNum();                                                 //sets values of the symbols
@@ -146,13 +161,16 @@ public class MathFragment extends Fragment implements View.OnClickListener {
                     if (userAns != correctAns)
                     {
                         Toast.makeText(getContext(), "Incorrect, Please try again", Toast.LENGTH_SHORT).show();
+                        consecutiveCounter = 0;
                     }
                     else
                     {
                         Toast.makeText(getContext(), "Correct, Try this next sum!", Toast.LENGTH_SHORT).show();
+                        consecutiveCounter++;
                         levelNumber++;                                                 //increase user level
                         MathHandler.myRef.child("Level").setValue(levelNumber);
                         MathHandler.getSetUserLevel();
+                        achievements();
                         textViews[5].setText("Current Level: " + levelNumber);         //display new user level
                         sumType();                                                      //generate new sum to be answered
                     }
