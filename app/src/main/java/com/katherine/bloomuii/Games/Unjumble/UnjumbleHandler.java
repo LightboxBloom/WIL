@@ -16,9 +16,10 @@ import com.katherine.bloomuii.ObjectClasses.Sentence;
 public class UnjumbleHandler {
 
     public static Sentence counter = new Sentence();//used to create an array of sentences that is the correct size
-    public static DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Flashcards").child("Uploads");
-    public static DatabaseReference userTestRef = FirebaseDatabase.getInstance().getReference().child("userTest");
-    public static DatabaseReference baseRef = FirebaseDatabase.getInstance().getReference();
+    //public static DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Flashcards").child("Test");
+    public static DatabaseReference dbRef2 = FirebaseDatabase.getInstance().getReference().child("Flashcards").child("Uploads");
+    //public static DatabaseReference userTestRef = FirebaseDatabase.getInstance().getReference().child("userTest");
+    //public static DatabaseReference baseRef = FirebaseDatabase.getInstance().getReference();
 
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
@@ -115,8 +116,146 @@ public class UnjumbleHandler {
     //CHANGE FIREBASE DATA, USE NEW DB REFERENCE FOR THE FLASHCARDS AND RETRIEVE ALL CHILD SENTENCES FROM THE CHILD OF UPLOADS
     public static void FirebaseData() {
 
+        dbRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    //UnjumbleFragment.textViews[0].setText("SNAPSHOT EXISTS");
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+                    counter.setCount((int) snapshot.getChildrenCount()); //counter is set to the number of sentences in the db
+
+                    Sentence.arrayCreate(counter.getCount() + 3); //arrayCreate method is called
+                    //Default Unjumble Sentences
+                    Sentence.sentenceArray[0].add("The");
+                    Sentence.sentenceArray[0].add("dog");
+                    Sentence.sentenceArray[0].add("barks");
+
+                    Sentence.sentenceArray[1].add("The");
+                    Sentence.sentenceArray[1].add("cat");
+                    Sentence.sentenceArray[1].add("meows");
+
+                    Sentence.sentenceArray[2].add("He");
+                    Sentence.sentenceArray[2].add("was");
+                    Sentence.sentenceArray[2].add("happy");
+
+
+                    int i = 2; //used for loop to assign word into different sentence lists
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) { //after a sentence's words are assigned, the next sentence is filled
+                        i++;
+                        String s;
+                        s = dataSnapshot.child("Sentence").getValue().toString();
+                        String[] words = s.split(" ");
+                        for (String word : words) {
+                            Sentence.sentenceArray[i].add(word);
+                        }
+
+                        //shuffle happens after sentences have words to avoid crashing,
+                        //submit and restart buttons are only enabled once the firebase data has been pulled (this stops the user from skipping levels before the data loads)
+                        if (UnjumbleFragment.testNumber <= UnjumbleHandler.counter.getCount() + 3) {
+                            UnjumbleFragment.shuffle(Sentence.sentenceArray[UnjumbleFragment.testNumber - 1]);
+                            UnjumbleFragment.buttons[6].setEnabled(true);
+                            UnjumbleFragment.buttons[7].setEnabled(true);
+                        } else {
+                            //getSetUserLevel();
+                            UnjumbleFragment.textViews[0].setText("Well Done!");
+                            UnjumbleFragment.textViews[1].setText("All levels completed! Click restart if you want to start at the beginning");
+                            UnjumbleFragment.buttons[7].setEnabled(true);
+                        }
+                    }
+                }
+                else {
+                    //UnjumbleFragment.textViews[0].setText("SNAPSHOT DOES NOT EXIST");
+                    counter.setCount(9);
+
+                    Sentence.arrayCreate(12); //arrayCreate method is called
+                    //Default Unjumble Sentences
+                    Sentence.sentenceArray[0].add("The");
+                    Sentence.sentenceArray[0].add("dog");
+                    Sentence.sentenceArray[0].add("barks");
+
+                    Sentence.sentenceArray[1].add("The");
+                    Sentence.sentenceArray[1].add("cat");
+                    Sentence.sentenceArray[1].add("meows");
+
+                    Sentence.sentenceArray[2].add("He");
+                    Sentence.sentenceArray[2].add("was");
+                    Sentence.sentenceArray[2].add("happy");
+
+                    Sentence.sentenceArray[3].add("She");
+                    Sentence.sentenceArray[3].add("kicked");
+                    Sentence.sentenceArray[3].add("a");
+                    Sentence.sentenceArray[3].add("ball");
+
+                    Sentence.sentenceArray[4].add("The");
+                    Sentence.sentenceArray[4].add("leaves");
+                    Sentence.sentenceArray[4].add("are");
+                    Sentence.sentenceArray[4].add("green");
+
+                    Sentence.sentenceArray[5].add("An");
+                    Sentence.sentenceArray[5].add("elephant");
+                    Sentence.sentenceArray[5].add("was");
+                    Sentence.sentenceArray[5].add("walking");
+
+                    Sentence.sentenceArray[6].add("She");
+                    Sentence.sentenceArray[6].add("is");
+                    Sentence.sentenceArray[6].add("a");
+                    Sentence.sentenceArray[6].add("kind");
+                    Sentence.sentenceArray[6].add("girl");
+
+                    Sentence.sentenceArray[7].add("He");
+                    Sentence.sentenceArray[7].add("saw");
+                    Sentence.sentenceArray[7].add("a");
+                    Sentence.sentenceArray[7].add("big");
+                    Sentence.sentenceArray[7].add("cow");
+
+                    Sentence.sentenceArray[8].add("The");
+                    Sentence.sentenceArray[8].add("fat");
+                    Sentence.sentenceArray[8].add("cat");
+                    Sentence.sentenceArray[8].add("ate");
+                    Sentence.sentenceArray[8].add("fish");
+
+                    Sentence.sentenceArray[9].add("The");
+                    Sentence.sentenceArray[9].add("small");
+                    Sentence.sentenceArray[9].add("cat");
+                    Sentence.sentenceArray[9].add("was");
+                    Sentence.sentenceArray[9].add("being");
+                    Sentence.sentenceArray[9].add("chased");
+
+                    Sentence.sentenceArray[10].add("He");
+                    Sentence.sentenceArray[10].add("was");
+                    Sentence.sentenceArray[10].add("carrying");
+                    Sentence.sentenceArray[10].add("a");
+                    Sentence.sentenceArray[10].add("big");
+                    Sentence.sentenceArray[10].add("bag");
+
+                    Sentence.sentenceArray[11].add("She");
+                    Sentence.sentenceArray[11].add("was");
+                    Sentence.sentenceArray[11].add("reading");
+                    Sentence.sentenceArray[11].add("an");
+                    Sentence.sentenceArray[11].add("interesting");
+                    Sentence.sentenceArray[11].add("book");
+
+                    if (UnjumbleFragment.testNumber <= 12) {
+                        UnjumbleFragment.shuffle(Sentence.sentenceArray[UnjumbleFragment.testNumber - 1]);
+                        UnjumbleFragment.buttons[6].setEnabled(true);
+                        UnjumbleFragment.buttons[7].setEnabled(true);
+                    } else {
+                        //getSetUserLevel();
+                        UnjumbleFragment.textViews[0].setText("Well Done!");
+                        UnjumbleFragment.textViews[1].setText("All levels completed! Click restart if you want to start at the beginning");
+                        UnjumbleFragment.buttons[7].setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+/*        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 counter.setCount((int) snapshot.getChildrenCount()); //counter is set to the number of sentences in the db
@@ -191,7 +330,7 @@ public class UnjumbleHandler {
 
                 int i = 11; //used for loop to assign word into different sentence lists
 
-                /*for (DataSnapshot dataSnapshot : snapshot.getChildren()) { //after a sentence's words are assigned, the next sentence is filled
+                *//*for (DataSnapshot dataSnapshot : snapshot.getChildren()) { //after a sentence's words are assigned, the next sentence is filled
                     i++;
                     for (DataSnapshot child : dataSnapshot.getChildren())  //each word in the database is added to a list
                     {
@@ -199,7 +338,7 @@ public class UnjumbleHandler {
                         s = Objects.requireNonNull(child.getValue()).toString();
                         Sentence.sentenceArray[i].add(s);
 
-                    }*/
+                    }*//*
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) { //after a sentence's words are assigned, the next sentence is filled
                     i++;
                     String s;
@@ -228,6 +367,6 @@ public class UnjumbleHandler {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
+        });*/
     }
 }

@@ -198,7 +198,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                     consecutiveCounter++;
                     achievements();
 
-                    if (testNumber > UnjumbleHandler.counter.getCount() + 12) {
+                    if (testNumber > UnjumbleHandler.counter.getCount() + 3) {
                         Toast.makeText(getContext(), "All Levels Complete! Congratulations!", Toast.LENGTH_SHORT).show();
                         buttons[7].setEnabled(false);
                         buttons[6].setEnabled(false);
@@ -277,7 +277,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                 //allows for restarting from level 1 (Used for testing purposes)
                 //allows for restarting from level 1 (Used for testing purposes)
                 //allows for restarting from level 1 (Used for testing purposes)
-                if (testNumber > UnjumbleHandler.counter.getCount() + 12) {
+                if (testNumber > UnjumbleHandler.counter.getCount() + 3) {
                     testNumber = 1;
                     UnjumbleHandler.myRef.child("Level").setValue(1);
                     shuffle(Sentence.sentenceArray[testNumber - 1]);
