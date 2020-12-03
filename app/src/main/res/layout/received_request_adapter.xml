@@ -54,7 +54,8 @@
             android:id="@+id/lButtonLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="8dp">
 
             <Button
                 android:id="@+id/btnAccept"
