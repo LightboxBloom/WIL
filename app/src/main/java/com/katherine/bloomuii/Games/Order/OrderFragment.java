@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.Games.Math.MathHandler;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
     public static String displayUserAnswer = "";
     public static List<Integer> userAnswer = new ArrayList<Integer>();
     int clickCount = 0;
+    public static int consecutiveCounter = 0;
+    public static int achievementLevel = 0;
 
     public static Random random = new Random();
     public static boolean orderBool = true;
@@ -80,6 +83,20 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
 
         btnBackClicked();
         return view;
+    }
+
+    public static void achievements(){
+        OrderHandler.myRef.child("TotalAchievement").setValue(levelNumber - 1);
+
+        //Consecutive achievement check
+        if(consecutiveCounter == 10 && achievementLevel < 1){
+            OrderHandler.myRef.child("ConsecutiveAchievement").setValue("1");
+            achievementLevel++;
+        }
+        else if(consecutiveCounter == 20 && achievementLevel < 2){
+            OrderHandler.myRef.child("ConsecutiveAchievement").setValue("2");
+            achievementLevel++;
+        }
     }
 
     //click to get back to home fragment
@@ -443,9 +460,11 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
                     }
                     else {
                         Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+                        consecutiveCounter++;
                         levelNumber++;
                         OrderHandler.myRef.child("Level").setValue(OrderFragment.levelNumber);
                         OrderHandler.getSetUserLevel();
+                        achievements();
                         //levelCreate();
                         userAnswer.clear();
                         displayUserAnswer = "";
@@ -456,6 +475,7 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
                 }
                 else {
                     Toast.makeText(getContext(), "Incorrect", Toast.LENGTH_SHORT).show();
+                    consecutiveCounter = 0;
                 }
 
                 break;
