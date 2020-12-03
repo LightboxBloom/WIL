@@ -30,6 +30,9 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
     public static Button[] buttons = new Button[8]; //Button array used to initialize all buttons
     public static TextView[] textViews = new TextView[2]; //Button array used to initialize all buttons
 
+    public static int consecutiveCounter = 0;
+    public static int achievementLevel = 0;
+
     //All word buttons are set to 'Not Clicked' by default
     boolean clicked1=false;
     boolean clicked2=false;
@@ -94,6 +97,20 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
         UnjumbleHandler.FirebaseData();
 
         return view;
+    }
+
+    public static void achievements(){
+        UnjumbleHandler.myRef.child("TotalAchievement").setValue(testNumber - 1);
+
+        //Consecutive achievement check
+        if(consecutiveCounter == 10 && achievementLevel < 1){
+            UnjumbleHandler.myRef.child("ConsecutiveAchievement").setValue("1");
+            achievementLevel++;
+        }
+        else if(consecutiveCounter == 20 && achievementLevel < 2){
+            UnjumbleHandler.myRef.child("ConsecutiveAchievement").setValue("2");
+            achievementLevel++;
+        }
     }
 
     //click to get back to home fragment
@@ -177,6 +194,8 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                 if (userAnswer.contains(correctAnswer)) { //handles event when the user gives correct answer
                     testNumber = testNumber + 1;
                     UnjumbleHandler.myRef.child("Level").setValue(testNumber);
+                    consecutiveCounter++;
+                    achievements();
 
                     if (testNumber > UnjumbleHandler.counter.getCount()) {
                         Toast.makeText(getContext(), "All Levels Complete! Congratulations!", Toast.LENGTH_SHORT).show();
@@ -197,6 +216,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
 
 
                 } else {            //handles event when the user gives incorrect answer
+                    consecutiveCounter = 0;
                     //Different error messages are given based on whether the user didn't use all available words or if they just gave the wrong answer but did use all available words
                     if(Sentence.sentenceArray[testNumber - 1].size()<=1){
                         if(!clicked1 || !clicked2 || !clicked3){
@@ -258,6 +278,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                 //allows for restarting from level 1 (Used for testing purposes)
                 if (testNumber > UnjumbleHandler.counter.getCount()) {
                     testNumber = 1;
+                    UnjumbleHandler.myRef.child("Level").setValue(1);
                     shuffle(Sentence.sentenceArray[testNumber - 1]);
                     buttons[6].setEnabled(true);
                     userAnswer = "";
