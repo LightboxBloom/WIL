@@ -106,19 +106,19 @@ public class AchievementFragment extends Fragment {
         posTotHundred = view.findViewById(R.id.img100Speech);
         posMaster = view.findViewById(R.id.imgSpeechMaster);
 
-        cardFirst = view.findViewById(R.id.imgCardMaster);
-        cardConsTen = view.findViewById(R.id.imgCardMaster);
-        cardConsTwenty = view.findViewById(R.id.imgCardMaster);
-        cardTotTwenty = view.findViewById(R.id.imgCardMaster);
-        cardTotFifty = view.findViewById(R.id.imgCardMaster);
-        cardTotHundred = view.findViewById(R.id.imgCardMaster);
+        cardFirst = view.findViewById(R.id.imgFirstCard);
+        cardConsTen = view.findViewById(R.id.img10ConsecutiveCards);
+        cardConsTwenty = view.findViewById(R.id.img20ConsecutiveCards);
+        cardTotTwenty = view.findViewById(R.id.img20Cards);
+        cardTotFifty = view.findViewById(R.id.img50Cards);
+        cardTotHundred = view.findViewById(R.id.img100Cards);
         cardMaster = view.findViewById(R.id.imgCardMaster);
 
-        puzzleFirst = view.findViewById(R.id.imgCardMaster);
-        puzzleTotTwenty = view.findViewById(R.id.imgCardMaster);
-        puzzleTotFifty = view.findViewById(R.id.imgCardMaster);
-        puzzleTotHundred = view.findViewById(R.id.imgCardMaster);
-        puzzleMaster = view.findViewById(R.id.imgCardMaster);
+        puzzleFirst = view.findViewById(R.id.imgFirstPuzzle);
+        puzzleTotTwenty = view.findViewById(R.id.img20Puzzles);
+        puzzleTotFifty = view.findViewById(R.id.img50Puzzles);
+        puzzleTotHundred = view.findViewById(R.id.img100Puzzles);
+        puzzleMaster = view.findViewById(R.id.imgPuzzleMaster);
 
         mBack = view.findViewById(R.id.btnPuzzleBack);
     }
