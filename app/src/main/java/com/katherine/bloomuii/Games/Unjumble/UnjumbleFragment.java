@@ -57,6 +57,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_unjumble, container, false);
         //Firebase Declarations
@@ -197,7 +198,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                     consecutiveCounter++;
                     achievements();
 
-                    if (testNumber > UnjumbleHandler.counter.getCount()) {
+                    if (testNumber > UnjumbleHandler.counter.getCount() + 12) {
                         Toast.makeText(getContext(), "All Levels Complete! Congratulations!", Toast.LENGTH_SHORT).show();
                         buttons[7].setEnabled(false);
                         buttons[6].setEnabled(false);
@@ -276,7 +277,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                 //allows for restarting from level 1 (Used for testing purposes)
                 //allows for restarting from level 1 (Used for testing purposes)
                 //allows for restarting from level 1 (Used for testing purposes)
-                if (testNumber > UnjumbleHandler.counter.getCount()) {
+                if (testNumber > UnjumbleHandler.counter.getCount() + 12) {
                     testNumber = 1;
                     UnjumbleHandler.myRef.child("Level").setValue(1);
                     shuffle(Sentence.sentenceArray[testNumber - 1]);

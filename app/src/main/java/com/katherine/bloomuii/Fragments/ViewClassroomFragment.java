@@ -1,6 +1,7 @@
 //Developer: Rohini Naidu
 package com.katherine.bloomuii.Fragments;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +28,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.katherine.bloomuii.Adapters.ClassroomAdapter;
 import com.katherine.bloomuii.ObjectClasses.Classroom;
+import com.katherine.bloomuii.ObjectClasses.User;
 import com.katherine.bloomuii.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class ViewClassroomFragment extends Fragment {
     //UI Components
     FloatingActionButton addClassroom, sendRequest, viewRequest;
@@ -42,6 +54,7 @@ public class ViewClassroomFragment extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference myclassRef;
     private DatabaseReference joinedClassRef;
+    DatabaseReference userRef;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     //Global Variables
@@ -68,6 +81,7 @@ public class ViewClassroomFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
         myclassRef = database.getReference().child("Users/"+currentUser.getUid()+"/MyClassrooms");
         joinedClassRef = database.getReference().child("Users/"+currentUser.getUid()+"/JoinedClassrooms");
+        userRef = database.getReference().child("Users/" + currentUser.getUid());
         //Global Variable Declarations
         typeOfClass = "MyClassrooms";
         myclasses = new ArrayList<>();
@@ -170,14 +184,68 @@ public class ViewClassroomFragment extends Fragment {
         addClassroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassroomFragment createClassroom = new CreateClassroomFragment();
-                fragmentTransaction.replace(R.id.fragmentContainer, createClassroom);
-                fragmentTransaction.commit();
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
+                        Date date;
+                        // If the user is younger than 18 years old, they will be prompted that they're too young to make a class
+                        try {
+                            date = format.parse(user.getDate_Of_Birth());
+                            if(getAge(date) < 18){
+                                Toast.makeText(getContext(), "Sorry! You need to be 18 years or older to do this", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        CreateClassroomFragment createClassroom = new CreateClassroomFragment();
+                        fragmentTransaction.replace(R.id.fragmentContainer, createClassroom);
+                        fragmentTransaction.commit();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }
+
+    private int getAge(Date dateOfBirth) {
+
+        Calendar today = Calendar.getInstance();
+        Calendar birthDate = Calendar.getInstance();
+
+        int age = 0;
+
+        birthDate.setTime(dateOfBirth);
+        if (birthDate.after(today)) {
+            throw new IllegalArgumentException("Can't be born in the future");
+        }
+
+        age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+
+        // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year
+        if ( (birthDate.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3) ||
+                (birthDate.get(Calendar.MONTH) > today.get(Calendar.MONTH ))){
+            age--;
+
+            // If birth date and todays date are of same month and birth day of month is greater than todays day of month then decrement age
+        }else if ((birthDate.get(Calendar.MONTH) == today.get(Calendar.MONTH )) &&
+                (birthDate.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH ))){
+            age--;
+        }
+
+        return age;
+    }
+
     //Navigate to view Requests Fragment
     private void sendRequest(){
         sendRequest.setOnClickListener(new View.OnClickListener() {

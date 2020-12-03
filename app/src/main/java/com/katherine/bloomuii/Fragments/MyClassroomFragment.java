@@ -91,6 +91,7 @@ public class MyClassroomFragment extends Fragment {
         }
         else{
             itemStudents.setVisibility(View.INVISIBLE);
+            viewTeachers();
         }
         leaveClass();
 
@@ -186,6 +187,24 @@ public class MyClassroomFragment extends Fragment {
                 ViewStudentsFragment viewStudentsFragment = new ViewStudentsFragment();
                 bundle.putInt("ClassroomId", classroomId);
                 bundle.putString("TypeOfUser","Contributors");
+                viewStudentsFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragmentContainer, viewStudentsFragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    //Navigate to view teachers
+    private void viewTeachers(){
+        itemContributors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Navigate to view Students Fragment
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                ViewStudentsFragment viewStudentsFragment = new ViewStudentsFragment();
+                bundle.putInt("ClassroomId", classroomId);
+                bundle.putString("TypeOfUser","Teachers");
                 viewStudentsFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragmentContainer, viewStudentsFragment);
                 fragmentTransaction.commit();
