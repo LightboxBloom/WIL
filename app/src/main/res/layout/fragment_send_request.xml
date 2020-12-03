@@ -154,14 +154,15 @@
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/abeezee"
                                 android:background="@drawable/rounded_button"
-                                android:text="Send Request" />
+                                android:text="Send Request"
+                                android:textColor="@color/txtBackground"/>
 
                             <TextView
                                 android:id="@+id/txtStudentUserFeedback"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:hint="User Feedback"
+                                android:hint=""
                                 android:textAlignment="center"
                                 android:fontFamily="@font/abeezee"
                                 android:textColor="@color/colorPrimaryDark"
@@ -251,7 +252,8 @@
                                 android:fontFamily="@font/abeezee"
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_button"
-                                android:text="Send Request" />
+                                android:text="Send Request"
+                                android:textColor="@color/txtBackground"/>
 
                             <TextView
                                 android:id="@+id/txtTeacherUserFeedback"
@@ -260,7 +262,7 @@
                                 android:layout_marginTop="20dp"
                                 android:layout_weight="1"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:hint="User Feedback"
+                                android:hint=""
                                 android:fontFamily="@font/abeezee"
                                 android:textAlignment="center"
                                 android:textSize="18sp" />
