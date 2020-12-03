@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.katherine.bloomuii.Games.Math.MathFragment;
+import com.katherine.bloomuii.Games.Order.OrderFragment;
 import com.katherine.bloomuii.ObjectClasses.Sentence;
 
 public class UnjumbleHandler {
@@ -17,15 +19,48 @@ public class UnjumbleHandler {
     public static DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Flashcards").child("Uploads");
     public static DatabaseReference userTestRef = FirebaseDatabase.getInstance().getReference().child("userTest");
     public static DatabaseReference baseRef = FirebaseDatabase.getInstance().getReference();
-    public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public static FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
+    public static FirebaseUser currentUser;
+    public static FirebaseAuth mAuth;
+
 
     //UNCOMMENT currentUser.getUid WHEN INTEGRATED IN FULL APPLICATION, THEN COMMENT OUT OR REMOVE userKey = ""
     public static String userKey = "";
     //public static String userKey = currentUser.getUid();
     public static void getSetUserLevel(){
+        //Firebase Declarations
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/Unjumble");
+        myRef.keepSynced(true);
 
-        if(userKey == "") {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //level check
+                if (!snapshot.child("Level").exists()) {
+                    //myRef.child("Level").setValue(1);
+                    //MathFragment.levelNumber = Integer.valueOf(snapshot.child("Level").getValue().toString());
+                    UnjumbleFragment.testNumber = 1;
+                    //MathFragment.sumType();
+                }
+                else if (OrderFragment.levelNumber == -100){
+                    UnjumbleFragment.testNumber = Integer.valueOf(snapshot.child("Level").getValue().toString());
+                    //MathFragment.sumType();
+                }
+                UnjumbleFragment.textViews[1].setText("Current Level: " + UnjumbleFragment.testNumber);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+/*        if(userKey == "") {
             userTestRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -49,8 +84,8 @@ public class UnjumbleHandler {
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
-        }
-        else{
+        }*/
+/*        else{
             baseRef.child(userKey).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,7 +110,7 @@ public class UnjumbleHandler {
 
                 }
             });
-        }
+        }*/
     }
     //CHANGE FIREBASE DATA, USE NEW DB REFERENCE FOR THE FLASHCARDS AND RETRIEVE ALL CHILD SENTENCES FROM THE CHILD OF UPLOADS
     public static void FirebaseData() {
@@ -116,7 +151,10 @@ public class UnjumbleHandler {
                         UnjumbleFragment.buttons[7].setEnabled(true);
                     }
                     else {
-                        getSetUserLevel();
+                        //getSetUserLevel();
+                        UnjumbleFragment.textViews[0].setText("Well Done!");
+                        UnjumbleFragment.textViews[1].setText("All levels completed! Click restart if you want to start at the beginning");
+                        UnjumbleFragment.buttons[7].setEnabled(true);
                     }
                 }
             }

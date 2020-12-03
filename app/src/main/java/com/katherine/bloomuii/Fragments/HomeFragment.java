@@ -155,13 +155,13 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.fragmentContainer, fragment);
                 fragmentTransaction.commit();
 
-                Handler handler = new Handler();
+                /*Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         // yourMethod();
                         UnjumbleHandler.FirebaseData();
                     }
-                }, 2000);   //5 seconds
+                }, 2000);   //5 seconds*/
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.Games.Math.MathHandler;
 import com.katherine.bloomuii.ObjectClasses.Sentence;
 import com.katherine.bloomuii.R;
 
@@ -89,6 +90,8 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
         btnBack = (ImageView) view.findViewById(R.id.btnBack);
 
         btnBackClicked();
+
+        UnjumbleHandler.FirebaseData();
 
         return view;
     }
@@ -173,6 +176,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
 
                 if (userAnswer.contains(correctAnswer)) { //handles event when the user gives correct answer
                     testNumber = testNumber + 1;
+                    UnjumbleHandler.myRef.child("Level").setValue(testNumber);
 
                     if (testNumber > UnjumbleHandler.counter.getCount()) {
                         Toast.makeText(getContext(), "All Levels Complete! Congratulations!", Toast.LENGTH_SHORT).show();
@@ -180,6 +184,7 @@ public class UnjumbleFragment extends Fragment implements View.OnClickListener{
                         buttons[6].setEnabled(false);
                         shuffle(Sentence.sentenceArray[testNumber - 2]);
                         hideButtons();
+                        UnjumbleHandler.FirebaseData();
                     } else {
                         Toast.makeText(getContext(), "Level Complete! Try this next Level", Toast.LENGTH_SHORT).show();
                         shuffle(Sentence.sentenceArray[testNumber - 1]);
