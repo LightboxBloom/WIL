@@ -151,6 +151,7 @@ public class MathFragment extends Fragment implements View.OnClickListener {
                     {
                         Toast.makeText(getContext(), "Correct, Try this next sum!", Toast.LENGTH_SHORT).show();
                         levelNumber++;                                                 //increase user level
+                        MathHandler.myRef.child("Level").setValue(levelNumber);
                         MathHandler.getSetUserLevel();
                         textViews[5].setText("Current Level: " + levelNumber);         //display new user level
                         sumType();                                                      //generate new sum to be answered

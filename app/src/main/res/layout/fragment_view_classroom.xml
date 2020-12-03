@@ -145,6 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:tooltipText="Send Request"
             android:layout_marginRight="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:clickable="true"
@@ -155,6 +156,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnViewRequests"
+            android:tooltipText="View Requests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -169,6 +171,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddClassroom"
+            android:tooltipText="Create Class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
