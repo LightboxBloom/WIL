@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
-                android:text="Nouns and Verbs"
+                android:text="Parts of Speech"
                 android:layout_marginRight="50dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"

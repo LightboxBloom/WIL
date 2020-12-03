@@ -204,9 +204,9 @@ Version 1 */
         verbImg = findViewById(R.id.VerbsImageView);
         adjectiveImg = findViewById(R.id.AdjectiveImageView);
         temp = findViewById(R.id.tempImage);
-        nounImg.setImageDrawable(getDrawable(R.drawable.nouns));
-        verbImg.setImageDrawable(getDrawable(R.drawable.verbs));
-        adjectiveImg.setImageDrawable(getDrawable(R.drawable.adjectives));
+        nounImg.setImageDrawable(getDrawable(R.drawable.nouns_new));
+        verbImg.setImageDrawable(getDrawable(R.drawable.verbs_new));
+        adjectiveImg.setImageDrawable(getDrawable(R.drawable.adjectives_new));
     }
     /*    assignImages
    Assigns random words to the displayed image views

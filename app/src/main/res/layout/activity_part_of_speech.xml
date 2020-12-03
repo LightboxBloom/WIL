@@ -33,7 +33,7 @@
                 android:layout_marginRight="50dp"
                 android:fontFamily="@font/abeezee"
                 android:padding="15dp"
-                android:text="Nouns and Verbs"
+                android:text="Parts of Speech"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
                 android:textSize="32sp" />
@@ -41,29 +41,32 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!--    noun-->
     <ImageView
         android:id="@+id/NounsImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_x="38dp"
-        android:layout_y="520dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_x="15dp"
+        android:layout_y="500dp"
+        app:srcCompat="@drawable/nouns_new" />
 
+    <!--    adjective-->
+    <ImageView
+        android:id="@+id/AdjectiveImageView"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_x="247dp"
+        android:layout_y="500dp"
+        app:srcCompat="@drawable/adjectives_new" />
+
+    <!--    verbs-->
     <ImageView
         android:id="@+id/VerbsImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_x="163dp"
-        android:layout_y="520dp"
-        app:srcCompat="@mipmap/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/AdjectiveImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_x="284dp"
-        android:layout_y="520dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_x="132dp"
+        android:layout_y="500dp"
+        app:srcCompat="@drawable/verbs_new" />
 
     <TextView
         android:id="@+id/tempImage"
@@ -85,6 +88,7 @@
         android:layout_x="5dp"
         android:layout_y="112dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -98,6 +102,7 @@
         android:layout_x="107dp"
         android:layout_y="112dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -111,6 +116,7 @@
         android:layout_x="211dp"
         android:layout_y="112dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -124,6 +130,7 @@
         android:layout_x="313dp"
         android:layout_y="112dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -138,6 +145,7 @@
         android:layout_x="5dp"
         android:layout_y="198dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -152,6 +160,7 @@
         android:layout_x="107dp"
         android:layout_y="198dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -165,6 +174,7 @@
         android:layout_x="211dp"
         android:layout_y="198dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -178,6 +188,7 @@
         android:layout_x="313dp"
         android:layout_y="198dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -191,6 +202,7 @@
         android:layout_x="5dp"
         android:layout_y="284dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -204,6 +216,7 @@
         android:layout_x="107dp"
         android:layout_y="284dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -217,6 +230,7 @@
         android:layout_x="211dp"
         android:layout_y="284dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -230,6 +244,7 @@
         android:layout_x="313dp"
         android:layout_y="284dp"
         android:background="@color/txtBackground"
+        android:fontFamily="@font/abeezee"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
