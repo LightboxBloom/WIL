@@ -89,7 +89,10 @@ public class ViewStudentsFragment extends Fragment {
             else if(typeOfUser.equals("Contributors")){
                 typeOfUsers.setText("My Contributors");
                 retrieveContributors(classroom_id);
-
+            }
+            else if(typeOfUser.equals("Teachers")){
+                typeOfUsers.setText("My Teachers");
+                retrieveContributors(classroom_id);
             }
         }
         removeUser();
