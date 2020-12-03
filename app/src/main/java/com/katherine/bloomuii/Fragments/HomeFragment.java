@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 if(user!=null) {
-                    fullName.setText(user.getFull_Name() + "#" + currentUser.getUid().substring(0, 4));
+                    fullName.setText(user.getFull_Name());
                 }
             }
             @Override

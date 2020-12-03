@@ -53,22 +53,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtHomeUsername"
-            android:layout_width="362dp"
-            android:layout_height="51dp"
-            android:paddingTop="6dp"
-            android:fontFamily="@font/abeezee"
-            android:text="@string/username"
-            android:textAlignment="center"
-            android:textColor="@color/grey"
-            android:textSize="34sp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/imgCircle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/btnPuzzleBack"
             app:layout_constraintTop_toTopOf="@+id/imgRec"
-            app:layout_constraintVertical_bias="0.172" />
+            app:layout_constraintVertical_bias="0.172"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtHomeUsername"
+                android:layout_width="362dp"
+                android:layout_height="51dp"
+                android:paddingTop="6dp"
+                android:fontFamily="@font/abeezee"
+                android:text="@string/username"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="34sp"/>
+
+            <TextView
+                android:id="@+id/txtHomeHash"
+                android:layout_width="362dp"
+                android:layout_height="51dp"
+                android:paddingTop="3dp"
+                android:fontFamily="@font/abeezee"
+                android:text="@string/username"
+                android:textAlignment="center"
+                android:textColor="@color/slightlyDarkerGrey"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

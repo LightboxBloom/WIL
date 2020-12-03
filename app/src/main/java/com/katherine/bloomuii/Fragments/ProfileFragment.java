@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     TextView mEdit, mLanguage, mTerms;
     TextView mLogout;
     TextView mShare;
+    TextView mHash;
     ImageView btnPicture;
     ImageView mProfilePicture;
     //Firebase Initializations
@@ -58,6 +59,7 @@ public class ProfileFragment extends Fragment {
         mLogout = view.findViewById(R.id.btnLogout);
         mShare = view.findViewById(R.id.txtShare);
         fullName = view.findViewById(R.id.txtHomeUsername);
+        mHash = view.findViewById(R.id.txtHomeHash);
         btnPicture = view.findViewById(R.id.btnEditProfilePicture);
         mProfilePicture = view.findViewById(R.id.imgProfilePicture);
         //Firebase Declarations
@@ -72,6 +74,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 fullName.setText(user.getFull_Name());
+                mHash.setText("#"+currentUser.getUid().substring(0, 4));
                 mShareClicked(user, currentUser);
             }
 
