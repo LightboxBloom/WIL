@@ -82,6 +82,9 @@ public class OrderFragment extends Fragment  implements View.OnClickListener {
         btnBack = (ImageView) view.findViewById(R.id.btnBack);
 
         btnBackClicked();
+        displayUserAnswer = "";
+        textViews[2].setText(displayUserAnswer);
+        userAnswer.clear();
         return view;
     }
 
