@@ -1,89 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
-    android:orientation="vertical">
+    android:background="@color/colorAccent">
 
-    <!--    heading-->
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardElevation="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <!--    heading-->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardElevation="10dp">
 
-            <ImageView
-                android:id="@+id/btnPuzzleBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/abeezee"
-                android:padding="15dp"
-                android:text="@string/diary"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="32sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/btnPuzzleBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_back" />
 
-    <!--    displaying mood entries-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/abeezee"
+                    android:padding="15dp"
+                    android:text="@string/diary"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    android:textSize="32sp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <GridLayout
+        <!--    displaying mood entries-->
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="1"
-            android:padding="15dp">
+            android:layout_height="match_parent">
 
-            <ListView
-                android:id="@+id/lvEntries"
+            <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="534dp"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_marginTop="75dp" />
-        </GridLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignMargins"
+                android:columnCount="1"
+                android:padding="15dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:gravity="bottom">
+                <ListView
+                    android:id="@+id/lvEntries"
+                    android:layout_width="match_parent"
+                    android:layout_height="534dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginTop="75dp" />
+            </GridLayout>
+        </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAddEntry"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:elevation="10dp"
-            android:src="@drawable/ic_add_grey"
-            app:elevation="10dp" />
+            android:gravity="bottom">
 
-    </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAddEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:src="@drawable/ic_add_grey"
+                app:elevation="10dp" />
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

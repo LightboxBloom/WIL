@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical">
 
-    <!--    heading-->
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardElevation="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <!--    heading-->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardElevation="10dp">
 
-            <ImageView
-                android:id="@+id/btnPuzzleBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back"/>
-
-            <TextView
-                android:id="@+id/txtTypeOfUser"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="50dp"
-                android:fontFamily="@font/abeezee"
-                android:padding="15dp"
-                android:text="My Students"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="32sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/btnPuzzleBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_back" />
 
-    <!--    displaying mood entries-->
+                <TextView
+                    android:id="@+id/txtTypeOfUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/abeezee"
+                    android:padding="15dp"
+                    android:text="My Students"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    android:textSize="32sp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <ListView
-            android:id="@+id/lvStudents"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="75dp" />
-    </ScrollView>
+            android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/lvStudents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="75dp" />
+        </ScrollView>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

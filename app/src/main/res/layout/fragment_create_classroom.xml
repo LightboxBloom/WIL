@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical">
 
-    <!--    heading-->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardElevation="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <!--    heading-->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardElevation="10dp">
 
-            <ImageView
-                android:id="@+id/btnPuzzleBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/abeezee"
-                android:padding="15dp"
-                android:text="@string/create_classroom"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="32sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/btnPuzzleBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/abeezee"
+                    android:padding="15dp"
+                    android:text="@string/create_classroom"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    android:textSize="32sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,13 +90,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/abeezee"
-                        android:hint="@string/enter_classroom_name"/>
+                        android:hint="@string/enter_classroom_name" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-<!--            icon-->
+            <!--            icon-->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,25 +105,21 @@
 
         </LinearLayout>
 
-    <Button
-        android:id="@+id/btnCreate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_edittext"
-        android:fontFamily="@font/abeezee"
-        android:padding="10dp"
-        android:text="@string/create"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/black"
-        android:textSize="32sp" />
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:fontFamily="@font/abeezee"
+            android:padding="10dp"
+            android:text="@string/create"
+            android:textColor="@color/black"
+            android:textSize="32sp" />
 
+    </LinearLayout>
 
-
-    <!--            Add teacher to class-->
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

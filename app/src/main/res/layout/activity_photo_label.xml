@@ -1,224 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorAccent">
 
-    <!--    heading-->
-    <androidx.cardview.widget.CardView
+    <AbsoluteLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardElevation="10dp">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <!--    heading-->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardElevation="10dp">
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/abeezee"
-                android:padding="15dp"
-                android:text="Label That"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/grey"
-                android:textSize="32sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_back" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/abeezee"
+                    android:padding="15dp"
+                    android:text="Label That"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    android:textSize="32sp" />
 
-
-    <ImageView
-        android:id="@+id/photo1Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="5dp"
-        android:layout_y="200dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo1Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="98dp"
-        android:layout_y="190dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo2Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="213dp"
-        android:layout_y="200dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo2Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="305dp"
-        android:layout_y="190dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo3Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="5dp"
-        android:layout_y="335dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo3Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="98dp"
-        android:layout_y="325dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo4Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="213dp"
-        android:layout_y="335dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo4Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="305dp"
-        android:layout_y="325dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo5Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="5dp"
-        android:layout_y="470dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo5Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="98dp"
-        android:layout_y="460dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo6Img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_x="213dp"
-        android:layout_y="470dp"></ImageView>
-
-    <ImageView
-        android:id="@+id/photo6Match"
-        android:layout_width="105dp"
-        android:layout_height="120dp"
-        android:layout_x="305dp"
-        android:layout_y="460dp"></ImageView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
 
-    <TextView
+        <ImageView
+            android:id="@+id/photo1Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="5dp"
+            android:layout_y="200dp"></ImageView>
 
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textColor="@android:color/black"
-        android:textAlignment="center"
-        android:background="@color/txtBackground"
-        android:textSize="20sp"
-        android:layout_x="4dp"
-        android:visibility="invisible"
-        android:fontFamily="@font/abeezee"
-        android:layout_y="30dp"></TextView>
+        <ImageView
+            android:id="@+id/photo1Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="98dp"
+            android:layout_y="190dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="5dp"
-        android:layout_y="90dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo2Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="213dp"
+            android:layout_y="200dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="135dp"
-        android:layout_y="90dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo2Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="305dp"
+            android:layout_y="190dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="275dp"
-        android:layout_y="90dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo3Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="5dp"
+            android:layout_y="335dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="5dp"
-        android:layout_y="140dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo3Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="98dp"
+            android:layout_y="325dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="135dp"
-        android:layout_y="140dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo4Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="213dp"
+            android:layout_y="335dp"></ImageView>
 
-    <TextView
-        android:id="@+id/label6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="275dp"
-        android:layout_y="140dp"
-        android:textColor="@android:color/black"
-        android:background="@color/txtBackground"
-        android:fontFamily="@font/abeezee"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
+        <ImageView
+            android:id="@+id/photo4Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="305dp"
+            android:layout_y="325dp"></ImageView>
 
-</AbsoluteLayout>
+        <ImageView
+            android:id="@+id/photo5Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="5dp"
+            android:layout_y="470dp"></ImageView>
+
+        <ImageView
+            android:id="@+id/photo5Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="98dp"
+            android:layout_y="460dp"></ImageView>
+
+        <ImageView
+            android:id="@+id/photo6Img"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_x="213dp"
+            android:layout_y="470dp"></ImageView>
+
+        <ImageView
+            android:id="@+id/photo6Match"
+            android:layout_width="105dp"
+            android:layout_height="120dp"
+            android:layout_x="305dp"
+            android:layout_y="460dp"></ImageView>
+
+        <TextView
+
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="4dp"
+            android:layout_y="30dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:visibility="invisible"></TextView>
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="5dp"
+            android:layout_y="90dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="90dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/label3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="275dp"
+            android:layout_y="90dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/label4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="5dp"
+            android:layout_y="140dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/label5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="140dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/label6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="275dp"
+            android:layout_y="140dp"
+            android:background="@color/txtBackground"
+            android:fontFamily="@font/abeezee"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"></TextView>
+
+    </AbsoluteLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
