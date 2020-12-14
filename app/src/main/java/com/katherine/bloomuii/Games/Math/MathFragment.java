@@ -33,7 +33,7 @@ public class MathFragment extends Fragment implements View.OnClickListener {
     public static int secondNum;
     public static int thirdNum;
     public static int correctAns;
-    public static int levelNumber = -100;
+    public static int levelNumber = 0;
     public static boolean minPlus = false;
     public static boolean plusPlus = false;
     public static boolean plusMin = false;
