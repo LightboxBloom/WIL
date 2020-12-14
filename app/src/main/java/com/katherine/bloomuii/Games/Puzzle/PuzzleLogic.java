@@ -78,6 +78,11 @@ public class PuzzleLogic extends AppCompatActivity {
         StorageReference storageRef = FirebaseStorage.getInstance()
                 .getReferenceFromUrl("gs://bloom-database.appspot.com/Puzzle/Uploads");
 
+        //create tile list and set up grid view
+        init();
+        //set the dimensions of the tiles
+        setDimensions();
+
         storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
@@ -99,10 +104,6 @@ public class PuzzleLogic extends AppCompatActivity {
             }
         });
 
-        //create tile list and set up grid view
-        init();
-        //set the dimensions of the tiles
-        setDimensions();
     }
     //Set the dimensions of the based on number of puzzle pieces
     private void setDimensions() {
@@ -168,12 +169,10 @@ public class PuzzleLogic extends AppCompatActivity {
         ArrayList<BitmapDrawable> chunkedImages = new ArrayList<BitmapDrawable>(chunkNumbers);
 
         //Getting the scaled bitmap of the source image
-        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), image);
-        Bitmap bitmap = drawable.getBitmap();
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(),
-                bitmap.getHeight(), true);
-        chunkHeight = bitmap.getHeight() / COLUMNS;
-        chunkWidth = bitmap.getWidth() / COLUMNS;
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, image.getWidth(),
+                image.getHeight(), true);
+        chunkHeight = image.getHeight() / COLUMNS;
+        chunkWidth = image.getWidth() / COLUMNS;
 
         //xCoord and yCoord are the pixel positions of the image chunks
         int yCoord = 0;
@@ -332,7 +331,6 @@ public class PuzzleLogic extends AppCompatActivity {
     public class Firebase extends AsyncTask<String,Void,Void> {
 
         public Void doInBackground(String...uri) {
-            Bitmap bitmap;
             try {
                 URL url = new URL(uri[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
