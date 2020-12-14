@@ -199,13 +199,16 @@ public class PuzzleLogic extends AppCompatActivity {
         Random random = new Random();
 
         //create a random order of the tiles
-        for (int i = tileList.length-1; i>0; i--)
-        {
-            index = random.nextInt(i+1);
-            temp = tileList[index];
-            tileList[index] = tileList[i];
-            tileList[i] = temp;
-        }
+        do {
+            for (int i = tileList.length-1; i>0; i--)
+            {
+                index = random.nextInt(i+1);
+                temp = tileList[index];
+                tileList[index] = tileList[i];
+                tileList[i] = temp;
+            }
+        }while(isSolved());
+
     }
     //Build up tile list and setup grid view
     public void init(){
