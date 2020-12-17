@@ -209,4 +209,5 @@ public class MatchShapesActivity extends AppCompatActivity {
         i.putExtra("TotalShapesAchievement", totalMatchesCount);
         startActivity(i);
     }
+
 }

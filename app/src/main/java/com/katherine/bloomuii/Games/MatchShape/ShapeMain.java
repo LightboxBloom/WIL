@@ -552,6 +552,7 @@ public class ShapeMain extends Activity implements OnTouchListener {
             }
         });
     }
+
     //TODO: Program Back Button to navigate back to home fragment
     //click to get back to home fragment
 //    private void btnBackClicked() {

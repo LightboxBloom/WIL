@@ -42,14 +42,18 @@ public class AchievementFragment extends Fragment {
     private FirebaseAuth mAuth;
     //components
     ImageView mBack, shapesFirst, shapesConsTen, shapesConsTwenty, shapesTotTwenty, shapeTotFifty ,
-    shapesTotHundred, shapesTotMaster, diaryFirst, amDiary, begDiary, intDiary, masterDiary,
-    labelFirst, labelConsTen, labelConsTwenty, labelTotTwenty, labelTotFifty, labelTotHundred, labelMaster,
-    posFirst, posConsTen, posConsTwenty, posTotTwenty, posTotFifty, posTotHundred, posMaster,
-    cardFirst, cardConsTen, cardConsTwenty, cardTotTwenty, cardTotFifty, cardTotHundred, cardMaster,
-    puzzleFirst,puzzleTotTwenty, puzzleTotFifty, puzzleTotHundred, puzzleMaster;
+            shapesTotHundred, shapesTotMaster, diaryFirst, amDiary, begDiary, intDiary, masterDiary,
+            labelFirst, labelConsTen, labelConsTwenty, labelTotTwenty, labelTotFifty, labelTotHundred, labelMaster,
+            posFirst, posConsTen, posConsTwenty, posTotTwenty, posTotFifty, posTotHundred, posMaster,
+            cardFirst, cardConsTen, cardConsTwenty, cardTotTwenty, cardTotFifty, cardTotHundred, cardMaster,
+            puzzleFirst,puzzleTotTwenty, puzzleTotFifty, puzzleTotHundred, puzzleMaster,
+            orderConsTen, orderConsTwenty, orderFirst,orderTotTwenty, orderTotFifty, orderTotHundred, orderMaster,
+            unjumbleConsTen, unjumbleConsTwenty, unjumbleFirst,unjumbleTotTwenty, unjumbleTotFifty, unjumbleTotHundred, unjumbleMaster,
+            mathConsTen, mathConsTwenty, mathFirst,mathTotTwenty, mathTotFifty, mathTotHundred, mathMaster;
 
     //variables
-    int shapeCons, shapeTot, labelCons, labelTot, posCons, posTot, cardCons, cardTot, puzzleTot;
+    int shapeCons, shapeTot, labelCons, labelTot, posCons, posTot, cardCons, cardTot, puzzleTot,
+            orderCons, orderTot, unjumbleCons, unjumbleTot, mathCons, mathTot;
     private List<String> dates = new ArrayList<>();
 
     @Nullable
@@ -67,8 +71,11 @@ public class AchievementFragment extends Fragment {
         labelThat();
         matchingCards();
         matchingShapes();
+        mathGame();
+        numberOrderGame();
         partsOfSpeech();
         puzzle();
+        unjumble();
 
         btnBackClicked();
 
@@ -119,6 +126,30 @@ public class AchievementFragment extends Fragment {
         puzzleTotFifty = view.findViewById(R.id.img50Puzzles);
         puzzleTotHundred = view.findViewById(R.id.img100Puzzles);
         puzzleMaster = view.findViewById(R.id.imgPuzzleMaster);
+
+        orderFirst = view.findViewById(R.id.imgFirstOrder);
+        orderConsTen = view.findViewById(R.id.img10ConsecutiveOrders);
+        orderConsTwenty = view.findViewById(R.id.img20ConsecutiveOrders);
+        orderTotTwenty = view.findViewById(R.id.img20Orders);
+        orderTotFifty = view.findViewById(R.id.img50Orders);
+        orderTotHundred = view.findViewById(R.id.img100Orders);
+        orderMaster = view.findViewById(R.id.imgOrderMaster);
+
+        unjumbleConsTen = view.findViewById(R.id.img10ConsecutiveUnjumble);
+        unjumbleConsTwenty = view.findViewById(R.id.img20ConsecutiveUnjumble);
+        unjumbleFirst = view.findViewById(R.id.imgFirstUnjumble);
+        unjumbleTotTwenty = view.findViewById(R.id.img20Unjumble);
+        unjumbleTotFifty = view.findViewById(R.id.img50Unjumble);
+        unjumbleTotHundred = view.findViewById(R.id.img100Unjumble);
+        unjumbleMaster = view.findViewById(R.id.imgUnjumbleMaster);
+
+        mathConsTen = view.findViewById(R.id.img10ConsecutiveSums);
+        mathConsTwenty = view.findViewById(R.id.img20ConsecutiveSums);
+        mathFirst = view.findViewById(R.id.imgFirstMath);
+        mathTotTwenty = view.findViewById(R.id.img20Sums);
+        mathTotFifty = view.findViewById(R.id.img50Sums);
+        mathTotHundred = view.findViewById(R.id.img100Sums);
+        mathMaster = view.findViewById(R.id.imgMathMaster);
 
         mBack = view.findViewById(R.id.btnPuzzleBack);
     }
@@ -173,8 +204,8 @@ public class AchievementFragment extends Fragment {
                     LocalDate date1 = localDateList.get(i);
                     LocalDate date2 = localDateList.get(i + 1);
                     if (date1.plusDays(1).equals(date2) ||
-                       (date1.equals(30) && date2.equals(1)) ||
-                       (date1.equals(31) && date2.equals(1)) ) {
+                            (date1.equals(30) && date2.equals(1)) ||
+                            (date1.equals(31) && date2.equals(1)) ) {
                         count++;
                         if(count >=7)
                             amDiary.setImageResource(R.drawable.amateur_diary_logger);
@@ -321,10 +352,85 @@ public class AchievementFragment extends Fragment {
         });
     }
     private void mathGame(){
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MathGame");
+        myRef.keepSynced(true);
+        //Read Level
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                //Consecutive achievement check
+                if(dataSnapshot.child("ConsecutiveAchievement").exists()){
+                    String cons = dataSnapshot.child("ConsecutiveAchievement").getValue().toString();
+                    mathCons = Integer.valueOf(cons);
+                }
+                //Total match check
+                if(dataSnapshot.child("TotalAchievement").exists()){
+                    String tot = dataSnapshot.child("TotalAchievement").getValue().toString();
+                    mathTot = Integer.valueOf(tot);
+                }
+                //displays what consecutive achievements are completed
+                if(mathCons >=1)
+                    mathConsTen.setImageResource(R.drawable.consecutive_10_maths);
+                if(mathCons >=2)
+                    mathConsTwenty.setImageResource(R.drawable.consecutive_20_maths);
 
+                //displays what total matches achievements are completed
+                if(mathTot >= 1)
+                    mathFirst.setImageResource(R.drawable.first_correct_sum);
+                if(mathTot >=20)
+                    mathTotTwenty.setImageResource(R.drawable.correct_20_maths);
+                if(mathTot >= 50)
+                    mathTotFifty.setImageResource(R.drawable.correct_50_maths);
+                if(mathTot >= 100)
+                    mathTotHundred.setImageResource(R.drawable.correct_100_maths);
+                if(mathTot >= 150)
+                    mathMaster.setImageResource(R.drawable.math_master);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void numberOrderGame(){
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/OrderThat");
+        myRef.keepSynced(true);
+        //Read Level
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                //Consecutive achievement check
+                if(dataSnapshot.child("ConsecutiveAchievement").exists()){
+                    String cons = dataSnapshot.child("ConsecutiveAchievement").getValue().toString();
+                    orderCons = Integer.valueOf(cons);
+                }
+                //Total match check
+                if(dataSnapshot.child("TotalAchievement").exists()){
+                    String tot = dataSnapshot.child("TotalAchievement").getValue().toString();
+                    orderTot = Integer.valueOf(tot);
+                }
+                //displays what consecutive achievements are completed
+                if(orderCons >=1)
+                    orderConsTen.setImageResource(R.drawable.consecutive_10_orders);
+                if(orderCons >=2)
+                    orderConsTwenty.setImageResource(R.drawable.consecutive_20_orders);
+                //displays what total matches achievements are completed
+                if(orderTot >= 1)
+                    orderFirst.setImageResource(R.drawable.first_correct_order);
+                if(orderTot >=20)
+                    orderTotTwenty.setImageResource(R.drawable.ordered_20_numbers);
+                if(orderTot >= 50)
+                    orderTotFifty.setImageResource(R.drawable.ordered_50_numbers);
+                if(orderTot >= 100)
+                    orderTotHundred.setImageResource(R.drawable.ordered_100_numbers);
+                if(orderTot >= 150)
+                    orderMaster.setImageResource(R.drawable.order_master);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
     }
     private void partsOfSpeech(){
         myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/MatchingShape");
@@ -399,7 +505,44 @@ public class AchievementFragment extends Fragment {
         });
     }
     private void unjumble(){
+        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/Unjumble");
+        myRef.keepSynced(true);
+        //Read Level
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                //Consecutive achievement check
+                if(dataSnapshot.child("ConsecutiveAchievement").exists()){
+                    String cons = dataSnapshot.child("ConsecutiveAchievement").getValue().toString();
+                    unjumbleCons = Integer.valueOf(cons);
+                }
+                //Total match check
+                if(dataSnapshot.child("TotalAchievement").exists()){
+                    String tot = dataSnapshot.child("TotalAchievement").getValue().toString();
+                    unjumbleTot = Integer.valueOf(tot);
+                }
+                //displays what consecutive achievements are completed
+                if(unjumbleCons >=1)
+                    unjumbleConsTen.setImageResource(R.drawable.consecutive_10_unjmbles);
+                if(unjumbleCons >=2)
+                    unjumbleConsTwenty.setImageResource(R.drawable.consecutive_20_unjmbles);
+                //displays what total matches achievements are completed
+                if(unjumbleTot >= 1)
+                    unjumbleFirst.setImageResource(R.drawable.first_unjumble);
+                if(unjumbleTot >=20)
+                    unjumbleTotTwenty.setImageResource(R.drawable.unjumbled_20);
+                if(unjumbleTot >= 50)
+                    unjumbleTotFifty.setImageResource(R.drawable.unjumbled_50);
+                if(unjumbleTot >= 100)
+                    unjumbleTotHundred.setImageResource(R.drawable.unjumbled_100);
+                if(unjumbleTot >= 150)
+                    unjumbleMaster.setImageResource(R.drawable.master_unjumbler);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
     }
 
 }

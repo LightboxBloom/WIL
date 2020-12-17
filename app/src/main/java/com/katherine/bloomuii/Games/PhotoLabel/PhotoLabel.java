@@ -1,4 +1,7 @@
 package com.katherine.bloomuii.Games.PhotoLabel;
+
+import android.graphics.drawable.Drawable;
+
 /*
 Class Name: PhotoLabel
 Reason: This class is used as an object class to pull related data as an object

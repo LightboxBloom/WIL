@@ -28,7 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
 import com.katherine.bloomuii.Fragments.HomeFragment;
+import com.katherine.bloomuii.ObjectClasses.Classroom;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -110,6 +112,7 @@ public class PartOfSpeechActivity extends AppCompatActivity implements View.OnTo
         level = Integer.parseInt(getIntent().getExtras().get("PoSLevel").toString());
         achLvl = Integer.parseInt(getIntent().getExtras().get("PoSConsecutiveAchievement").toString());
         totMatch = Integer.parseInt(getIntent().getExtras().get("PoSTotalAchievement").toString());
+        loadDefault();
         retrieveFromDatabase();
         handler.postDelayed(new Runnable() {
             @Override
@@ -136,32 +139,84 @@ public class PartOfSpeechActivity extends AppCompatActivity implements View.OnTo
             }
         });
     }
+    //method to load the 30 default words
+    private void loadDefault(){
+        originalWordList.clear();
+        String[] nouns = {"House", "Boat", "Dog", "Cat", "Pencil", "Chair", "Table", "Rectangle", "Phone", "Light"};
+        String[] verbs = {"Run", "Think", "Catch", "Walk", "Swim", "Eat", "Hear", "Speak", "Dance", "Write"};
+        String[] adjectives = {"Smart", "Big", "Small", "Wonderful", "Large", "Funny", "Strong", "Pretty", "Friendly", "Tall"};
+
+        for(int i = 0; i < 10; i++){
+            originalWordList.add(new Word(nouns[i], "Noun"));
+            originalWordList.add(new Word(verbs[i], "Verb"));
+            originalWordList.add(new Word(adjectives[i], "Adjective"));
+        }
+
+    }
     /*    retrieveFromDatabase
-Method that retrieves all the words and populates an array
-Version 1 */
+    Method that retrieves all the words and populates an array
+    Version 1 */
     private void retrieveFromDatabase() {
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("PhotoLabel");
-        myRef.keepSynced(true);
-        myRef.addValueEventListener(new ValueEventListener() {
+        /*Code used to retrieve the photo's and labels from the users specific class*/
+        DatabaseReference joinedClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/JoinedClassrooms");
+        joinedClassroomsReference.keepSynced(true);
+        joinedClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
-                for (DataSnapshot data: ds.getChildren()){
-                    String word = data.child("Word").getValue().toString();
-                    String PoS = data.child("PoS").getValue().toString();
-                    originalWordList.add(new Word(word, PoS));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final ArrayList<Long> classroomIds = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Classroom classroom = snapshot.getValue(Classroom.class);
+                    classroomIds.add((long) classroom.getClassroom_Id());
                 }
+
+                final DatabaseReference myClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/MyClassrooms");
+                myClassroomsReference.keepSynced(true);
+                myClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Classroom classroom = snapshot.getValue(Classroom.class);
+                            classroomIds.add((long) classroom.getClassroom_Id());
+                        }
+
+                        final DatabaseReference photoLabel = database.getReference("PhotoLabel");
+                        photoLabel.keepSynced(true);
+                        photoLabel.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    if(classroomIds.contains(data.child("ClassroomId").getValue()) && data.child("Word").exists() && data.child("PoS").exists()){
+                                        String word = data.child("Word").getValue().toString();
+                                        String PoS = data.child("PoS").getValue().toString();
+                                        originalWordList.add(new Word(word, PoS));
+                                    }
+                                }
+
+                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                    });
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("TAG", "onDataChange: " + databaseError.toString());
+            public void onCancelled(@NotNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+            }
+
+            @Override
+            public void onCancelled(@NotNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
     }
-    /*    randomiseList
-   Method that makes a local copy of the array so that the user does not have to download the list after each level completed.
-   The code then randomizes a copy of the local list
-   Version 1 */
+        /*    randomiseList
+       Method that makes a local copy of the array so that the user does not have to download the list after each level completed.
+       The code then randomizes a copy of the local list
+       Version 1 */
     private void randomiseList(){
         List<Word> tempWordList = new ArrayList<>();
         for (int i = 0; i < originalWordList.size();i++){
@@ -180,6 +235,7 @@ Version 1 */
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        speech.shutdown();
         PartOfSpeechMenuActivity posMenu = new PartOfSpeechMenuActivity();
         posMenu.level = level;
         Log.d("TAG", "onDestroy: ");

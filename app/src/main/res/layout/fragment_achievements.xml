@@ -2159,7 +2159,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
-                            android:text="10Consecutive Unjumble"
+                            android:text="10 Consecutive Unjumble"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="22sp"

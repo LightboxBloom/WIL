@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 import com.katherine.bloomuii.Fragments.HomeFragment;
 import com.katherine.bloomuii.Games.MatchShape.MatchShapesActivity;
+import com.katherine.bloomuii.Games.PartOfSpeech.Word;
+import com.katherine.bloomuii.ObjectClasses.Classroom;
 import com.katherine.bloomuii.R;
 
 import java.util.ArrayList;
@@ -278,48 +280,63 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         photo6Img = findViewById(R.id.photo6Img);
         photo6Match = findViewById(R.id.photo6Match);
     }
+    //method to load the default labels and images
     //retrieves data from firebase
     private void retrieveFromDatabase(){
         originalLabelArray.clear();
         originalPhotoArray.clear();
 
+
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("PhotoLabel");
-        myRef.keepSynced(true);
-
-        myRef.addValueEventListener(new ValueEventListener() {
+        /*Code used to retrieve the photo's and labels from the users specific class*/
+        DatabaseReference joinedClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/JoinedClassrooms");
+        joinedClassroomsReference.keepSynced(true);
+        joinedClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot ds) {
-                for (DataSnapshot data: ds.getChildren()){
-                    if(data.child("Photo").exists()){
-                        originalLabelArray.add(data.child("Word").getValue().toString());
-                        originalPhotoArray.add(new PhotoLabel(data.child("Word").getValue().toString(), data.child("Photo").getValue().toString()));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final ArrayList<Long> classroomIds = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Classroom classroom = snapshot.getValue(Classroom.class);
+                    classroomIds.add((long) classroom.getClassroom_Id());
+                }
+
+                final DatabaseReference myClassroomsReference = database.getReference("Users/" + currentUser.getUid() + "/MyClassrooms");
+                myClassroomsReference.keepSynced(true);
+                myClassroomsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Classroom classroom = snapshot.getValue(Classroom.class);
+                            classroomIds.add((long) classroom.getClassroom_Id());
+                        }
+
+                        final DatabaseReference photoLabel = database.getReference("PhotoLabel");
+                        photoLabel.keepSynced(true);
+                        photoLabel.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    if(classroomIds.contains(data.child("ClassroomId").getValue()) && data.child("Word").exists() && data.child("Photo").exists() || data.child("Default").exists()){
+                                        String word = data.child("Word").getValue().toString();
+                                        String photo = data.child("Photo").getValue().toString();
+                                        originalLabelArray.add(word);
+                                        originalPhotoArray.add(new PhotoLabel(word, photo));
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
                     }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("TAG", "onDataChange: " + databaseError.toString());
-            }
-        });
 
-        myRef = database.getReference("Users/"+ currentUser.getUid() +"/Games/PhotoLabelling");
-        myRef.keepSynced(true);
-        //Read Level
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NotNull DataSnapshot ds) {
-                //Consecutive achievement check
-                if(ds.child("ConsecutiveAchievement").exists()){
-                    String ach = ds.child("ConsecutiveAchievement").getValue().toString();
-                    achievementLevel = Integer.valueOf(ach);
-                }
-                //Total match check
-                if(ds.child("TotalAchievement").exists()){
-                    String tot = ds.child("TotalAchievement").getValue().toString();
-                    totalMatchCounter = Integer.valueOf(tot);
-                }
+                    @Override
+                    public void onCancelled(@NotNull DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
             }
+
             @Override
             public void onCancelled(@NotNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
@@ -484,5 +501,11 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
         selectedlabel.setOnTouchListener(null);
         temp.setText(null);
         temp.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        speech.shutdown();
+        super.onDestroy();
     }
 }

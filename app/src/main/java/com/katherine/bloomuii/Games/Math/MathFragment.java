@@ -96,11 +96,11 @@ public class MathFragment extends Fragment implements View.OnClickListener {
 
         //Consecutive achievement check
         if(consecutiveCounter == 10 && achievementLevel < 1){
-            MathHandler.myRef.child("ConsecutiveAchievement").setValue("1");
+            MathHandler.myRef.child("ConsecutiveAchievement").setValue(1);
             achievementLevel++;
         }
         else if(consecutiveCounter == 20 && achievementLevel < 2){
-            MathHandler.myRef.child("ConsecutiveAchievement").setValue("2");
+            MathHandler.myRef.child("ConsecutiveAchievement").setValue(2);
             achievementLevel++;
         }
     }
