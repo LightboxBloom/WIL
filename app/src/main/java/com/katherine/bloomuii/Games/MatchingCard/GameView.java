@@ -282,8 +282,8 @@ public class GameView extends SurfaceView implements Runnable {
             case HARD:
             case HARD_PLUS:
                 pairs = 4;
-                cardWidth = (int) canvasGrid.getXPixels(6);
-                cardHeight = (int) canvasGrid.getYPixels(9);
+                cardWidth = (int) canvasGrid.getXPixels(4);
+                cardHeight = (int) canvasGrid.getYPixels(6);
                 break;
         }
 
