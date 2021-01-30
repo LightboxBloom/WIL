@@ -317,6 +317,7 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     if(classroomIds.contains(data.child("ClassroomId").getValue()) && data.child("Word").exists() && data.child("Photo").exists() || data.child("Default").exists()){
+                                        Log.d("TAG", "Found: ");
                                         String word = data.child("Word").getValue().toString();
                                         String photo = data.child("Photo").getValue().toString();
                                         originalLabelArray.add(word);
@@ -355,7 +356,6 @@ public class PhotoLabelMenu extends AppCompatActivity implements  View.OnTouchLi
 
         labelArray_six.clear();
         photoArray_six.clear();
-
         while(labelArray_six.size() < 6){
             int ran = randomGenerator.nextInt(tempLabelList.size());
             labelArray_six.add(tempLabelList.get(ran));
